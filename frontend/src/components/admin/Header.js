@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {SidebarContext} from "components/admin/Sidebar/SidebarContext";
+import {SidebarContext} from "../admin/Sidebar/SidebarContext";
 import {MenuIcon,} from './Sidebar/icons'
 
 function Header() {

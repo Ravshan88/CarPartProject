@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import PageTitle from "components/Admin/PageTitle";
+import PageTitle from "../Admin/PageTitle";
 import {
   Avatar,
   Badge,

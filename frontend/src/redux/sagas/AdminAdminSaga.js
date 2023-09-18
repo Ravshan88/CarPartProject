@@ -1,18 +1,15 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import instance from "Components/utils/config/instance";
+import {call, put, takeLatest} from "redux-saga/effects";
+import instance from "../../components/utils/config/instance";
 import {
-    setLoading,
-    saveAdminAction,
-    deleteAdminAction,
     setError,
-    setAdmins,
 } from "../reducers/AdminAdminSlice";
+import * as saveAdminAction from "@testing-library/user-event/dist/type";
+import * as deleteAdminAction from "@testing-library/user-event/dist/type";
 
 function* saveAdminAsync(action) {
     try {
-        const { adminData } = action.payload;
+        const {adminData} = action.payload;
         const response = yield instance("/api/auth/admin", "POST", adminData);
-        // Handle response and dispatch appropriate actions
     } catch (error) {
         yield put(setError(error.message));
     }
@@ -20,7 +17,7 @@ function* saveAdminAsync(action) {
 
 function* deleteAdminAsync(action) {
     try {
-        const { adminId } = action.payload;
+        const {adminId} = action.payload;
         yield instance(`/api/auth/admin/${adminId}`, "DELETE");
         // Handle successful delete and dispatch appropriate actions
     } catch (error) {
@@ -28,15 +25,7 @@ function* deleteAdminAsync(action) {
     }
 }
 
-// Watcher Saga: Watches for saveAdminAction and deleteAdminAction
-function* watchSaveAdmin() {
-    yield takeLatest(saveAdminAction.type, saveAdminAsync);
-}
-
-function* watchDeleteAdmin() {
-    yield takeLatest(deleteAdminAction.type, deleteAdminAsync);
-}
-
 export function* adminAdminSaga() {
-    yield all([watchSaveAdmin(), watchDeleteAdmin()]);
+    yield takeLatest(saveAdminAction.type, saveAdminAsync);
+    yield takeLatest(deleteAdminAction.type, deleteAdminAsync);
 }

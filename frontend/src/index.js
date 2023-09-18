@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import './index.css';
 import 'remixicon/fonts/remixicon.css'
 import {BrowserRouter} from "react-router-dom";
-import {SidebarProvider} from "components/admin/Sidebar/SidebarContext";
+import {SidebarProvider} from "./components/admin/Sidebar/SidebarContext";
 
 import {Provider} from "react-redux";
 import {store} from "./redux/store"

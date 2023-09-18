@@ -5,11 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a48143b2-3683-471f-a916-73fc56c55cb1" name="Changes" comment="admin page front">
-      <change afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminAdminSlice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/404/ErrorPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/404/ErrorPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/404/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/404/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Login/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/PageTitle.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/PageTitle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/DesktopSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/DesktopSidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/MobileSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/MobileSidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/Sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/SidebarContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/SidebarContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/SidebarSubmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarSubmenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/bell.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/bell.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/buttons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/buttons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/cards.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/cards.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/cart.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/cart.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/charts.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/charts.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/chat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/chat.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/dropdown.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/dropdown.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/forbidden.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/forbidden.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/forms.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/forms.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/github.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/github.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/heart.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/heart.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/home.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/mail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/mail.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/menu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/menu.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/modals.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/modals.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/money.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/money.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/moon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/moon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/outlineCog.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/outlineCog.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/outlineLogout.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/outlineLogout.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/outlinePerson.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/outlinePerson.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/pages.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/pages.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/people.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/people.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/sun.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/sun.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/tables.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/tables.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/trash.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/trash.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/icons/twitter.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/icons/twitter.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminAdmins/AdminAdmins.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminAdmins/AdminAdmins.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminBrand/AdminBarnd.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBarnd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminCar/AdminCar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminCar/AdminCar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminCarPart/AdminCarPart.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminCarPart/AdminCarPart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminOperators/AdminOperators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminOperators/AdminOperators.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/adminProduct/AdminProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminProduct/AdminProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/constants/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/home/Header/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/Header/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/home/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/images/img.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/images/img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/images/shiftLogo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/images/shiftLogo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/room/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/room/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/utils/config/instance/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/utils/config/instance/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,23 +86,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: -1
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": -1
+}]]></component>
   <component name="ProjectId" id="2VWlzGt60vFMi8NL6fpv0K5Ubtt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,7 +128,8 @@
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
-      "redshift"
+      "redshift",
+      "postgresql"
     ]
   }
 }]]></component>
@@ -127,6 +183,7 @@
       <workItem from="1694965359223" duration="16714000" />
       <workItem from="1694994555289" duration="8608000" />
       <workItem from="1695010117876" duration="4840000" />
+      <workItem from="1695015488048" duration="981000" />
     </task>
     <task id="LOCAL-00001" summary="frontend, login full">
       <option name="closed" value="true" />
@@ -165,12 +222,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/frontend/node_modules/tailwindcss/stubs/tailwind.config.js" />
-        <option value="$PROJECT_DIR$/frontend/node_modules/tailwindcss/stubs/tailwind.config.cjs" />
-      </list>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="frontend, login full" />

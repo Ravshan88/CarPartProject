@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from 'react';
-import Header from "components/admin/Header";
+import Header from "../admin/Header";
 
 import {Outlet, useLocation} from "react-router-dom";
-import {SidebarContext} from "components/admin/Sidebar/SidebarContext";
-import Sidebar from "components/admin/Sidebar/Sidebar";
+import {SidebarContext} from "../admin/Sidebar/SidebarContext";
+import Sidebar from "../admin/Sidebar/Sidebar";
 function Admin(props) {
     const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
     let location = useLocation()
