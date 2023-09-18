@@ -43,6 +43,7 @@ public class AutoRun implements CommandLineRunner {
             User user = User.builder()
                     .phone(adminPhone)
                     .password(passwordEncoder.encode("00000000"))
+                    .name("Super Admin")
                     .roles(List.of(roleRepo.findByName(UserRoles.ROLE_SUPER_ADMIN)))
                     .build();
             userRepo.save(user);

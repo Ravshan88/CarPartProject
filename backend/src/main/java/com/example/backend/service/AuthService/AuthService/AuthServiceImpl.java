@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             roles.add(roleUser.get(0));
         }
-        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()), roles);
+        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()),loginReq.getName(), roles);
         usersRepository.save(user);
         return ResponseEntity.ok(null);
     }
@@ -123,7 +123,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             roles.add(roleUser.get(0));
         }
-        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()), roles);
+        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()),loginReq.getName(), roles);
         usersRepository.save(user);
         return ResponseEntity.ok(null);
     }

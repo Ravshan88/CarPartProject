@@ -17,7 +17,7 @@ function* saveAdminAsync(action) {
 
 function* deleteAdminAsync(action) {
     try {
-        const {adminId} = action.payload;
+        const { adminId } = action.payload;
         yield instance(`/api/auth/admin/${adminId}`, "DELETE");
         // Handle successful delete and dispatch appropriate actions
     } catch (error) {
@@ -25,7 +25,8 @@ function* deleteAdminAsync(action) {
     }
 }
 
-export function* adminAdminSaga() {
+export function* adminAdminSaga(){
     yield takeLatest(saveAdminAction.type, saveAdminAsync);
     yield takeLatest(deleteAdminAction.type, deleteAdminAsync);
 }
+

@@ -27,15 +27,19 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String phone;
 
+    @Column( nullable = false)
+    private String name;
+
     @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    public User(String phone, String password, List<Role> roles) {
+    public User(String phone, String password,String name, List<Role> roles) {
         this.phone = phone;
         this.password = password;
+        this.name= name;
         this.roles = roles;
     }
     @Override
