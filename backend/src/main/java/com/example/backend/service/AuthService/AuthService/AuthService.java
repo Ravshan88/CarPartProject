@@ -11,4 +11,8 @@ public interface AuthService {
     HttpEntity<?> login(UserDTO dto);
     HttpEntity<?> refreshToken(String refreshToken);
     User decode(String token);
+
+    HttpEntity<?> registerOperator(ReqLogin dto);
+
+    HttpEntity<?> getOperator();
 }

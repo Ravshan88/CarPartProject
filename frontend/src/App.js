@@ -13,6 +13,11 @@ import AdminHome from './components/admin/Admin'
 
 import {useDispatch} from "react-redux";
 import AdminBarnd from "./components/admin/adminBrand/AdminBarnd";
+import AdminAdmins from "./components/admin/adminAdmins/AdminAdmins";
+import AdminOperators from "./components/admin/adminOperators/AdminOperators";
+import AdminCar from "./components/admin/adminCar/AdminCar";
+import AdminCarPart from "./components/admin/adminCarPart/AdminCarPart";
+import AdminProduct from "./components/admin/adminProduct/AdminProduct";
 function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const blockedPages = ["/dashboard"];
@@ -70,6 +75,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path={"/admin"} element={<AdminHome/>} >
                     <Route path={"/admin/brand"} element={<AdminBarnd />}/>
+                    <Route path={"/admin/admins"} element={<AdminAdmins />}/>
+                    <Route path={"/admin/operators"} element={<AdminOperators />}/>
+                    <Route path={"/admin/car"} element={<AdminCar />}/>
+                    <Route path={"/admin/part"} element={<AdminCarPart />}/>
+                    <Route path={"/admin/product"} element={<AdminProduct />}/>
 
                 </Route>
 

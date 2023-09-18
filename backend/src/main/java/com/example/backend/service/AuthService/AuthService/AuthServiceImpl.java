@@ -42,9 +42,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public HttpEntity<?> register(ReqLogin loginReq) {
         List<Role> roles = new ArrayList<>();
-        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_USER.toString());
+        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_ADMIN.toString());
         if (roleUser == null) {
-            roles.add(roleRepo.save(new Role(1, UserRoles.ROLE_USER)));
+            roles.add(roleRepo.save(new Role(1, UserRoles.ROLE_ADMIN)));
         } else {
             roles.add(roleUser.get(0));
         }
@@ -113,4 +113,25 @@ public class AuthServiceImpl implements AuthService {
         }
         return user;
     }
+
+    @Override
+    public HttpEntity<?> registerOperator(ReqLogin loginReq) {
+        List<Role> roles = new ArrayList<>();
+        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_OPERATOR.toString());
+        if (roleUser == null) {
+            roles.add(roleRepo.save(new Role(1, UserRoles.ROLE_OPERATOR)));
+        } else {
+            roles.add(roleUser.get(0));
+        }
+        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()), roles);
+        usersRepository.save(user);
+        return ResponseEntity.ok(null);
+    }
+
+    public HttpEntity<?> getOperator() {
+        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_OPERATOR.toString());
+        List<User> allByRoles = usersRepository.findAllByRolesIn(roleUser);
+        return ResponseEntity.ok(allByRoles);
+    }
+
 }

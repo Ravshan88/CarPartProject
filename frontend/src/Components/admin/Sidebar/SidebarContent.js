@@ -37,7 +37,7 @@ function SidebarContent() {
             name: 'Admins',
         },
         {
-            path: '/admin/operator',
+            path: '/admin/operators',
             icon: 'PeopleIcon',
             name: 'Operators',
         },

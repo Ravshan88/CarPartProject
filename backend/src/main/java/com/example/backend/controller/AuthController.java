@@ -25,9 +25,19 @@ public class AuthController {
         return service.login(dto);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/admin")
     public HttpEntity<?> register(@RequestBody ReqLogin dto) {
         return service.register(dto);
+    }
+
+
+    @PostMapping("/register/operator")
+    public HttpEntity<?> registerOperator(@RequestBody ReqLogin dto) {
+        return service.registerOperator(dto);
+    }
+    @GetMapping("/register/operator")
+    public HttpEntity<?> registerOperator() {
+        return service.getOperator();
     }
 
     @PostMapping("/refresh")

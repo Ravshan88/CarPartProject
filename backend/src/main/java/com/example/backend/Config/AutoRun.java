@@ -55,7 +55,8 @@ public class AutoRun implements CommandLineRunner {
         return roleRepo.saveAll(new ArrayList<>(List.of(
                 new Role(1, UserRoles.ROLE_ADMIN),
                 new Role(2, UserRoles.ROLE_USER),
-                new Role(3, UserRoles.ROLE_SUPER_ADMIN))));
+                new Role(3, UserRoles.ROLE_OPERATOR),
+                new Role(4, UserRoles.ROLE_SUPER_ADMIN))));
     }
 
 }
