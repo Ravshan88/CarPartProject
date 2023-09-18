@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a48143b2-3683-471f-a916-73fc56c55cb1" name="Changes" comment="frontend, login full">
-      <change afterPath="$PROJECT_DIR$/frontend/src/Components/admin/adminAdmins/AdminAdmins.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Components/admin/adminCar/AdminCar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Components/admin/adminCarPart/AdminCarPart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Components/admin/adminOperators/AdminOperators.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Components/admin/adminProduct/AdminProduct.js" afterDir="false" />
+    <list default="true" id="a48143b2-3683-471f-a916-73fc56c55cb1" name="Changes" comment="admin page front">
+      <change afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminAdminSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/AutoRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/AutoRun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/enums/UserRoles.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/enums/UserRoles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/SidebarContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/admin/Sidebar/SidebarContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +126,7 @@
       <workItem from="1694959985771" duration="162000" />
       <workItem from="1694965359223" duration="16714000" />
       <workItem from="1694994555289" duration="8608000" />
-      <workItem from="1695010117876" duration="3105000" />
+      <workItem from="1695010117876" duration="4840000" />
     </task>
     <task id="LOCAL-00001" summary="frontend, login full">
       <option name="closed" value="true" />
@@ -163,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695010662690</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="admin page front">
+      <option name="closed" value="true" />
+      <created>1695013723250</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695013723250</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,7 +174,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="frontend, login full" />
-    <option name="LAST_COMMIT_MESSAGE" value="frontend, login full" />
+    <MESSAGE value="admin page front" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin page front" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
