@@ -1,16 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from 'react';
+import Header from "components/home/Header/Header";
 
-import {ToastContainer, toast} from "react-toastify";
-
-import instance from "../utils/config/instance";
-
-function Home() {
-
+function Home(props) {
     return (
-        <div >
-            <h1>home</h1>
-            <ToastContainer/>
-
+        <div>
+            <Header/>
         </div>
     );
 }

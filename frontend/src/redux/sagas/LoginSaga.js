@@ -26,7 +26,7 @@ function* workLoginUser(action) {
     }
     yield put(UserSuccess());
     if (response.data.roles[0].name === "ROLE_SUPER_ADMIN") {
-      action.payload.navigate("/");
+      action.payload.navigate("/admin");
     }
   } catch (error) {
     if (error.response.status === 401 || error.status.status === 403) {

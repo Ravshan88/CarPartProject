@@ -1,17 +1,18 @@
 import React, { useEffect, useCallback } from "react";
-import Login from "./Components/Login/index";
+import Login from "./components/Login/index";
 import { Route, Routes, useLocation } from "react-router-dom";
-import "./Components/Login/index.css";
+import "./components/Login/index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useNavigate } from "react-router-dom";
-import instance from "./Components/utils/config/instance";
-import ErrorPage from "./Components/404/ErrorPage";
-import Home from './Components/home/Home';
-import AdminHome from './Components/admin/AdminHome'
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import instance from "./components/utils/config/instance";
+import ErrorPage from "./components/404/ErrorPage";
+import Home from './components/home/Home';
+import AdminHome from './components/admin/Admin'
+
 
 import {useDispatch} from "react-redux";
+import AdminBarnd from "./components/admin/adminBrand/AdminBarnd";
 function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const blockedPages = ["/dashboard"];
@@ -67,7 +68,11 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/admin" element={<AdminHome />} />
+                <Route path={"/admin"} element={<AdminHome/>} >
+                    <Route path={"/admin/brand"} element={<AdminBarnd />}/>
+
+                </Route>
+
 
                 <Route path="/" element={<Home />}/>
 
