@@ -12,6 +12,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -29,16 +31,31 @@ public class AuthController {
     public HttpEntity<?> register(@RequestBody ReqLogin dto) {
         return service.register(dto);
     }
+    @GetMapping("/admin")
+    public HttpEntity<?> getAdmin() {
+        return service.getAdmin();
+    }
 
 
     @PostMapping("/register/operator")
     public HttpEntity<?> registerOperator(@RequestBody ReqLogin dto) {
         return service.registerOperator(dto);
     }
-    @GetMapping("/register/operator")
-    public HttpEntity<?> registerOperator() {
+    @GetMapping("/operator")
+    public HttpEntity<?> getOperator() {
         return service.getOperator();
     }
+
+    @DeleteMapping("/user/{id}") public HttpEntity<?> deleteUser(@PathVariable UUID id) {
+        return service.deleteUser(id);
+    }
+
+    @PutMapping("/user/{id}")
+    public HttpEntity<?> updateUser(@RequestBody ReqLogin dto, @PathVariable UUID id) {
+        return service.updateUser(dto, id);
+    }
+
+
 
     @PostMapping("/refresh")
     public HttpEntity<?> refreshUser(@RequestParam String refreshToken) {

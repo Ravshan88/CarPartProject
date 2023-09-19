@@ -4,34 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a48143b2-3683-471f-a916-73fc56c55cb1" name="Changes" comment="fixed bugs">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/BrandController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/dto/BrandDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/BrandRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/brandService/BrandService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/brandService/BrandServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBrand.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/images/upload.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminBrandSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+    <list default="true" id="a48143b2-3683-471f-a916-73fc56c55cb1" name="Changes" comment="admin page front">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/SecurityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/Securyt/CheckUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/AutoRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/AutoRun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Attachment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Attachment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Brand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Login/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBarnd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/LoginSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/LoginSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/LoginSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/LoginSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/adminAdmins/AdminAdmins.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminAdmins/AdminAdmins.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBrand.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBrand.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminAdminSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminAdminSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +37,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="9549bc4f56f6960f1f5feb917f66bb77e4c5d515" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
@@ -90,11 +83,13 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "spring.configuration.checksum": "b43fdd98b1fd705ae4c3a10cf25aad8a",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
-      "redshift"
+      "redshift",
+      "postgresql"
     ]
   }
 }]]></component>
@@ -105,6 +100,10 @@
       <recent name="C:\Users\Akobir\Desktop\zapchast\CarPartProject\frontend\src\components\admin" />
       <recent name="C:\Users\Akobir\Desktop\zapchast\CarPartProject\frontend\src\components" />
       <recent name="C:\Users\Akobir\Desktop\zapchast\CarPartProject\backend\src\main\java\com\example\backend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Akobir\Desktop\zapchast\CarPartProject\backend\src\main\java\com\example\backend\service" />
+      <recent name="C:\Users\Akobir\Desktop\zapchast\CarPartProject\backend\src\main\java\com\example\backend\controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.backend.payload" />
@@ -149,6 +148,7 @@
       <workItem from="1694994555289" duration="8608000" />
       <workItem from="1695010117876" duration="9009000" />
       <workItem from="1695033124486" duration="16963000" />
+      <workItem from="1695111981000" duration="8680000" />
     </task>
     <task id="LOCAL-00001" summary="frontend, login full">
       <option name="closed" value="true" />
