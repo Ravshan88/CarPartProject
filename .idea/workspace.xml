@@ -4,52 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd7a2b1f-68dd-41f1-bb10-e4b127f3d146" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/Tables.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminBrandSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/BackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/AutoRun.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Config/WebMvcConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AttachmentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/BrandController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/controller/SecurityController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/dto/BrandDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/dto/CurrentUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/dto/UserDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Attachment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Brand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/BrandRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/CarPart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/enums/UserRoles.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/exceptions/InvalidCredentialsException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/payload/ReqLogin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/AttachmentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/security/JwtService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/security/MyFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/security/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AttachmentService/AttachmentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AttachmentService/AttachmentServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/AuthService/AuthService/AuthServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/brandService/BrandService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/service/brandService/BrandServiceImpl.java" beforeDir="false" />
+    <list default="true" id="cd7a2b1f-68dd-41f1-bb10-e4b127f3d146" name="Changes" comment="axax">
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Sidebar/SidebarContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBrand.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/adminBrand/AdminBrand.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/utils/config/instance/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/utils/config/instance/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminBrandSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/AdminBrandSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/AdminAdminSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/sagas/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,11 +62,24 @@
       <option name="presentableId" value="Default" />
       <updated>1695130136559</updated>
       <workItem from="1695130137722" duration="61000" />
-      <workItem from="1695130298933" duration="465000" />
+      <workItem from="1695130298933" duration="969000" />
     </task>
+    <task id="LOCAL-00001" summary="axax">
+      <option name="closed" value="true" />
+      <created>1695130821784</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695130821785</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="axax" />
+    <option name="LAST_COMMIT_MESSAGE" value="axax" />
   </component>
 </project>
