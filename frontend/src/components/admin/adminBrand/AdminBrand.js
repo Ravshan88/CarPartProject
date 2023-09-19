@@ -5,7 +5,7 @@ import {
     Button,
     ModalHeader, ModalBody, ModalFooter,
 } from "@windmill/react-ui";
-import {LazyLoadImage} from 'react-lazy-load-image-component'
+// import {LazyLoadImage} from 'react-lazy-load-image-component'
 import {useDispatch, useSelector} from "react-redux";
 import {setBase64, setImageFileForBackend} from "../../../redux/reducers/AdminBrandSlice";
 import uploadImg from "../../images/upload.png"
@@ -82,11 +82,12 @@ function AdminBrand(props) {
                                 <div
                                     className={"border w-[80px] h-[80px] rounded-[50%] p-1 hover:scale-[1.1] transition-[1s] flex justify-center mx-auto"}>
                                     {
-                                        base64 ?
-                                            <LazyLoadImage style={{borderRadius: "50%"}} height={80} width={80}
-                                                           src={base64} alt=""/> :
-                                            <LazyLoadImage style={{borderRadius: "50%"}} height={80} width={80}
-                                                           src={uploadImg} alt=""/>
+                                        // base64 ?
+                                    //         <LazyLoadImage style={{borderRadius: "50%"}} height={80} width={80}
+                                    //                        src={base64} alt=""/> :
+                                    //         <LazyLoadImage style={{borderRadius: "50%"}} height={80} width={80}
+                                    //                        src={uploadImg} alt=""/>
+                                    // }
                                     }
                                 </div>
                             </label>

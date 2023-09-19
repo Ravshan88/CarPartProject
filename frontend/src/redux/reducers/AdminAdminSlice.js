@@ -4,6 +4,7 @@ const initialState = {
     admins: [],
     isLoading: false,
     error: null,
+    adminData: null, // Add a new property to store the fetched admin data
 };
 
 const adminAdminSlice = createSlice({
@@ -19,6 +20,9 @@ const adminAdminSlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
         },
+        saveAdmin: (state, action) => {
+            state.admins.push(action.payload);
+        },
         addAdmin: (state, action) => {
             state.admins.push(action.payload);
         },
@@ -27,15 +31,33 @@ const adminAdminSlice = createSlice({
                 (admin) => admin.id !== action.payload
             );
         },
+        setAdminData: (state, action) => {
+
+            state.admins = action.payload; // Set the fetched admin data
+            state.isLoading=false
+        },
+        getAdminData: (state)=>{
+            state.isLoading=true
+
+        },
+        editAdmin: (state, action) => {
+            const editedAdmin = action.payload;
+
+        },
     },
 });
 
 export const {
+    editAdmin,
     setAdmins,
     setLoading,
     setError,
-    addAdmin,
+    saveAdmin,
     deleteAdmin,
+    addAdmin,
+    setAdminData,
+    getAdminData,
+
 } = adminAdminSlice.actions;
 
 export default adminAdminSlice.reducer;

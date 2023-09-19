@@ -42,16 +42,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public HttpEntity<?> register(ReqLogin loginReq) {
         List<Role> roles = new ArrayList<>();
-        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_ADMIN.toString());
-        if (roleUser == null) {
-            roles.add(roleRepo.save(new Role(1, UserRoles.ROLE_ADMIN)));
-        } else {
-            roles.add(roleUser.get(0));
-        }
-        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()),loginReq.getName(), roles);
-        usersRepository.save(user);
-        return ResponseEntity.ok(null);
+        Role role = roleRepo.findById(1).orElseThrow();
+        roles.add(role);
+        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()), loginReq.getName(), roles);
+        User save = usersRepository.save(user);
+        return ResponseEntity.ok("saqlandi");
     }
+
 
     private String getToken(ReqLogin loginReq) throws Exception {
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginReq.getPhone());
@@ -129,9 +126,36 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public HttpEntity<?> getOperator() {
-        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_OPERATOR.toString());
-        List<User> allByRoles = usersRepository.findAllByRolesIn(roleUser);
+        Role roleUser = roleRepo.findById(3).orElseThrow();
+        List<Role> roles = new LinkedList<>();
+        roles.add(roleUser);
+        List<User> allByRoles = usersRepository.findAllByRolesIn(roles);
         return ResponseEntity.ok(allByRoles);
     }
 
+    @Override
+    public HttpEntity<?> getAdmin() {
+        Role roleUser = roleRepo.findById(1).orElseThrow();
+        List<Role> roles = new LinkedList<>();
+        roles.add(roleUser);
+        List<User> allByRoles = usersRepository.findAllByRolesIn(roles);
+        return ResponseEntity.ok(allByRoles);
+    }
+
+    @Override
+    public HttpEntity<?> deleteUser(UUID id) {
+        User findUser = usersRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        usersRepository.deleteById(id);
+        return ResponseEntity.ok("Muvaffaqiyatli o'chirildi");
+    }
+
+    @Override
+    public HttpEntity<?> updateUser(ReqLogin dto, UUID id) {
+        User findUser = usersRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        findUser.setPhone(dto.getPhone());
+        findUser.setPassword(dto.getPassword());
+        findUser.setName(dto.getName());
+        User saved = usersRepository.save(findUser);
+        return ResponseEntity.ok(saved);
+    }
 }

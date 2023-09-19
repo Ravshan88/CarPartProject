@@ -6,6 +6,8 @@ import com.example.backend.entity.User;
 import com.example.backend.payload.ReqLogin;
 import org.springframework.http.HttpEntity;
 
+import java.util.UUID;
+
 public interface AuthService {
     HttpEntity<?> register(ReqLogin dto);
     HttpEntity<?> login(UserDTO dto);
@@ -15,4 +17,10 @@ public interface AuthService {
     HttpEntity<?> registerOperator(ReqLogin dto);
 
     HttpEntity<?> getOperator();
+
+    HttpEntity<?> getAdmin();
+
+    HttpEntity<?> deleteUser(UUID id);
+
+    HttpEntity<?> updateUser(ReqLogin dto, UUID id);
 }
