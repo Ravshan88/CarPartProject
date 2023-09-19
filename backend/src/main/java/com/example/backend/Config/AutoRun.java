@@ -20,9 +20,8 @@ import java.util.Optional;
 @Configuration
 @RequiredArgsConstructor
 public class AutoRun implements CommandLineRunner {
-
-    private final RoleRepository roleRepo;
-    private final UserRepository userRepo;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -30,12 +29,10 @@ public class AutoRun implements CommandLineRunner {
     public void run(String... args) throws Exception {
         String adminPhone = "+998999999999";
         List<Role> savedRoles = saveRoles();
-        Optional<User> userByPhone = userRepo.findByPhone(adminPhone);
+        Optional<User> userByPhone = userRepository.findByPhone(adminPhone);
         saveUser(adminPhone, userByPhone);
 
     }
-
-
 
 
     private void saveUser(String adminPhone, Optional<User> userByPhone) {
@@ -44,16 +41,16 @@ public class AutoRun implements CommandLineRunner {
                     .phone(adminPhone)
                     .password(passwordEncoder.encode("00000000"))
                     .name("Super Admin")
-                    .roles(List.of(roleRepo.findByName(UserRoles.ROLE_SUPER_ADMIN)))
+                    .roles(List.of(roleRepository.findByName(UserRoles.ROLE_SUPER_ADMIN)))
                     .build();
-            userRepo.save(user);
+            userRepository.save(user);
 
 
         }
     }
 
     private List<Role> saveRoles() {
-        return roleRepo.saveAll(new ArrayList<>(List.of(
+        return roleRepository.saveAll(new ArrayList<>(List.of(
                 new Role(1, UserRoles.ROLE_ADMIN),
                 new Role(2, UserRoles.ROLE_USER),
                 new Role(3, UserRoles.ROLE_OPERATOR),

@@ -19,6 +19,6 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @OneToMany
-    private List<Attachment> photo;
+    @OneToOne
+    private Attachment photo;
 }

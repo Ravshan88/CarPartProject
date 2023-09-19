@@ -28,7 +28,6 @@ export const loginSlice = createSlice({
       state.error = null;
     },
     UserFailure(state, action) {
-      console.log(action.payload)
       state.error = action.payload;
       state.isLoading = false;
     },
