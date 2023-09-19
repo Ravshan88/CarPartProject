@@ -30,7 +30,7 @@ function* saveAdminAsync(action) {
 
 function* deleteAdminAsync(action) {
     try {
-        const { adminId } = action.payload;
+        const {adminId} = action.payload;
         yield instance(`/api/auth/admin/${adminId}`, "DELETE");
     } catch (error) {
         yield put(setError(error.message));

@@ -1,14 +1,18 @@
 import axios from "axios";
 
-export default function (url, method, data, param) {
-    const baseUrl='http://localhost:8080'
+export default function (url, method, data, param, header) {
+    console.log(data)
+    console.log(url)
+    console.log(header)
+    const baseUrl = 'http://localhost:8080'
     let token = localStorage.getItem("access_token");
     return axios({
-        url:  baseUrl+url,
+        url: baseUrl + url,
         method: method,
         data: data,
         headers: {
-            "Authorization": token
+            "Authorization": token,
+            ...(header ? {"Content-Type": "multipart/form-data"} : {})
         },
         params: param
     }).then((res) => {
@@ -20,19 +24,19 @@ export default function (url, method, data, param) {
         }
     }).catch((err) => {
         if (err.response.status === 401) {
-            if (localStorage.getItem("refresh_token")===null){
+            if (localStorage.getItem("refresh_token") === null) {
                 return {
                     error: true,
                     data: err.response.status
                 };
             }
             return axios({
-                url: baseUrl+`/api/v1/auth/refresh?refreshToken=${localStorage.getItem("refresh_token")}`,
+                url: baseUrl + `/api/v1/auth/refresh?refreshToken=${localStorage.getItem("refresh_token")}`,
                 method: "POST"
             }).then((res) => {
                 localStorage.setItem("access_token", res.data);
                 return axios({
-                    url:  baseUrl+url,
+                    url: baseUrl + url,
                     method: method,
                     data: data,
                     headers: {

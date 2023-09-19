@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     base64: "",
     imgFileForBackend: null,
+    objForBrand: {}
 };
 
 const adminBrandSlice = createSlice({
@@ -29,11 +30,14 @@ const adminBrandSlice = createSlice({
         },
         setImageFileForBackend(state, action) {
             state.imgFileForBackend = action.payload
+        },
+        setObjForBrand(state, action) {
         }
     },
 });
 
 export const {
+    setObjForBrand,
     setImageFileForBackend,
     getBrands,
     getBrandsSuccess,
