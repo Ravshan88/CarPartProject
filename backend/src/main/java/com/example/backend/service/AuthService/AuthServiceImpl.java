@@ -1,4 +1,4 @@
-package com.example.backend.service.AuthService.AuthService;
+package com.example.backend.service.AuthService;
 
 
 import com.example.backend.dto.UserDTO;
@@ -71,11 +71,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-
     @Override
     public HttpEntity<Map> login(UserDTO userDTO) {
         Optional<User> users = usersRepository.findByPhone(userDTO.getPhone());
-        if (users.isEmpty())  throw new InvalidCredentialsException();
+        if (users.isEmpty()) throw new InvalidCredentialsException();
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDTO.getPhone(), userDTO.getPassword()));
         } catch (BadCredentialsException e) {
@@ -120,7 +119,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             roles.add(roleUser.get(0));
         }
-        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()),loginReq.getName(), roles);
+        User user = new User(loginReq.getPhone(), passwordEncoder.encode(loginReq.getPassword()), loginReq.getName(), roles);
         usersRepository.save(user);
         return ResponseEntity.ok(null);
     }

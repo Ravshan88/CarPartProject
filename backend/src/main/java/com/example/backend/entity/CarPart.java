@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,5 +21,8 @@ public class CarPart {
     private String name;
     @OneToOne
     private Attachment photo;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private boolean active;
 
 }

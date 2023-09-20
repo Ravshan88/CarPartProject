@@ -3,17 +3,20 @@ import instance from "../../components/utils/config/instance";
 import {
     setError,
 } from "../reducers/AdminAdminSlice";
-import {getBrands, getBrandsFailure, getBrandsSuccess, setObjForBrand} from "../reducers/AdminBrandSlice";
+import {changeIsEdit, getBrands, getBrandsFailure, getBrandsSuccess, setObjForBrand} from "../reducers/AdminBrandSlice";
+import {useSelector} from "react-redux";
 
 function* saveAdminBrandAsync(action) {
     try {
-        console.log(action.payload)
+        const {name, photo, photoId, id, isEditing} = action.payload
         const formData = new FormData()
-        formData.append("name", action.payload)
-        formData.append("photo", action.payload.photo)
+        console.log(action.payload)
+        formData.append("photo", photo)
         formData.append("prefix", "/brandPhotos")
-        yield call(() => instance(" /api/v1/brand", "POST", formData, {name: action.payload.name}, true)
-        )
+        formData.append("data", JSON.stringify({name, photoId, id}))
+        yield call(() => instance(`/api/v1/brand`, isEditing ? "PUT" : "POST", formData, null, true));
+        yield put(changeIsEdit(false))
+        yield call(workGetBrands)
     } catch (error) {
         yield put(setError(error.message));
     }

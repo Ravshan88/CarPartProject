@@ -5,7 +5,7 @@ import com.example.backend.dto.UserDTO;
 import com.example.backend.entity.User;
 import com.example.backend.payload.ReqLogin;
 import com.example.backend.security.JwtService;
-import com.example.backend.service.AuthService.AuthService.AuthService;
+import com.example.backend.service.AuthService.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;

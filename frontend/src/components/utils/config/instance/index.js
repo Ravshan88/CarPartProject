@@ -1,9 +1,6 @@
 import axios from "axios";
 
 export default function (url, method, data, param, header) {
-    console.log(data)
-    console.log(url)
-    console.log(header)
     const baseUrl = 'http://localhost:8080'
     let token = localStorage.getItem("access_token");
     return axios({

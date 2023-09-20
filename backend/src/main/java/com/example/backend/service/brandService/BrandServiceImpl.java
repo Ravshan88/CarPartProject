@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -30,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
 
     @SneakyThrows
     @Override
-    public HttpEntity<?> addBrand(String name, MultipartFile photo, String prefix) {
+    public HttpEntity<?> addBrand(BrandDTO brandDTO, MultipartFile photo, String prefix) {
         Attachment attachment = null;
         if (photo != null && !photo.isEmpty()) {
             UUID id = UUID.randomUUID();
@@ -49,8 +50,9 @@ public class BrandServiceImpl implements BrandService {
 //                    .orElseThrow(() -> new EntityNotFoundException("Attachment not found"));
 //        }
         Brand brand = Brand.builder()
-                .name(name)
+                .name(brandDTO.getName())
                 .photo(attachment)
+                .createdAt(LocalDateTime.now())
                 .build();
         brandRepository.save(brand);
         return ResponseEntity.ok("Brand saved successfully");
@@ -58,17 +60,22 @@ public class BrandServiceImpl implements BrandService {
 
     @SneakyThrows
     @Override
-    public HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix, UUID id) {
-        Brand existingBrand = brandRepository.findById(id)
+    public HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix) {
+
+        Brand existingBrand = brandRepository.findById(brandDTO.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer category not found"));
         existingBrand.setName(brandDTO.getName());
-        if (brandDTO.getPhotoId() != null) {
-            existingBrand.setPhoto(attachmentRepository.findById(brandDTO.getPhotoId()).get());
-        } else if (photo != null && !photo.isEmpty()) {
+//        if (brandDTO.getPhotoId() != null) {
+//            existingBrand.setPhoto(attachmentRepository.findById(brandDTO.getPhotoId()).get());
+//        } else
+        if (photo != null && !photo.isEmpty()) {
+            System.out.println(photo);
             createFile(photo, existingBrand);
-        } else if (brandDTO.getPhotoId() == null) {
-            existingBrand.setPhoto(null);
         }
+//        else if (brandDTO.getPhotoId() == null) {
+//            existingBrand.setPhoto(null);
+//        }
+        existingBrand.setUpdatedAt(LocalDateTime.now());
         brandRepository.save(existingBrand);
         return ResponseEntity.ok("Brand is edited successfuly");
     }
@@ -89,12 +96,12 @@ public class BrandServiceImpl implements BrandService {
     private void createFile(MultipartFile photo, Brand existingBrand) throws IOException {
         UUID attaUuid = UUID.randomUUID();
         String fileName = attaUuid + "_" + photo.getOriginalFilename();
-        String filePath = "./files/categoryIcons/" + fileName;
+        String filePath = "backend/files/brandPhotos/" + fileName;
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         try (OutputStream outputStream = new FileOutputStream(file)) {
             FileCopyUtils.copy(photo.getInputStream(), outputStream);
         }
-        existingBrand.setPhoto(attachmentRepository.save(new Attachment(attaUuid, "/categoryIcons", fileName)));
+        existingBrand.setPhoto(attachmentRepository.save(new Attachment(attaUuid, "/brandPhotos", fileName)));
     }
 }

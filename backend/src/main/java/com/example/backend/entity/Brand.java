@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,4 +22,7 @@ public class Brand {
     private String name;
     @OneToOne
     private Attachment photo;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private boolean active;
 }

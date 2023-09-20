@@ -6,13 +6,25 @@ const initialState = {
     error: null,
     base64: "",
     imgFileForBackend: null,
-    objForBrand: {}
+    objForBrand: {},
+    isEditing: false,
+    photoIdForEdit: "",
+    editingId: ""
 };
 
 const adminBrandSlice = createSlice({
     name: "adminBrand",
     initialState,
     reducers: {
+        setEditingId(state, action) {
+            state.editingId = action.payload
+        },
+        setPhotoIdForEdit(state, action) {
+            state.photoIdForEdit = action.payload
+        },
+        changeIsEdit(state, action) {
+            state.isEditing = action.payload
+        },
         getBrands(state) {
             state.isLoading = true
             state.error = null
@@ -37,6 +49,9 @@ const adminBrandSlice = createSlice({
 });
 
 export const {
+    setEditingId,
+    setPhotoIdForEdit,
+    changeIsEdit,
     setObjForBrand,
     setImageFileForBackend,
     getBrands,

@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/", "/index.html", "/static/**", "/*.ico", "/*.json", "/*.png").permitAll()
-                                .requestMatchers("/api/v1/bot", "/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/auth/refresh").permitAll()
+                                .requestMatchers("/api/v1/bot", "/api/v1/auth/register", "/api/v1/auth/login","/api/v1/file/getFile/**", "/api/v1/auth/refresh").permitAll()
                                 .anyRequest().permitAll()
                 )
                 .addFilterBefore(myFilter, UsernamePasswordAuthenticationFilter.class);

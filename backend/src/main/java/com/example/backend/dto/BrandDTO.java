@@ -13,4 +13,5 @@ import java.util.UUID;
 public class BrandDTO {
     private String name;
     private UUID photoId;
+    private UUID id;
 }

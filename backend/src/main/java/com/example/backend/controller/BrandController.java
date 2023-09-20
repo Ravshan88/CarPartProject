@@ -21,19 +21,21 @@ public class BrandController {
 
     @SneakyThrows
     @PostMapping
-    public HttpEntity<?> addBrand(@Valid @RequestParam String name,
+    public HttpEntity<?> addBrand(@Valid @RequestParam String data,
                                   @RequestParam(required = false) MultipartFile photo,
                                   @RequestParam String prefix) {
-        return brandService.addBrand(name, photo, prefix);
+        BrandDTO brandDTO = objectMapper.readValue(data, BrandDTO.class);
+        return brandService.addBrand(brandDTO, photo, prefix);
     }
 
     @SneakyThrows
-    @PutMapping("/{id}")
+    @PutMapping
     public HttpEntity<?> editBrand(@Valid @RequestParam String data,
                                    @RequestParam(required = false) MultipartFile photo,
-                                   @RequestParam String prefix, @PathVariable UUID id) {
+                                   @RequestParam String prefix) {
         BrandDTO brandDTO = objectMapper.readValue(data, BrandDTO.class);
-        return brandService.editBrand(brandDTO, photo, prefix, id);
+        System.out.println(brandDTO);
+        return brandService.editBrand(brandDTO, photo, prefix);
     }
 
     @GetMapping

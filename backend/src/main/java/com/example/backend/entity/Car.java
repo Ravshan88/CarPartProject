@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -22,4 +23,7 @@ public class Car {
     private Brand brand;
     @OneToOne
     private Attachment photo;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private boolean active;
 }

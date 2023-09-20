@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface BrandService {
 
-    HttpEntity<?> addBrand(String name, MultipartFile photo, String prefix);
+    HttpEntity<?> addBrand(BrandDTO brandDTO, MultipartFile photo, String prefix);
 
-    HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix, UUID id);
+    HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix);
 
     HttpEntity<?> getBrands(String name, Integer page, Integer size);
 }

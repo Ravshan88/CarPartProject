@@ -1,4 +1,4 @@
-package com.example.backend.service.AuthService.AuthService;
+package com.example.backend.service.AuthService;
 
 
 import com.example.backend.dto.UserDTO;

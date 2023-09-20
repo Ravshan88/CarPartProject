@@ -73,6 +73,6 @@ public class MyFilter extends OncePerRequestFilter {
     }
 
     private boolean hasPermission(String requestPath) {
-        return  requestPath.equals("/api/v1/auth/register") || requestPath.equals("/api/v1/auth/login") || requestPath.equals("/dashboard") || requestPath.equals("/api/v1/auth/access") || requestPath.equals("/api/v1/auth/refresh");
+        return  requestPath.equals("/api/v1/auth/register") ||requestPath.startsWith("/api/v1/file/getFile") || requestPath.equals("/api/v1/auth/login") || requestPath.equals("/dashboard") || requestPath.equals("/api/v1/auth/access") || requestPath.equals("/api/v1/auth/refresh");
     }
 }

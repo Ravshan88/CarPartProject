@@ -1,6 +1,6 @@
 package com.example.backend.service.SecurityService;
 
-import com.example.backend.service.AuthService.AuthService.AuthService;
+import com.example.backend.service.AuthService.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
