@@ -46,7 +46,8 @@ public class AuthController {
         return service.getOperator();
     }
 
-    @DeleteMapping("/user/{id}") public HttpEntity<?> deleteUser(@PathVariable UUID id) {
+    @DeleteMapping("/user/{id}")
+    public HttpEntity<?> deleteUser(@PathVariable UUID id) {
         return service.deleteUser(id);
     }
 

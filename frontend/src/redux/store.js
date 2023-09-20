@@ -1,14 +1,16 @@
-import    {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import login from "./reducers/LoginSlice"
 import adminAdmins from "../redux/reducers/AdminAdminSlice";
+import adminOperators from "../redux/reducers/AdminOperatorSlice";
 import adminBrand from "../redux/reducers/AdminBrandSlice"
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
     login,
     adminAdmins,
+    adminOperators,
     adminBrand
 
 });

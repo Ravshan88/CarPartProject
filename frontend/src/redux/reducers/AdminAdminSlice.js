@@ -12,6 +12,7 @@ const adminAdminSlice = createSlice({
     initialState,
     reducers: {
         setAdmins: (state, action) => {
+            console.log(action.payload)
             state.admins = action.payload;
         },
         setLoading: (state, action) => {
@@ -41,6 +42,7 @@ const adminAdminSlice = createSlice({
 
         },
         editAdmin: (state, action) => {
+            state.isLoading=false
             const editedAdmin = action.payload;
 
         },

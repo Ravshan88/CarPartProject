@@ -7,8 +7,9 @@ import {
     setError,
     addAdmin,
     setAdminData,
-    getAdminData,// Import the setAdminData action
+    getAdminData, editAdmin,// Import the setAdminData action
 } from "../reducers/AdminAdminSlice";
+import {toast} from "react-toastify";
 
 function* getAdminDataAsync() {
     try {
@@ -22,16 +23,32 @@ function* getAdminDataAsync() {
 
 function* saveAdminAsync(action) {
     try {
-        const response = yield call(() =>instance("/api/v1/auth/register/admin", "POST", action.payload));
+        const response = yield call(() => instance("/api/v1/auth/register/admin", "POST", action.payload));
+        yield put(getAdminData())
+
     } catch (error) {
         yield put(setError(error.message));
+        toast.error("Siz xato malumot qo'shdingiz")
+    }
+}
+
+function* editAdminAsync(action) {
+    try {
+        const id = action.payload.id;
+        const response = yield call(() => instance('/api/v1/auth/user/' + id, 'PUT', action.payload.data))
+        yield put(getAdminData())
+    } catch (error) {
+        yield put(setError(error.message))
     }
 }
 
 function* deleteAdminAsync(action) {
     try {
-        const {adminId} = action.payload;
-        yield instance(`/api/auth/admin/${adminId}`, "DELETE");
+        console.log(action.payload)
+        const adminId = action.payload;
+        yield instance(`/api/v1/auth/user/${adminId}`, "DELETE");
+        yield put(getAdminData())
+
     } catch (error) {
         yield put(setError(error.message));
     }
@@ -42,5 +59,6 @@ export function* adminAdminSaga() {
     yield takeLatest(saveAdmin, saveAdminAsync);
     yield takeLatest(deleteAdmin, deleteAdminAsync);
     yield takeLatest(addAdmin, saveAdminAsync);
+    yield takeLatest(editAdmin, editAdminAsync);
     yield takeLatest(getAdminData, getAdminDataAsync);
 }
