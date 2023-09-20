@@ -113,8 +113,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public HttpEntity<?> registerOperator(ReqLogin loginReq) {
         List<Role> roles = new ArrayList<>();
-        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_OPERATOR.toString());
-        if (roleUser == null) {
+        List<Role> roleUser = roleRepo.findAllByName(UserRoles.ROLE_OPERATOR);
+        if (roleUser.isEmpty()) {
             roles.add(roleRepo.save(new Role(1, UserRoles.ROLE_OPERATOR)));
         } else {
             roles.add(roleUser.get(0));

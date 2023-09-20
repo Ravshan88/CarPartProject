@@ -30,10 +30,13 @@ import {Delete} from "@mui/icons-material";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import {Button} from "antd";
 import {toast, ToastContainer} from "react-toastify";
+import ImgModal from "../ImgModal";
 
 
 function AdminBrand(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isImgModalOpen, setIsImgModalOpen] = useState(false)
+    const [brandInfo, setBrandInfo] = useState({})
     const {
         base64,
         brands,
@@ -59,6 +62,10 @@ function AdminBrand(props) {
         setName("")
         dispatch(setImageFileForBackend(""))
         dispatch(setPhotoIdForEdit(""))
+    }
+
+    function handleOpenImgModal() {
+        setIsImgModalOpen(p => !p)
     }
 
     function handleFile(e) {
@@ -114,6 +121,7 @@ function AdminBrand(props) {
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <ToastContainer/>
+            <ImgModal infoData={brandInfo} handleCloseImgModal={handleOpenImgModal} isImgModalOpen={isImgModalOpen}/>
             <div className={"flex flex-col justify-between my-2"}>
                 <div className={"flex justify-between"}>
                     <PageTitle>
@@ -144,11 +152,16 @@ function AdminBrand(props) {
                                 {brands.content?.map((brand, i) => (
                                     <TableRow key={i}>
                                         <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <img
-                                                    width={50} height={50}
-                                                    src={`http://localhost:8080/api/v1/file/getFile/${brand?.photo?.id}`}
-                                                    alt="User avatar"/>
+                                            <div
+                                                onClick={() => {
+                                                    setBrandInfo(brand)
+                                                    handleOpenImgModal()
+                                                }}
+                                                className="flex items-center text-sm">
+                                                <Avatar className={"w-[50px]"}
+                                                        width={50} height={50}
+                                                        src={`http://localhost:8080/api/v1/file/getFile/${brand?.photo?.id}`}
+                                                        alt="User avatar"/>
                                             </div>
                                         </TableCell>
                                         <TableCell>

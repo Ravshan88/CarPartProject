@@ -4,7 +4,6 @@ import {
     setError,
 } from "../reducers/AdminAdminSlice";
 import {changeIsEdit, getBrands, getBrandsFailure, getBrandsSuccess, setObjForBrand} from "../reducers/AdminBrandSlice";
-import {useSelector} from "react-redux";
 
 function* saveAdminBrandAsync(action) {
     try {

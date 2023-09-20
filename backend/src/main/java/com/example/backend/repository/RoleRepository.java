@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-    List<Role> findAllByName(String name);
-    Role findByName(UserRoles name);
+    List<Role> findAllByName(UserRoles name);
 
+    Role findByName(UserRoles name);
 }

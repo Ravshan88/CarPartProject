@@ -1,10 +1,10 @@
-package com.example.backend.service.brandService;
+package com.example.backend.service.carPartService;
 
-import com.example.backend.dto.BrandDTO;
+import com.example.backend.dto.CartPartDTO;
 import com.example.backend.entity.Attachment;
-import com.example.backend.entity.Brand;
-import com.example.backend.repository.BrandRepository;
+import com.example.backend.entity.CarPart;
 import com.example.backend.repository.AttachmentRepository;
+import com.example.backend.repository.CarPartRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -25,13 +25,13 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class BrandServiceImpl implements BrandService {
-    private final BrandRepository brandRepository;
+public class CartPartServiceImpl implements CartPartService {
+    private final CarPartRepository carPartRepository;
     private final AttachmentRepository attachmentRepository;
 
     @SneakyThrows
     @Override
-    public HttpEntity<?> addBrand(BrandDTO brandDTO, MultipartFile photo, String prefix) {
+    public HttpEntity<?> addCarPart(CartPartDTO cartPartDTO, MultipartFile photo, String prefix) {
         Attachment attachment = null;
         if (photo != null && !photo.isEmpty()) {
             UUID id = UUID.randomUUID();
@@ -45,34 +45,33 @@ public class BrandServiceImpl implements BrandService {
             attachment = new Attachment(id, prefix, fileName);
             attachmentRepository.save(attachment);
         }
-        Brand brand = Brand.builder()
-                .name(brandDTO.getName())
+        CarPart carPart = CarPart.builder()
+                .name(cartPartDTO.getName())
                 .photo(attachment)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(null)
                 .build();
-        brandRepository.save(brand);
-        return ResponseEntity.ok("Brand saved successfully");
+        carPartRepository.save(carPart);
+        return ResponseEntity.ok("CarPart saved successfully");
     }
 
     @SneakyThrows
     @Override
-    public HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix) {
+    public HttpEntity<?> editCarPart(CartPartDTO cartPartDTO, MultipartFile photo, String prefix) {
 
-        Brand existingBrand = brandRepository.findById(brandDTO.getId())
+        CarPart existingCarPart = carPartRepository.findById(cartPartDTO.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer category not found"));
-        existingBrand.setName(brandDTO.getName());
+        existingCarPart.setName(cartPartDTO.getName());
         if (photo != null && !photo.isEmpty()) {
-            System.out.println(photo);
-            createFile(photo, existingBrand);
+            createFile(photo, existingCarPart);
         }
-        existingBrand.setUpdatedAt(LocalDateTime.now());
-        brandRepository.save(existingBrand);
-        return ResponseEntity.ok("Brand is edited successfuly");
+        existingCarPart.setUpdatedAt(LocalDateTime.now());
+        carPartRepository.save(existingCarPart);
+        return ResponseEntity.ok("CarPart is edited successfully");
     }
 
     @Override
-    public HttpEntity<?> getBrands(String name, Integer page, Integer size) {
+    public HttpEntity<?> getCarParts(String name, Integer page, Integer size) {
         Pageable pageable;
         if (page != null && size == -1) {
             pageable = Pageable.unpaged();
@@ -80,19 +79,19 @@ public class BrandServiceImpl implements BrandService {
             size = (size != null && size > 0) ? size : 10;
             pageable = PageRequest.of(page - 1, size);
         }
-        return ResponseEntity.ok(brandRepository.findByNameContainingIgnoreCase(name, pageable));
+        return ResponseEntity.ok(carPartRepository.findByNameContainingIgnoreCase(name, pageable));
 
     }
 
-    private void createFile(MultipartFile photo, Brand existingBrand) throws IOException {
+    private void createFile(MultipartFile photo, CarPart existingCarPart) throws IOException {
         UUID attaUuid = UUID.randomUUID();
         String fileName = attaUuid + "_" + photo.getOriginalFilename();
-        String filePath = "backend/files/brandPhotos/" + fileName;
+        String filePath = "backend/files/carPartPhotos/" + fileName;
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         try (OutputStream outputStream = new FileOutputStream(file)) {
             FileCopyUtils.copy(photo.getInputStream(), outputStream);
         }
-        existingBrand.setPhoto(attachmentRepository.save(new Attachment(attaUuid, "/brandPhotos", fileName)));
+        existingCarPart.setPhoto(attachmentRepository.save(new Attachment(attaUuid, "/carPartPhotos", fileName)));
     }
 }

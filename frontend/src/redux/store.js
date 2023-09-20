@@ -5,13 +5,15 @@ import login from "./reducers/LoginSlice"
 import adminAdmins from "../redux/reducers/AdminAdminSlice";
 import adminOperators from "../redux/reducers/AdminOperatorSlice";
 import adminBrand from "../redux/reducers/AdminBrandSlice"
+import adminCarPart from "../redux/reducers/AdminCartPartSlice"
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
     login,
     adminAdmins,
     adminOperators,
-    adminBrand
+    adminBrand,
+    adminCarPart
 
 });
 
