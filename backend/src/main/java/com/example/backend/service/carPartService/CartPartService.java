@@ -15,4 +15,6 @@ public interface CartPartService {
     HttpEntity<?> getCarParts(String name, Integer page, Integer size);
 
     HttpEntity<?> changeActive(UUID id);
+
+    HttpEntity<?> deleteCarPart(UUID id);
 }

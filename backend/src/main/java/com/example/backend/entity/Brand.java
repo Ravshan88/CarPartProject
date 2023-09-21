@@ -19,6 +19,7 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(unique = true)
     private String name;
     @OneToOne
     private Attachment photo;

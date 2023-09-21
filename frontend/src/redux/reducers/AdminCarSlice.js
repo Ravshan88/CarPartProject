@@ -30,7 +30,7 @@ const adminCarSlice = createSlice({
             state.error = null
         },
         getCarPartsSuccess(state, action) {
-            state.cars = action.payload
+             state.cars = action.payload
             state.isLoading = false;
             state.error = null
         },
@@ -44,6 +44,9 @@ const adminCarSlice = createSlice({
             state.imgFileForBackend = action.payload
         },
         setObjForBrand(state, action) {
+        },
+        deleteCar(stata, action){
+
         }
     },
 });
@@ -57,7 +60,8 @@ export const {
     getCarPart,
     getCarPartsSuccess,
     getCarPartsFailure,
-    setBase64
+    setBase64,
+    deleteCar
 } = adminCarSlice.actions;
 
 export default adminCarSlice.reducer;

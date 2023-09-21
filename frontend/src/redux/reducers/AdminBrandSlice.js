@@ -44,6 +44,9 @@ const adminBrandSlice = createSlice({
             state.imgFileForBackend = action.payload
         },
         setObjForBrand(state, action) {
+        },
+        deleteCarBrand(state, action){
+
         }
     },
 });
@@ -57,7 +60,8 @@ export const {
     getBrands,
     getBrandsSuccess,
     getBrandsFailure,
-    setBase64
+    setBase64,
+    deleteCarBrand
 } = adminBrandSlice.actions;
 
 export default adminBrandSlice.reducer;

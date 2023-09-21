@@ -14,10 +14,14 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "brand_id"})
+})
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     private String name;
     @ManyToOne
     private Brand brand;

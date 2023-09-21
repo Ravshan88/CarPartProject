@@ -156,11 +156,11 @@ function AdminAdmins() {
                                                             aria-label="Edit">
                                                         <EditIcon className="w-5 h-5" aria-hidden="true"/>
                                                     </Button>
-                                                    <Button onClick={() => handleDeleteAdmin(admin.id)} layout="link"
-                                                            size="icon" aria-label="Delete">
+                                                    <Button onClick={() => handleDeleteAdmin(admin.id)} layout="link" size="icon" aria-label="Delete">
                                                         <TrashIcon className="w-5 h-5" aria-hidden="true"/>
                                                     </Button>
                                                 </div>
+
                                             </TableCell>
                                         </TableRow>
                                     ))}

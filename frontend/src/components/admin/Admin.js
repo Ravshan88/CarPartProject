@@ -4,6 +4,7 @@ import Header from "../admin/Header";
 import {Outlet, useLocation} from "react-router-dom";
 import {SidebarContext} from "../admin/Sidebar/SidebarContext";
 import Sidebar from "../admin/Sidebar/Sidebar";
+import PageTitle from "./PageTitle";
 function Admin(props) {
     const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
     let location = useLocation()
@@ -24,6 +25,7 @@ function Admin(props) {
                     <div className="container grid px-6 mx-auto">
                         <Outlet />
                     </div>
+
                 </main>
             </div>
         </div>

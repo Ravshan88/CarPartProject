@@ -23,7 +23,8 @@ import {
     getBrands,
     setBase64, setEditingId,
     setImageFileForBackend,
-    setObjForBrand, setPhotoIdForEdit
+    setObjForBrand, setPhotoIdForEdit,
+    deleteCarBrand
 } from "../../../redux/reducers/AdminBrandSlice";
 import uploadImg from "../../images/upload.png"
 import {Delete} from "@mui/icons-material";
@@ -31,6 +32,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import {Button} from "antd";
 import {toast, ToastContainer} from "react-toastify";
 import ImgModal from "../ImgModal";
+import {deleteCarPart} from "../../../redux/reducers/AdminCartPartSlice";
 
 
 function AdminBrand(props) {
@@ -124,6 +126,20 @@ function AdminBrand(props) {
     function getImg(id) {
 
     }
+    const [askDelete, setAskDelete]=useState(false)
+    const [deletedItem, setDeletedItem]=useState('')
+    function deletedCarBrand(item) {
+        setAskDelete(true)
+        setDeletedItem(item)
+    }
+    function reallyDelete(){
+        dispatch(deleteCarBrand(deletedItem.id))
+        closeAskModal()
+    }
+    function closeAskModal(){
+        setAskDelete(false)
+        setDeletedItem('')
+    }
 
     return (
         <div className={` h-screen  bg-gray-900 `}>
@@ -150,9 +166,9 @@ function AdminBrand(props) {
                                 <tr>
                                     <TableCell>Photo</TableCell>
                                     <TableCell>Name</TableCell>
-                                    <TableCell>Yaratilgan sana</TableCell>
-                                    <TableCell>Tahrirlangan sana</TableCell>
                                     <TableCell></TableCell>
+
+                                    <TableCell>Action</TableCell>
                                 </tr>
                             </TableHeader>
                             <TableBody>
@@ -171,20 +187,15 @@ function AdminBrand(props) {
                                                                alt="User avatar"/>
                                             </div>
                                         </TableCell>
+
                                         <TableCell>
                                             <div>
                                                 <p className="font-semibold">{brand.name}</p>
                                             </div>
-                                        </TableCell><TableCell>
-                                        <div>
-                                            <p className="font-semibold">{new Date(brand.createdAt).getDate() + "." + (new Date(brand.createdAt).getMonth() + 1) + "." + new Date(brand.createdAt).getFullYear()}</p>
-                                        </div>
-                                    </TableCell><TableCell>
-                                        <div>
-                                            <p className="font-semibold">{new Date(brand.updatedAt).getDate() + "." + (new Date(brand.updatedAt).getMonth() + 1) + "." + new Date(brand.updatedAt).getFullYear()}</p>
+                                        </TableCell>
+                                        <TableCell>
 
-                                        </div>
-                                    </TableCell>
+                                        </TableCell>
 
                                         <TableCell>
                                             <div className="flex items-center space-x-4">
@@ -192,7 +203,7 @@ function AdminBrand(props) {
                                                         aria-label="Edit">
                                                     <EditIcon className="w-5 h-5" aria-hidden="true"/>
                                                 </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
+                                                <Button onClick={()=>deletedCarBrand(brand)} layout="link" size="icon" aria-label="Delete">
                                                     <TrashIcon className="w-5 h-5" aria-hidden="true"/>
                                                 </Button>
                                             </div>
@@ -204,6 +215,40 @@ function AdminBrand(props) {
 
                     </TableContainer>
                 </div>
+            </div>
+
+
+            <div className={'umodal'}>
+                <Modal show={askDelete} onHide={closeAskModal}>
+                    <Modal.Header closeButton>
+                        <div className={'d-flex justify-content-around '}>
+                            <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
+                                           width={50} height={50}
+                                           src={`http://localhost:8080/api/v1/file/getFile/${deletedItem?.photo?.id}`}
+                                           alt="User avatar"/>
+                            <Modal.Title className={'mx-2'}>{deletedItem.name } </Modal.Title>
+                            <p className={'my-2'}>
+                               Brand rostdan ham o'chirilsinmi?
+                            </p>
+                        </div>
+
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <div className={'d-flex'}>
+                            <button
+                                onClick={reallyDelete}
+                                className="p-1 rounded my-2 w-full text-white text-center bg-blue-400">
+                                Ha
+                            </button>
+                            <button
+                                onClick={closeAskModal}
+                                className="p-1 rounded my-2 mx-2 w-full text-white text-center bg-red-400">
+                                Yo'q
+                            </button>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
 
 

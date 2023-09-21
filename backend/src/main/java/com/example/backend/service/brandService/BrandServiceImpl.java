@@ -51,8 +51,17 @@ public class BrandServiceImpl implements BrandService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(null)
                 .build();
-        brandRepository.save(brand);
+
+
+        try {
+            brandRepository.save(brand);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Bunday Brand mavjud!");
+        }
+
         return ResponseEntity.ok("Brand saved successfully");
+
     }
 
     @SneakyThrows
@@ -67,7 +76,16 @@ public class BrandServiceImpl implements BrandService {
             createFile(photo, existingBrand);
         }
         existingBrand.setUpdatedAt(LocalDateTime.now());
-        brandRepository.save(existingBrand);
+
+
+
+        try {
+            brandRepository.save(existingBrand);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Bunday Brand mavjud!");
+        }
+
         return ResponseEntity.ok("Brand is edited successfuly");
     }
 
@@ -82,6 +100,13 @@ public class BrandServiceImpl implements BrandService {
         }
         return ResponseEntity.ok(brandRepository.findByNameContainingIgnoreCase(name, pageable));
 
+    }
+
+    @Override
+    public HttpEntity<?> deleteCarBrand(UUID id) {
+        System.out.println(id);
+        brandRepository.deleteById(id);
+        return ResponseEntity.ok("Brand Muvaffaqiyatli o'chirildi!");
     }
 
     private void createFile(MultipartFile photo, Brand existingBrand) throws IOException {

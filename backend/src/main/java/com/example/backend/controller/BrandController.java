@@ -44,4 +44,10 @@ public class BrandController {
                                    @RequestParam(defaultValue = "5") Integer size) {
         return brandService.getBrands(name, page, size);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteCarBrand(@PathVariable UUID id){
+        return brandService.deleteCarBrand(id);
+    }
+
 }

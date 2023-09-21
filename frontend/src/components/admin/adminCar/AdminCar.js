@@ -6,7 +6,8 @@ import {
     getCarPart,
     setBase64, setEditingId,
     setImageFileForBackend, setObjForBrand,
-    setPhotoIdForEdit
+    setPhotoIdForEdit,
+    deleteCar
 } from "../../../redux/reducers/AdminCarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
@@ -19,6 +20,7 @@ import {Delete} from "@mui/icons-material";
 import ImgModal from "../ImgModal";
 
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
+import {deleteCarPart} from "../../../redux/reducers/AdminCartPartSlice";
 function AdminCar(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
@@ -118,6 +120,22 @@ function AdminCar(props) {
         dispatch(setPhotoIdForEdit(item.photo.id))
     }
 
+
+    const [askDelete, setAskDelete]=useState(false)
+    const [deletedItem, setDeletedItem]=useState('')
+    function deletedCar(item) {
+        setAskDelete(true)
+        setDeletedItem(item)
+    }
+    function reallyDelete(){
+
+        dispatch(deleteCar(deletedItem.id))
+        closeAskModal()
+    }
+    function closeAskModal(){
+        setAskDelete(false)
+        setDeletedItem('')
+    }
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <ToastContainer/>
@@ -145,9 +163,9 @@ function AdminCar(props) {
                                     <TableCell>Photo</TableCell>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Brend</TableCell>
-                                    <TableCell>Yaratilgan sana</TableCell>
-                                    <TableCell>Tahrirlangan sana</TableCell>
                                     <TableCell></TableCell>
+
+                                    <TableCell>Action</TableCell>
                                 </tr>
                             </TableHeader>
                             <TableBody>
@@ -176,13 +194,7 @@ function AdminCar(props) {
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                        <div>
-                                            <p className="font-semibold">{new Date(item.createdAt).getDate() + "." + (new Date(item.createdAt).getMonth() + 1) + "." + new Date(item.createdAt).getFullYear()}</p>
-                                        </div>
-                                    </TableCell><TableCell>
-                                        <div>
-                                            <p className="font-semibold">{item.updatedAt===null?"tahrirlanmagan":new Date(item.updatedAt).getDate() + "." + (new Date(item.updatedAt).getMonth() + 1) + "." + new Date(item.updatedAt).getFullYear()}</p>
-                                        </div>
+
                                     </TableCell>
 
                                         <TableCell>
@@ -191,7 +203,7 @@ function AdminCar(props) {
                                                         aria-label="Edit">
                                                     <EditIcon className="w-5 h-5" aria-hidden="true"/>
                                                 </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
+                                                <Button onClick={()=>deletedCar(item)} layout="link" size="icon" aria-label="Delete">
                                                     <TrashIcon className="w-5 h-5" aria-hidden="true"/>
                                                 </Button>
                                             </div>
@@ -203,6 +215,40 @@ function AdminCar(props) {
 
                     </TableContainer>
                 </div>
+            </div>
+
+
+            <div className={'umodal'}>
+                <Modal show={askDelete} onHide={closeAskModal}>
+                    <Modal.Header closeButton>
+                        <div className={'d-flex justify-content-around '}>
+                            <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
+                                           width={50} height={50}
+                                           src={`http://localhost:8080/api/v1/file/getFile/${deletedItem?.photo?.id}`}
+                                           alt="User avatar"/>
+                            <Modal.Title className={'mx-2'}>{deletedItem.name } </Modal.Title>
+                            <p className={'my-2'}>
+                                Avtomobilni rostdan ham o'chirilsinmi?
+                            </p>
+                        </div>
+
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <div className={'d-flex'}>
+                            <button
+                                onClick={reallyDelete}
+                                className="p-1 rounded my-2 w-full text-white text-center bg-blue-400">
+                                Ha
+                            </button>
+                            <button
+                                onClick={closeAskModal}
+                                className="p-1 rounded my-2 mx-2 w-full text-white text-center bg-red-400">
+                                Yo'q
+                            </button>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
 
 

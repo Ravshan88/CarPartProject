@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/car")
 @RequiredArgsConstructor
@@ -40,5 +42,10 @@ public class CarController {
     @GetMapping
     public HttpEntity<?> getCar() {
         return carService.getCar();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteCar(@PathVariable UUID id){
+        return carService.deleteCar(id);
     }
 }

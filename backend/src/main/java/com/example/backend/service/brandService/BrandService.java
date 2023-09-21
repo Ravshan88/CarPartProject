@@ -13,4 +13,6 @@ public interface BrandService {
     HttpEntity<?> editBrand(BrandDTO brandDTO, MultipartFile photo, String prefix);
 
     HttpEntity<?> getBrands(String name, Integer page, Integer size);
+
+    HttpEntity<?> deleteCarBrand(UUID id);
 }

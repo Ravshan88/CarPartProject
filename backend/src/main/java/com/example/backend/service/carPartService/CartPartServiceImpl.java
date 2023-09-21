@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,7 +53,11 @@ public class CartPartServiceImpl implements CartPartService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(null)
                 .build();
-        carPartRepository.save(carPart);
+        try {
+            carPartRepository.save(carPart);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Bunday detal mavjud!");
+        }
         return ResponseEntity.ok("CarPart saved successfully");
     }
 
@@ -67,7 +72,13 @@ public class CartPartServiceImpl implements CartPartService {
             createFile(photo, existingCarPart);
         }
         existingCarPart.setUpdatedAt(LocalDateTime.now());
-        carPartRepository.save(existingCarPart);
+
+        try {
+            carPartRepository.save(existingCarPart);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Bunday detal mavjud!");
+        }
+
         return ResponseEntity.ok("CarPart is edited successfully");
     }
 
@@ -95,6 +106,12 @@ public class CartPartServiceImpl implements CartPartService {
         } else {
             return ResponseEntity.status(403).body("CarPart is not found");
         }
+    }
+
+    @Override
+    public HttpEntity<?> deleteCarPart(UUID id) {
+        carPartRepository.deleteById(id);
+        return ResponseEntity.ok("Muvaffaqiyatli o'chirildi");
     }
 
     private void createFile(MultipartFile photo, CarPart existingCarPart) throws IOException {

@@ -48,4 +48,10 @@ public class CarPartController {
                                     @RequestParam(defaultValue = "5") Integer size) {
         return cartPartService.getCarParts(name, page, size);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteCarPart(@PathVariable UUID id){
+        System.out.println(id);
+       return cartPartService.deleteCarPart(id);
+    }
 }

@@ -60,8 +60,17 @@ public class CarServiceImpl implements CarService {
                     .updatedAt(null)
                     .active(false)
                     .build();
-            carRepository.save(car);
+
+
+
+            try {
+                carRepository.save(car);
+            } catch (Exception e) {
+                return ResponseEntity.status(500).body("Bunday Avtomobil mavjud!");
+            }
+
             return ResponseEntity.ok("Car saved successfully");
+
         } else {
             return ResponseEntity.status(403).body("Brand not found");
         }
@@ -77,8 +86,22 @@ public class CarServiceImpl implements CarService {
             createFile(photo, existingCar);
         }
         existingCar.setUpdatedAt(LocalDateTime.now());
-        carRepository.save(existingCar);
+
+
+        try {
+            carRepository.save(existingCar);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Bunday Avtomobil mavjud!");
+        }
+
         return ResponseEntity.ok("CarPart is edited successfully");
+
+    }
+
+    @Override
+    public HttpEntity<?> deleteCar(UUID id) {
+        carRepository.deleteById(id);
+        return ResponseEntity.ok("Muvaffaqiyatli o'chirildi!");
     }
 
     private void createFile(MultipartFile photo, Car existingCar) throws IOException {
