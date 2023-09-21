@@ -50,6 +50,9 @@ function AdminBrand(props) {
     useEffect(() => {
         dispatch(getBrands())
     }, [])
+    useEffect(() => {
+        dispatch(getBrands())
+    }, [dispatch])
 
     function handleOpenModal() {
         setIsModalOpen(true)

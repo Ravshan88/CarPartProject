@@ -4,6 +4,7 @@ import {adminAdminSaga} from "./AdminAdminSaga";
 import {adminBrandSaga} from "./AdminBrandSaga";
 import {adminOperatorSaga} from "./AdminOperatorSaga";
 import {adminCarPartSaga} from "./AdminCarPartSaga";
+import {adminCarSaga} from "./AdminCarSaga";
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
         adminAdminSaga(),
         adminBrandSaga(),
         adminOperatorSaga(),
-        adminCarPartSaga()
+        adminCarPartSaga(),
+        adminCarSaga()
     ])
 }

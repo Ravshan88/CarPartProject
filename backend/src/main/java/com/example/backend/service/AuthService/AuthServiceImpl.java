@@ -151,8 +151,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public HttpEntity<?> updateUser(ReqLogin dto, UUID id) {
         User findUser = usersRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+       if(!(dto.getPassword().equals(""))){
+           findUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+       }
         findUser.setPhone(dto.getPhone());
-        findUser.setPassword(dto.getPassword());
         findUser.setName(dto.getName());
         User saved = usersRepository.save(findUser);
         return ResponseEntity.ok(saved);

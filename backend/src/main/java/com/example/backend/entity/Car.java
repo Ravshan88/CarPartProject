@@ -19,7 +19,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @OneToOne
+    @ManyToOne
     private Brand brand;
     @OneToOne
     private Attachment photo;

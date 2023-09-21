@@ -8,8 +8,8 @@ import {changeIsEdit, getBrands, getBrandsFailure, getBrandsSuccess, setObjForBr
 function* saveAdminBrandAsync(action) {
     try {
         const {name, photo, photoId, id, isEditing} = action.payload
+
         const formData = new FormData()
-        console.log(action.payload)
         formData.append("photo", photo)
         formData.append("prefix", "/brandPhotos")
         formData.append("data", JSON.stringify({name, photoId, id}))
@@ -24,6 +24,7 @@ function* saveAdminBrandAsync(action) {
 function* workGetBrands(action) {
     try {
         const response = yield call(() => instance(`/api/v1/brand`));
+        console.log(response.data)
         yield put(getBrandsSuccess(response.data))
     } catch (error) {
         yield put(getBrandsFailure(error.message));
