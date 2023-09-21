@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -81,6 +82,19 @@ public class CartPartServiceImpl implements CartPartService {
         }
         return ResponseEntity.ok(carPartRepository.findByNameContainingIgnoreCase(name, pageable));
 
+    }
+
+    @Override
+    public HttpEntity<?> changeActive(UUID id) {
+        Optional<CarPart> currentCarPart = carPartRepository.findById(id);
+        if (currentCarPart.isPresent()) {
+            CarPart carPart = currentCarPart.get();
+            carPart.setActive(!carPart.isActive());
+            carPartRepository.save(carPart);
+            return ResponseEntity.ok("CarPart edited successfully");
+        } else {
+            return ResponseEntity.status(403).body("CarPart is not found");
+        }
     }
 
     private void createFile(MultipartFile photo, CarPart existingCarPart) throws IOException {

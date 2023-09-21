@@ -144,10 +144,10 @@ function AdminCarPart(props) {
                                                 handleOpenImgModal()
                                             }}
                                                  className="flex items-center text-sm cursor-pointer">
-                                                <Avatar className={"w-[50px]"}
-                                                        width={50} height={50}
-                                                        src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
-                                                        alt="User avatar"/>
+                                                <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
+                                                               width={50} height={50}
+                                                               src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
+                                                               alt="User avatar"/>
                                             </div>
                                         </TableCell>
                                         <TableCell>

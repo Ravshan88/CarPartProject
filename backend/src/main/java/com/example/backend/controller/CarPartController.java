@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/carPart")
 @RequiredArgsConstructor
@@ -33,6 +35,11 @@ public class CarPartController {
                                      @RequestParam String prefix) {
         CartPartDTO cartPartDTO = objectMapper.readValue(data, CartPartDTO.class);
         return cartPartService.editCarPart(cartPartDTO, photo, prefix);
+    }
+
+    @PutMapping("/archive/{id}")
+    public HttpEntity<?> changeActive(@PathVariable UUID id){
+        return cartPartService.changeActive(id);
     }
 
     @GetMapping

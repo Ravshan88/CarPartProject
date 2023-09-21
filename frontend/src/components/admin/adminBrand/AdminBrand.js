@@ -118,6 +118,10 @@ function AdminBrand(props) {
         dispatch(setPhotoIdForEdit(brand.photo.id))
     }
 
+    function getImg(id) {
+
+    }
+
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <ToastContainer/>
@@ -158,10 +162,10 @@ function AdminBrand(props) {
                                                     handleOpenImgModal()
                                                 }}
                                                 className="flex items-center text-sm">
-                                                <Avatar className={"w-[50px]"}
-                                                        width={50} height={50}
-                                                        src={`http://localhost:8080/api/v1/file/getFile/${brand?.photo?.id}`}
-                                                        alt="User avatar"/>
+                                                <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
+                                                               width={50} height={50}
+                                                               src={`http://localhost:8080/api/v1/file/getFile/${brand?.photo?.id}`}
+                                                               alt="User avatar"/>
                                             </div>
                                         </TableCell>
                                         <TableCell>
@@ -203,7 +207,7 @@ function AdminBrand(props) {
             <div className={'umodal'}>
                 <Modal show={isModalOpen} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Yangi Admin qo'shish</Modal.Title>
+                        <Modal.Title>Yangi brand qo'shish</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <label>Brand nomi:</label>
