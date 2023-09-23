@@ -109,10 +109,10 @@ function SidebarContent() {
                     <>
                         <li className="relative px-6 py-3" key={"operator/home"}>
                             <NavLink
-                                to={'/admin/operator'}
+                                to={'/admin/operator/home'}
                                 className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
                             >
-                                {location.pathname === '/admin/operator' ? <span
+                                {location.pathname === '/admin/operator/home' ? <span
                                     className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                                     aria-hidden="true"
                                 ></span> : ""}

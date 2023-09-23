@@ -31,7 +31,7 @@ function* workLoginUser(action) {
         }else if (response.data.roles[0].name === "ROLE_ADMIN") {
             action.payload.navigate("/admin/product");
         }else if (response.data.roles[0].name === "ROLE_OPERATOR") {
-            action.payload.navigate("/admin/operator");
+            action.payload.navigate("/admin/operator/order");
         }
     } catch (error) {
         if (error.response.status === 401 || error.status.status === 403) {
