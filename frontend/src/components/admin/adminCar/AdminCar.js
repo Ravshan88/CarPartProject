@@ -3,7 +3,7 @@ import PageTitle from "../PageTitle";
 import {toast, ToastContainer} from "react-toastify";
 import {
     changeIsEdit,
-    getCarPart,
+    getCarStart,
     setBase64, setEditingId,
     setImageFileForBackend, setObjForBrand,
     setPhotoIdForEdit,
@@ -12,7 +12,6 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
 import {Button} from "antd";
-import {EditIcon, TrashIcon} from "../Sidebar/icons";
 import {Modal} from "react-bootstrap";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import uploadImg from "../../images/upload.png";
@@ -20,7 +19,11 @@ import {Delete} from "@mui/icons-material";
 import ImgModal from "../ImgModal";
 
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
-import {deleteCarPart} from "../../../redux/reducers/AdminCartPartSlice";
+import {Tooltip} from "@nextui-org/react";
+import {EyeIcon} from "../EyeIcon";
+import {DeleteIcon} from "../DeleteIcon";
+import {EditIcon} from "../EditIcon";
+
 function AdminCar(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
@@ -40,14 +43,15 @@ function AdminCar(props) {
     const [brandId, setBrandId] = useState('');
 
     useEffect(() => {
-        dispatch(getCarPart())
+        dispatch(getCarStart())
         dispatch(getBrands())
     }, [dispatch])
     useEffect(() => {
-        dispatch(getCarPart())
+        dispatch(getCarStart())
         dispatch(getBrands())
 
     }, [])
+
     function handleOpenModal() {
         setIsModalOpen(true)
         dispatch(changeIsEdit(false))
@@ -91,9 +95,9 @@ function AdminCar(props) {
     }
 
     function handleAddCarPart() {
-        if(brandId===''){
+        if (brandId === '') {
             toast.error("Iltimos Brendni tanlang!");
-        }else if (name === "") {
+        } else if (name === "") {
             toast.error("Iltimos Avtomobil nomini kiriting");
         } else if ((imgFileForBackend === null || imgFileForBackend === "") && !photoIdForEdit) {
             toast.error("Iltimos Avtomobil rasmini yuklang");
@@ -101,7 +105,7 @@ function AdminCar(props) {
             dispatch(setObjForBrand({
                 name,
                 photo: imgFileForBackend,
-                brandId:brandId,
+                brandId: brandId,
                 photoId: photoIdForEdit,
                 id: editingId,
                 isEditing
@@ -121,21 +125,25 @@ function AdminCar(props) {
     }
 
 
-    const [askDelete, setAskDelete]=useState(false)
-    const [deletedItem, setDeletedItem]=useState('')
+    const [askDelete, setAskDelete] = useState(false)
+    const [deletedItem, setDeletedItem] = useState('')
+
     function deletedCar(item) {
         setAskDelete(true)
         setDeletedItem(item)
     }
-    function reallyDelete(){
+
+    function reallyDelete() {
 
         dispatch(deleteCar(deletedItem.id))
         closeAskModal()
     }
-    function closeAskModal(){
+
+    function closeAskModal() {
         setAskDelete(false)
         setDeletedItem('')
     }
+
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <ToastContainer/>
@@ -163,8 +171,6 @@ function AdminCar(props) {
                                     <TableCell>Photo</TableCell>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Brend</TableCell>
-                                    <TableCell></TableCell>
-
                                     <TableCell>Action</TableCell>
                                 </tr>
                             </TableHeader>
@@ -172,11 +178,8 @@ function AdminCar(props) {
                                 {cars?.map((item, i) => (
                                     <TableRow key={i}>
                                         <TableCell>
-                                            <div onClick={() => {
-                                                setCarPartInfo(item)
-                                                handleOpenImgModal()
-                                            }}
-                                                 className="flex items-center text-sm cursor-pointer">
+                                            <div
+                                                className="flex items-center text-sm cursor-pointer">
                                                 <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
                                                                width={50} height={50}
                                                                src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
@@ -194,18 +197,28 @@ function AdminCar(props) {
                                             </div>
                                         </TableCell>
                                         <TableCell>
-
-                                    </TableCell>
-
-                                        <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button onClick={() => editCarPart(item)} layout="link" size="icon"
-                                                        aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true"/>
-                                                </Button>
-                                                <Button onClick={()=>deletedCar(item)} layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true"/>
-                                                </Button>
+                                            <div className="relative flex items-center gap-2">
+                                                <Tooltip content="Details">
+                                                  <span onClick={() => {
+                                                      setCarPartInfo(item)
+                                                      handleOpenImgModal()
+                                                  }}
+                                                        className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EyeIcon/>
+                                                  </span>
+                                                </Tooltip>
+                                                <Tooltip content="Edit user">
+                                                  <span onClick={() => editCarPart(item)}
+                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EditIcon/>
+                                                  </span>
+                                                </Tooltip>
+                                                <Tooltip color="danger" content="Delete user">
+                                                  <span onClick={() => deletedCar(item)}
+                                                        className="text-lg text-danger cursor-pointer active:opacity-50">
+                                                    <DeleteIcon/>
+                                                  </span>
+                                                </Tooltip>
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -226,7 +239,7 @@ function AdminCar(props) {
                                            width={50} height={50}
                                            src={`http://localhost:8080/api/v1/file/getFile/${deletedItem?.photo?.id}`}
                                            alt="User avatar"/>
-                            <Modal.Title className={'mx-2'}>{deletedItem.name } </Modal.Title>
+                            <Modal.Title className={'mx-2'}>{deletedItem.name} </Modal.Title>
                             <p className={'my-2'}>
                                 Avtomobilni rostdan ham o'chirilsinmi?
                             </p>
@@ -270,7 +283,7 @@ function AdminCar(props) {
                         />
 
                         <label className={'my-3'}>Brend:</label>
-                        {brands.content===[]?<h3>Iltimos oldin Brend qo'shing</h3>:
+                        {brands.content === [] ? <h3>Iltimos oldin Brend qo'shing</h3> :
                             <select
                                 className={'form-select'}
                                 value={brandId}
@@ -285,7 +298,7 @@ function AdminCar(props) {
                                 ))}
                             </select>
                         }
-                            <div className={"my-3 flex justify-center position-relative"}>
+                        <div className={"my-3 flex justify-center position-relative"}>
                             <label>
                                 <input
                                     className={"form-control "}

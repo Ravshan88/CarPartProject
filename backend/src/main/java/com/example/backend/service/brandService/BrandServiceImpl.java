@@ -51,15 +51,11 @@ public class BrandServiceImpl implements BrandService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(null)
                 .build();
-
-
         try {
             brandRepository.save(brand);
-
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Bunday Brand mavjud!");
         }
-
         return ResponseEntity.ok("Brand saved successfully");
 
     }
@@ -76,7 +72,6 @@ public class BrandServiceImpl implements BrandService {
             createFile(photo, existingBrand);
         }
         existingBrand.setUpdatedAt(LocalDateTime.now());
-
 
 
         try {

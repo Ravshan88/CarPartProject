@@ -14,16 +14,18 @@ import {
     Pagination,
 } from "@windmill/react-ui";
 import {
-
     editOperator,
-    addOperator,getOperatorData
+    addOperator, getOperatorData
 
 } from "../../../redux/reducers/AdminOperatorSlice";
 import {ToastContainer, toast} from "react-toastify";
-import {EditIcon, TrashIcon} from '../Sidebar/icons'
 import PageTitle from "../PageTitle";
 import {Modal} from 'react-bootstrap';
 import {UserLogIn} from "../../../redux/reducers/LoginSlice";
+import {Tooltip} from "@nextui-org/react";
+import {EyeIcon} from "../EyeIcon";
+import {DeleteIcon} from "../DeleteIcon";
+import {EditIcon} from "../EditIcon";
 
 function AdminOperators() {
     const dispatch = useDispatch();
@@ -51,7 +53,7 @@ function AdminOperators() {
             password: form.password
         };
         if (edit === '') {
-            if (form.password === '' || form.password.length<8) {
+            if (form.password === '' || form.password.length < 8) {
                 toast.error("Password 8 ta belgidan kam bo'lmasligi kerek !")
                 return;
             }
@@ -134,8 +136,7 @@ function AdminOperators() {
                                     <tr>
                                         <TableCell>FIO</TableCell>
                                         <TableCell>phone</TableCell>
-
-                                        <TableCell></TableCell>
+                                        <TableCell>Actions</TableCell>
                                     </tr>
                                 </TableHeader>
                                 <TableBody>
@@ -150,17 +151,39 @@ function AdminOperators() {
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="flex items-center space-x-4">
-                                                    <Button onClick={() => editData(admin)} layout="link" size="icon"
-                                                            aria-label="Edit">
-                                                        <EditIcon className="w-5 h-5" aria-hidden="true"/>
-                                                    </Button>
-                                                    <Button onClick={() => handleDeleteAdmin(admin.id)} layout="link"
-                                                            size="icon" aria-label="Delete">
-                                                        <TrashIcon className="w-5 h-5" aria-hidden="true"/>
-                                                    </Button>
+                                                <div className="relative flex items-center gap-2">
+                                                    <Tooltip content="Details">
+                                                  <span
+                                                      className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EyeIcon/>
+                                                  </span>
+                                                    </Tooltip>
+                                                    <Tooltip content="Edit user">
+                                                  <span onClick={() => editData(admin)}
+                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EditIcon/>
+                                                  </span>
+                                                    </Tooltip>
+                                                    <Tooltip color="danger" content="Delete user">
+                                                  <span onClick={() => handleDeleteAdmin(admin.id)}
+                                                        className="text-lg text-danger cursor-pointer active:opacity-50">
+                                                    <DeleteIcon/>
+                                                  </span>
+                                                    </Tooltip>
                                                 </div>
                                             </TableCell>
+                                            {/*<TableCell>*/}
+                                            {/*    <div className="flex items-center space-x-4">*/}
+                                            {/*        <Button onClick={() => editData(admin)} layout="link" size="icon"*/}
+                                            {/*                aria-label="Edit">*/}
+                                            {/*            <EditIcon className="w-5 h-5" aria-hidden="true"/>*/}
+                                            {/*        </Button>*/}
+                                            {/*        <Button onClick={() => handleDeleteAdmin(admin.id)} layout="link"*/}
+                                            {/*                size="icon" aria-label="Delete">*/}
+                                            {/*            <TrashIcon className="w-5 h-5" aria-hidden="true"/>*/}
+                                            {/*        </Button>*/}
+                                            {/*    </div>*/}
+                                            {/*</TableCell>*/}
                                         </TableRow>
                                     ))}
                                 </TableBody>

@@ -19,12 +19,12 @@ import {
     getAdminData,
 } from "../../../redux/reducers/AdminAdminSlice";
 import {ToastContainer, toast} from "react-toastify";
-import {EditIcon, TrashIcon} from '../Sidebar/icons'
 import PageTitle from "../PageTitle";
 import {Modal} from 'react-bootstrap';
-import {UserLogIn} from "../../../redux/reducers/LoginSlice";
-import {Controller} from "react-hook-form";
-import PhoneInput from "react-phone-number-input";
+import {Tooltip} from "@nextui-org/react";
+import {EyeIcon} from "../EyeIcon";
+import {EditIcon} from "../EditIcon";
+import {DeleteIcon} from "../DeleteIcon";
 
 function AdminAdmins() {
     const dispatch = useDispatch();
@@ -52,12 +52,12 @@ function AdminAdmins() {
             password: form.password
         };
         if (edit === '') {
-            if (form.password === '' || form.password.length<8) {
+            if (form.password === '' || form.password.length < 8) {
                 toast.error("Password 8 ta belgidan kam bo'lmasligi kerek !")
                 return;
             }
             if (newAdminData.phone.startsWith("+998") && newAdminData.phone.length === 13) {
-                    dispatch(addAdmin(newAdminData));
+                dispatch(addAdmin(newAdminData));
 
             } else {
                 toast.error("Telefon raqam xato kiritildi!");
@@ -68,8 +68,8 @@ function AdminAdmins() {
             if (form.name !== '' && form.phone !== '') {
                 if (newAdminData.phone.startsWith("+998") && newAdminData.phone.length === 13) {
 
-                        dispatch(editAdmin({data: newAdminData, id: edit.id}));
-                        setEdit('')
+                    dispatch(editAdmin({data: newAdminData, id: edit.id}));
+                    setEdit('')
 
                 } else {
                     toast.error("Telefon raqam xato kiritildi!");
@@ -131,7 +131,7 @@ function AdminAdmins() {
                     {
                         isLoading ? "loading" : (
                             <Table>
-                                <TableHeader >
+                                <TableHeader>
                                     <tr>
                                         <TableCell>FIO</TableCell>
                                         <TableCell>phone</TableCell>
@@ -151,16 +151,26 @@ function AdminAdmins() {
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="flex items-center space-x-4">
-                                                    <Button onClick={() => editData(admin)} layout="link" size="icon"
-                                                            aria-label="Edit">
-                                                        <EditIcon className="w-5 h-5" aria-hidden="true"/>
-                                                    </Button>
-                                                    <Button onClick={() => handleDeleteAdmin(admin.id)} layout="link" size="icon" aria-label="Delete">
-                                                        <TrashIcon className="w-5 h-5" aria-hidden="true"/>
-                                                    </Button>
+                                                <div className="relative flex items-center gap-2">
+                                                    <Tooltip content="Details">
+                                                  <span
+                                                      className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EyeIcon/>
+                                                  </span>
+                                                    </Tooltip>
+                                                    <Tooltip content="Edit user">
+                                                  <span onClick={() => editData(admin)}
+                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EditIcon/>
+                                                  </span>
+                                                    </Tooltip>
+                                                    <Tooltip color="danger" content="Delete user">
+                                                  <span onClick={() => handleDeleteAdmin(admin.id)}
+                                                        className="text-lg text-danger cursor-pointer active:opacity-50">
+                                                    <DeleteIcon/>
+                                                  </span>
+                                                    </Tooltip>
                                                 </div>
-
                                             </TableCell>
                                         </TableRow>
                                     ))}

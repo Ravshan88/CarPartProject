@@ -18,6 +18,7 @@ import AdminOperators from "./components/admin/adminOperators/AdminOperators";
 import AdminCar from "./components/admin/adminCar/AdminCar";
 import AdminCarPart from "./components/admin/adminCarPart/AdminCarPart";
 import AdminProduct from "./components/admin/adminProduct/AdminProduct";
+import NextTable from "./components/admin/nextTable";
 
 function App() {
 

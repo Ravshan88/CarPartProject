@@ -51,7 +51,6 @@ public class CarPartController {
 
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteCarPart(@PathVariable UUID id){
-        System.out.println(id);
        return cartPartService.deleteCarPart(id);
     }
 }

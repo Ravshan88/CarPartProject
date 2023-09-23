@@ -44,8 +44,6 @@ public class AutoRun implements CommandLineRunner {
                     .roles(List.of(roleRepository.findByName(UserRoles.ROLE_SUPER_ADMIN)))
                     .build();
             userRepository.save(user);
-
-
         }
     }
 

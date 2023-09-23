@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    cars: [],
+    products: [],
     isLoading: false,
     error: null,
     base64: "",
@@ -10,10 +10,10 @@ const initialState = {
     isEditing: false,
     photoIdForEdit: "",
     editingId: ""
-};
+}
 
-const adminCarSlice = createSlice({
-    name: "car",
+const adminProductSlice = createSlice({
+    name: "products",
     initialState,
     reducers: {
         setEditingId(state, action) {
@@ -25,16 +25,16 @@ const adminCarSlice = createSlice({
         changeIsEdit(state, action) {
             state.isEditing = action.payload
         },
-        getCarStart(state) {
+        getProducts(state) {
             state.isLoading = true
             state.error = null
         },
-        getCarSuccess(state, action) {
-            state.cars = action.payload
+        getProductsSuccess(state, action) {
+            state.products = action.payload
             state.isLoading = false;
             state.error = null
         },
-        getCarFailure(state, action) {
+        getProductsFailure(state, action) {
             state.error = action.payload
         },
         setBase64(state, action) {
@@ -45,11 +45,11 @@ const adminCarSlice = createSlice({
         },
         setObjForBrand(state, action) {
         },
-        deleteCar(stata, action) {
-
+        deleteProduct(state, action) {
         }
-    },
-});
+    }
+})
+
 
 export const {
     setEditingId,
@@ -57,11 +57,10 @@ export const {
     changeIsEdit,
     setObjForBrand,
     setImageFileForBackend,
-    getCarStart,
-    getCarSuccess,
-    getCarFailure,
+    getProducts,
+    getProductsSuccess,
+    getProductsFailure,
     setBase64,
-    deleteCar
-} = adminCarSlice.actions;
-
-export default adminCarSlice.reducer;
+    deleteProduct
+} = adminProductSlice.actions
+export default adminProductSlice.reducer

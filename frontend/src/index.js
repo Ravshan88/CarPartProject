@@ -11,16 +11,19 @@ import {SidebarProvider} from "./components/admin/Sidebar/SidebarContext";
 import {Provider} from "react-redux";
 import {store} from "./redux/store"
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import {NextUIProvider} from "@nextui-org/react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <SidebarProvider>
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </BrowserRouter>
-    </SidebarProvider>
+    <NextUIProvider>
+        <SidebarProvider>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
+            </BrowserRouter>
+        </SidebarProvider>
+    </NextUIProvider>
 );
 

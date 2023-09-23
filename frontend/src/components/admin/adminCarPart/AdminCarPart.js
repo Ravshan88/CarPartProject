@@ -12,12 +12,15 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
 import {Button} from "antd";
-import {EditIcon, TrashIcon} from "../Sidebar/icons";
 import {Modal} from "react-bootstrap";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import uploadImg from "../../images/upload.png";
 import {Delete} from "@mui/icons-material";
 import ImgModal from "../ImgModal";
+import {Tooltip} from "@nextui-org/react";
+import {EyeIcon} from "../EyeIcon";
+import {DeleteIcon} from "../DeleteIcon";
+import {EditIcon} from "../EditIcon";
 
 
 function AdminCarPart(props) {
@@ -105,18 +108,21 @@ function AdminCarPart(props) {
         dispatch(setPhotoIdForEdit(item.photo.id))
     }
 
-    const [askDelete, setAskDelete]=useState(false)
-    const [deletedItem, setDeletedItem]=useState('')
+    const [askDelete, setAskDelete] = useState(false)
+    const [deletedItem, setDeletedItem] = useState('')
+
     function deletedCarPart(item) {
         setAskDelete(true)
         setDeletedItem(item)
     }
-    function reallyDelete(){
+
+    function reallyDelete() {
         console.log(deletedItem)
         dispatch(deleteCarPart(deletedItem.id))
         closeAskModal()
     }
-    function closeAskModal(){
+
+    function closeAskModal() {
         setAskDelete(false)
         setDeletedItem('')
     }
@@ -177,14 +183,28 @@ function AdminCarPart(props) {
                                         </TableCell>
 
                                         <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button onClick={() => editCarPart(item)} layout="link" size="icon"
-                                                        aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true"/>
-                                                </Button>
-                                                <Button onClick={() => deletedCarPart(item)} layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true"/>
-                                                </Button>
+                                            <div className="relative flex items-center gap-2">
+                                                <Tooltip content="Details">
+                                                  <span onClick={() => {
+                                                      setCarPartInfo(item)
+                                                      handleOpenImgModal()
+                                                  }}
+                                                        className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EyeIcon/>
+                                                  </span>
+                                                </Tooltip>
+                                                <Tooltip content="Edit user">
+                                                  <span onClick={() => editCarPart(item)}
+                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <EditIcon/>
+                                                  </span>
+                                                </Tooltip>
+                                                <Tooltip color="danger" content="Delete user">
+                                                  <span onClick={() => deletedCarPart(item)}
+                                                        className="text-lg text-danger cursor-pointer active:opacity-50">
+                                                    <DeleteIcon/>
+                                                  </span>
+                                                </Tooltip>
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -205,7 +225,7 @@ function AdminCarPart(props) {
                                            width={50} height={50}
                                            src={`http://localhost:8080/api/v1/file/getFile/${deletedItem?.photo?.id}`}
                                            alt="User avatar"/>
-                            <Modal.Title className={'mx-2'}>{deletedItem.name } </Modal.Title>
+                            <Modal.Title className={'mx-2'}>{deletedItem.name} </Modal.Title>
                             <p className={'my-2'}>
                                 ehtiyot qisimni rostdan ham o'chirilsinmi?
                             </p>
@@ -214,22 +234,21 @@ function AdminCarPart(props) {
                     </Modal.Header>
                     <Modal.Body>
 
-                       <div className={'d-flex'}>
-                           <button
-                               onClick={reallyDelete}
-                               className="p-1 rounded my-2 w-full text-white text-center bg-blue-400">
-                               Ha
-                           </button>
-                           <button
-                               onClick={closeAskModal}
-                               className="p-1 rounded my-2 mx-2 w-full text-white text-center bg-red-400">
-                               Yo'q
-                           </button>
-                       </div>
+                        <div className={'d-flex'}>
+                            <button
+                                onClick={reallyDelete}
+                                className="p-1 rounded my-2 w-full text-white text-center bg-blue-400">
+                                Ha
+                            </button>
+                            <button
+                                onClick={closeAskModal}
+                                className="p-1 rounded my-2 mx-2 w-full text-white text-center bg-red-400">
+                                Yo'q
+                            </button>
+                        </div>
                     </Modal.Body>
                 </Modal>
             </div>
-
 
 
             <div className={'umodal'}>

@@ -6,6 +6,7 @@ import com.example.backend.entity.CarPart;
 import com.example.backend.repository.AttachmentRepository;
 import com.example.backend.repository.CarPartRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.PageRequest;
@@ -63,10 +64,11 @@ public class CartPartServiceImpl implements CartPartService {
 
     @SneakyThrows
     @Override
+    @Transactional
     public HttpEntity<?> editCarPart(CartPartDTO cartPartDTO, MultipartFile photo, String prefix) {
 
         CarPart existingCarPart = carPartRepository.findById(cartPartDTO.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Customer category not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Topilmadi"));
         existingCarPart.setName(cartPartDTO.getName());
         if (photo != null && !photo.isEmpty()) {
             createFile(photo, existingCarPart);
@@ -76,7 +78,7 @@ public class CartPartServiceImpl implements CartPartService {
         try {
             carPartRepository.save(existingCarPart);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Bunday detal mavjud!");
+            return ResponseEntity.status(500).body("Bunday detall mavjud!");
         }
 
         return ResponseEntity.ok("CarPart is edited successfully");
