@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import * as Icons from './icons'
 import {Link, NavLink, Route, useLocation} from "react-router-dom";
 import instance from "../../utils/config/instance";
@@ -38,43 +38,109 @@ function SidebarContent() {
 
     ]
 
+    const [user, setUser]=useState({})
+       function checkUser(){
+           try {
+               instance("/api/v1/security", "GET").then(res=>{
+                   console.log(res.data)
+                   setUser(res.data[0])
+               })
 
-        try {
-              instance("/api/v1/security", "GET").then(res=>{
-                  // console.log(res?.data[0]?.name)
-                  // if(res?.data[0].name == "ROLE_SUPER_ADMIN" ){
-                  //     routes.push()
-                  // }
-              })
+           } catch (error) {
 
-        } catch (error) {
+           }
+       }
 
-        }
-
+    useEffect(()=>{
+    checkUser()
+},[location.pathname])
     return (
         <div className="py-4 text-gray-500 text-gray-400">
             <Link to={'/admin'} className="ml-6 text-lg font-bold text-white">
                 Project Name
             </Link>
             <ul className="mt-6">
-                {routes.map((route) =>
-                    <li className="relative px-6 py-3" key={route.name}>
-                        <NavLink
-                            // exact
-                            to={route.path}
-                            className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
-                            // activeClassName="text-gray-800 text-gray-100"
-                        >
-                            {location.pathname === route.path ? <span
-                                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                aria-hidden="true"
-                            ></span> : ""}
+                {/*{routes.map((route) =>*/}
+                {/*    <li className="relative px-6 py-3" key={route.name}>*/}
+                {/*        <NavLink*/}
+                {/*            // exact*/}
+                {/*            to={route.path}*/}
+                {/*            className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"*/}
+                {/*            // activeClassName="text-gray-800 text-gray-100"*/}
+                {/*        >*/}
+                {/*            {location.pathname === route.path ? <span*/}
+                {/*                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"*/}
+                {/*                aria-hidden="true"*/}
+                {/*            ></span> : ""}*/}
 
-                            <Icon className="w-5 h-5" aria-hidden="true" icon={route.icon}/>
-                            <span className="ml-4">{route.name}</span>
-                        </NavLink>
-                    </li>
-                )}
+                {/*            <Icon className="w-5 h-5" aria-hidden="true" icon={route.icon}/>*/}
+                {/*            <span className="ml-4">{route.name}</span>*/}
+                {/*        </NavLink>*/}
+                {/*    </li>*/}
+                {/*)}*/}
+
+
+                {/*admin*/}
+                {user.name==="ROLE_ADMIN"?
+                  <>
+                      {routes.map((route) =>
+                          <li className="relative px-6 py-3" key={route.name}>
+                              <NavLink
+                                  // exact
+                                  to={route.path}
+                                  className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
+                                  // activeClassName="text-gray-800 text-gray-100"
+                              >
+                                  {location.pathname === route.path ? <span
+                                      className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                      aria-hidden="true"
+                                  ></span> : ""}
+
+                                  <Icon className="w-5 h-5" aria-hidden="true" icon={route.icon}/>
+                                  <span className="ml-4">{route.name}</span>
+                              </NavLink>
+                          </li>
+                      )}
+                  </>
+                :""
+                }
+                {/*operator*/}
+                {user.name==="ROLE_OPERATOR"?
+                    <>
+                        <li className="relative px-6 py-3" key={"operator/home"}>
+                            <NavLink
+                                to={'/admin/operator'}
+                                className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
+                            >
+                                {location.pathname === '/admin/operator' ? <span
+                                    className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                    aria-hidden="true"
+                                ></span> : ""}
+
+                                <Icon className="w-5 h-5" aria-hidden="true" icon={'MoneyIcon'}/>
+                                <span className="ml-4">{'Operator uchun'}</span>
+                            </NavLink>
+                        </li>
+                        <li className="relative px-6 py-3" key={"Operators/order"}>
+                            <NavLink
+                                to={'/admin/operator/order'}
+                                className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
+                            >
+                                {location.pathname === '/admin/operator/order' ? <span
+                                    className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                    aria-hidden="true"
+                                ></span> : ""}
+
+                                <Icon className="w-5 h-5" aria-hidden="true" icon={'ChatIcon'}/>
+                                <span className="ml-4">{'Order'}</span>
+                            </NavLink>
+                        </li>
+
+                    </>
+                    :""
+                }
+
+                {/*super admin*/}
                 <CheckUser>
                     <li className="relative px-6 py-3" key={"Admins"}>
                         <NavLink
@@ -106,6 +172,26 @@ function SidebarContent() {
                     </li>
 
                 </CheckUser>
+
+
+                <li className="relative px-6 py-3 " key={"logout"}>
+                    <NavLink
+                        to={'/'}
+                        onClick={()=>{
+                            localStorage.removeItem("access_token")
+                            localStorage.removeItem("refresh_token")
+                        }}
+                        className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
+                    >
+                        {location.pathname === '/' ? <span
+                            className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"
+                        ></span> : ""}
+
+                        <Icon className="w-5 h-5" aria-hidden="true" icon={'OutlineLogoutIcon'}/>
+                        <span className="ml-4">{'Log out'}</span>
+                    </NavLink>
+                </li>
 
             </ul>
 
