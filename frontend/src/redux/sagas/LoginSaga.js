@@ -6,6 +6,7 @@ import {
     UserSuccess
 } from "../reducers/LoginSlice";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 function* workLoginUser(action) {
     try {
@@ -27,9 +28,14 @@ function* workLoginUser(action) {
         yield put(UserSuccess());
         if (response.data.roles[0].name === "ROLE_SUPER_ADMIN") {
             action.payload.navigate("/admin");
+        }else if (response.data.roles[0].name === "ROLE_ADMIN") {
+            action.payload.navigate("/admin/product");
+        }else if (response.data.roles[0].name === "ROLE_OPERATOR") {
+            action.payload.navigate("/admin/operator/order");
         }
     } catch (error) {
         if (error.response.status === 401 || error.status.status === 403) {
+            toast.error("Login yoki password xato!")
             yield put(UserFailure("Login or password is wrong"));
         }
     }
