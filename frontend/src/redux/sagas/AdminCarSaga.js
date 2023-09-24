@@ -35,7 +35,6 @@ function* saveCarPartAsync(action) {
 function* workGetCarParts(action) {
     try {
         const response = yield call(() => instance(`/api/v1/car`));
-
         yield put(getCarSuccess(response.data))
     } catch (error) {
         yield put(getCarFailure(error.message));

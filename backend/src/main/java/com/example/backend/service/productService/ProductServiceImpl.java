@@ -4,6 +4,8 @@ import com.example.backend.dto.ProductDTO;
 import com.example.backend.entity.*;
 import com.example.backend.repository.AttachmentRepository;
 import com.example.backend.repository.CarPartRepository;
+import com.example.backend.repository.CarRepository;
+import com.example.backend.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -20,7 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
