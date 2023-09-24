@@ -10,16 +10,21 @@ import ErrorPage from "./components/404/ErrorPage";
 import Home from './components/home/Home';
 import AdminHome from './components/admin/Admin'
 
-
 import {useDispatch} from "react-redux";
-import AdminBrand from "./components/admin/adminBrand/AdminBrand";
+
 import AdminAdmins from "./components/admin/adminAdmins/AdminAdmins";
 import AdminOperators from "./components/admin/adminOperators/AdminOperators";
+
+import AdminBrand from "./components/admin/adminBrand/AdminBrand";
 import AdminCar from "./components/admin/adminCar/AdminCar";
 import AdminCarPart from "./components/admin/adminCarPart/AdminCarPart";
 import AdminProduct from "./components/admin/adminProduct/AdminProduct";
-import Operator from "./components/admin/operator/Operator";
-import OperatorOrder from "./components/admin/operator/operatorOrder/OperatorOrder";
+
+import DeclinedOrder from "./components/admin/operator/declined/DeclinedOrder";
+import NewOrder from "./components/admin/operator/newOrders/NewOrder";
+import Inprogress from "./components/admin/operator/inprogress/Inprogress";
+import Completed from "./components/admin/operator/completed/Completed"
+
 import Loader from "./ui/pageLoading/loader";
 
 function App() {
@@ -36,7 +41,7 @@ function App() {
         },
 
         {
-            urls:["/admin/operator/order","/admin/operator/home"],
+            urls:["/admin/operator/order","/admin/operator/completed","/admin/operator/declined","/admin/operator/inprogress"],
             permit:"ROLE_OPERATOR"
         },
 
@@ -57,6 +62,9 @@ const [loading, setLoading]=useState(false)
                 if (accessToken !== null) {
                     try {
                         const res = await instance("/api/v1/security", "GET");
+                        if(res?.error){
+                            navigate("/404")
+                        }
                         if (res?.data !== 401 && !res?.error) {
                             if (res?.data[0].name !==item.permit) {
                                 navigate("/404");
@@ -115,14 +123,18 @@ const [loading, setLoading]=useState(false)
 
                     <Route path="/login" element={<Login/>}/>
                     <Route path={"/admin"} element={<AdminHome/>}>
-                        <Route path={"/admin/brand"} element={<AdminBrand/>}/>
-                        <Route path={"/admin/operator/home"} element={<Operator/>}/>
-                        <Route path={"/admin/operator/order"} element={<OperatorOrder/>}/>
-                        <Route path={"/admin/admins"} element={<AdminAdmins/>}/>
                         <Route path={"/admin/operators"} element={<AdminOperators/>}/>
+                        <Route path={"/admin/admins"} element={<AdminAdmins/>}/>
+
+                        <Route path={"/admin/brand"} element={<AdminBrand/>}/>
                         <Route path={"/admin/car"} element={<AdminCar/>}/>
                         <Route path={"/admin/part"} element={<AdminCarPart/>}/>
                         <Route path={"/admin/product"} element={<AdminProduct/>}/>
+
+                        <Route path={"/admin/operator/inprogress"} element={<Inprogress/>}/>
+                        <Route path={"/admin/operator/order"} element={<NewOrder/>}/>
+                        <Route path={"/admin/operator/completed"} element={<Completed/>}/>
+                        <Route path={"/admin/operator/declined"} element={<DeclinedOrder/>}/>
                     </Route>
                     <Route path="/" element={<Home/>}/>
                     <Route path="*" element={<ErrorPage/>}/>

@@ -12,6 +12,33 @@ function Icon({icon, ...props}) {
 function SidebarContent() {
     const location = useLocation();
 
+
+    const routesOperator = [
+        {
+            path: "/admin/operator/order", // the url
+            icon: 'ChatIcon', // the component being exported from icons/index.js
+            name: 'Yangi buyurtmalar', // name that appear in Sidebar
+        },
+        {
+            path: "/admin/operator/inprogress",
+            icon: 'CardsIcon',
+            name: 'Jarayonda',
+        },
+        {
+            path: '/admin/operator/completed',
+            icon: 'MoneyIcon',
+            name: 'Bajarilgan',
+        },
+        {
+            path: '/admin/operator/declined',
+            icon: 'ForbiddenIcon',
+            name: 'Rad etilgan',
+        },
+
+
+
+    ]
+
     const routes = [
         {
             path: '/admin/brand', // the url
@@ -106,34 +133,25 @@ function SidebarContent() {
                 {/*operator*/}
                 {user.name==="ROLE_OPERATOR"?
                     <>
-                        <li className="relative px-6 py-3" key={"operator/home"}>
-                            <NavLink
-                                to={'/admin/operator/home'}
-                                className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
-                            >
-                                {location.pathname === '/admin/operator/home' ? <span
-                                    className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                    aria-hidden="true"
-                                ></span> : ""}
+                        {routesOperator.map((route) =>
+                            <li className="relative px-6 py-3" key={route.name}>
+                                <NavLink
+                                    // exact
+                                    to={route.path}
+                                    className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
+                                    // activeClassName="text-gray-800 text-gray-100"
+                                >
+                                    {location.pathname === route.path ? <span
+                                        className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                        aria-hidden="true"
+                                    ></span> : ""}
 
-                                <Icon className="w-5 h-5" aria-hidden="true" icon={'MoneyIcon'}/>
-                                <span className="ml-4">{'Operator uchun'}</span>
-                            </NavLink>
-                        </li>
-                        <li className="relative px-6 py-3" key={"Operators/order"}>
-                            <NavLink
-                                to={'/admin/operator/order'}
-                                className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white"
-                            >
-                                {location.pathname === '/admin/operator/order' ? <span
-                                    className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                    aria-hidden="true"
-                                ></span> : ""}
+                                    <Icon className="w-5 h-5" aria-hidden="true" icon={route.icon}/>
+                                    <span className="ml-4">{route.name}</span>
+                                </NavLink>
+                            </li>
+                        )}
 
-                                <Icon className="w-5 h-5" aria-hidden="true" icon={'ChatIcon'}/>
-                                <span className="ml-4">{'Order'}</span>
-                            </NavLink>
-                        </li>
 
                     </>
                     :""

@@ -8,7 +8,7 @@ import adminBrand from "../redux/reducers/AdminBrandSlice"
 import adminCarPart from "../redux/reducers/AdminCartPartSlice"
 import adminCar from "../redux/reducers/AdminCarSlice"
 import adminProduct from "../redux/reducers/AdminProductSlice"
-
+import operatorOrder  from "./reducers/OperatorOrdersSlice"
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
     login,
@@ -17,8 +17,8 @@ const rootReducer = combineReducers({
     adminBrand,
     adminCarPart,
     adminCar,
-    adminProduct
-
+    adminProduct,
+    operatorOrder
 });
 
 export const store = configureStore({
