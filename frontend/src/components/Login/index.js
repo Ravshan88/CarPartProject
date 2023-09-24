@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import shiftLogo from "../images/shiftLogo.jpg";
 import {UserLogIn} from "redux/reducers/LoginSlice";
 import {useNavigate} from "react-router-dom";
 import {ToastContainer, toast} from "react-toastify";

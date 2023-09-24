@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PageTitle from "../PageTitle";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -12,17 +12,19 @@ import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Modal} from "react-bootstrap";
 import uploadImg from "../../images/upload.png"
 import {Delete} from "@mui/icons-material";
-import {Button} from "antd";
+import {Button, Divider} from "antd";
 import {toast, ToastContainer} from "react-toastify";
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
 import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
-import {Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
-import {Tooltip} from "@nextui-org/react";
+import {Avatar, Card} from 'antd';
+import {button, Chip, Tooltip} from "@nextui-org/react";
 import {EyeIcon} from "../EyeIcon";
 import {DeleteIcon} from "../DeleteIcon";
 import {EditIcon} from "../EditIcon"
 import ImgModal from "../ImgModal";
-
+import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
+// import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+const {Meta} = Card;
 
 function AdminProduct(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -32,6 +34,8 @@ function AdminProduct(props) {
     const [carPartId, setCarPartId] = useState('');
     const [productInfo, setProductInfo] = useState('');
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
+    const [brandId, setBrandId] = useState("")
+    const [imgLoading, setImgLoading] = useState(false)
 
 
     const dispatch = useDispatch();
@@ -44,11 +48,13 @@ function AdminProduct(props) {
         imgFileForBackend
     } = useSelector(state => state.adminProduct)
     const {cars} = useSelector(state => state.adminCar)
+    const {brands} = useSelector(state => state.adminBrand)
     const {carParts} = useSelector(state => state.adminCarPart)
     useEffect(() => {
         dispatch(getProducts())
         dispatch(getCarStart())
         dispatch(getCarPart())
+        dispatch(getBrands())
     }, [])
 
     function handleCloseModal() {
@@ -60,6 +66,7 @@ function AdminProduct(props) {
         setCarPartId("")
         setCarId("")
         setDescription("")
+        setBrandId("")
     }
 
     function handleFile(e) {
@@ -90,8 +97,6 @@ function AdminProduct(props) {
             toast.error("Iltimos mahsulot nomini kiriting");
         } else if (carId === '') {
             toast.error("Iltimos mashina tanlang!");
-        } else if (carPartId === '') {
-            toast.error("Iltimos ehtiyot qism tanlang!");
         } else if ((imgFileForBackend === null || imgFileForBackend === "") && !photoIdForEdit) {
             toast.error("Iltimos mahsulot rasmini yuklang");
         } else {
@@ -115,21 +120,21 @@ function AdminProduct(props) {
     }
 
     function editProduct(item) {
-        console.log(item)
         dispatch(changeIsEdit(true))
         setIsModalOpen(true)
-        dispatch(setEditingId(item.id))
-        setName(item.name)
-        setDescription(item.description)
-        dispatch(setPhotoIdForEdit(item.photo.id))
-        setCarPartId(item?.carPart.id)
-        setCarId(item?.car.id)
+        dispatch(setEditingId(item?.id))
+        setName(item?.name)
+        setDescription(item?.description)
+        dispatch(setPhotoIdForEdit(item?.photo?.id))
+        setCarPartId(item?.carPart?.id)
+        setCarId(item?.car?.id)
     }
 
     function handleOpenImgModal() {
         setIsImgModalOpen(p => !p)
     }
 
+    console.log(imgLoading)
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <ImgModal infoData={productInfo} isImgModalOpen={isImgModalOpen}
@@ -148,93 +153,72 @@ function AdminProduct(props) {
                 </div>
             </div>
 
-            <div>
-                <TableContainer className="mb-8">
-                    <Table>
-                        <TableHeader>
-                            <tr>
-                                <TableCell>Photo</TableCell>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Description</TableCell>
-                                <TableCell>Car</TableCell>
-                                <TableCell>CarPart</TableCell>
-                                <TableCell>Action</TableCell>
-                            </tr>
-                        </TableHeader>
-                        <TableBody>
-                            {products.content?.map((item, i) => (
-                                <TableRow key={i}>
-                                    <TableCell>
-                                        <div
-                                            className="flex items-center text-sm cursor-pointer">
-                                            <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
-                                                           width={50} height={50}
-                                                           src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
-                                                           alt="User avatar"/>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div>
-                                            <p className="font-semibold">{item.name}</p>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div>
-                                            <p className="font-semibold">{item.description}</p>
-                                        </div>
-                                    </TableCell><TableCell>
-                                    <div>
-                                        <p className="font-semibold">{item.car?.name}</p>
-                                    </div>
-                                </TableCell><TableCell>
-                                    <div>
-                                        <p className="font-semibold">{item.carPart?.name}</p>
-                                    </div>
-                                </TableCell>
-                                    <TableCell>
-                                        <div className="relative flex items-center gap-2">
-                                            <Tooltip content="Details">
-                                                  <span onClick={() => {
-                                                      setProductInfo(item)
-                                                      handleOpenImgModal()
-                                                  }}
-                                                        className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                                    <EyeIcon/>
-                                                  </span>
-                                            </Tooltip>
-                                            <Tooltip content="Edit user">
-                                                  <span onClick={() => editProduct(item)}
-                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
-                                                    <EditIcon/>
-                                                  </span>
-                                            </Tooltip>
-                                            <Tooltip color="danger" content="Delete user">
-                                                  <span
-                                                      className="text-lg text-danger cursor-pointer active:opacity-50">
-                                                    <DeleteIcon/>
-                                                  </span>
-                                            </Tooltip>
-                                        </div>
-                                    </TableCell>
-                                    {/*<TableCell>*/}
-                                    {/*    <div className="flex items-center space-x-4">*/}
-                                    {/*        <Button onClick={() => editCarPart(item)} layout="link" size="icon"*/}
-                                    {/*                aria-label="Edit">*/}
-                                    {/*            <EditIcon className="w-5 h-5" aria-hidden="true"/>*/}
-                                    {/*        </Button>*/}
-                                    {/*        <Button onClick={() => deletedCar(item)} layout="link" size="icon"*/}
-                                    {/*                aria-label="Delete">*/}
-                                    {/*            <TrashIcon className="w-5 h-5" aria-hidden="true"/>*/}
-                                    {/*        </Button>*/}
-                                    {/*    </div>*/}
-                                    {/*</TableCell>*/}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-
-                </TableContainer>
+            <div className="flex flex-wrap gap-2">
+                {products?.content?.map((item, i) => (
+                    <div key={i} className="flex-wrap bg-gray-100 rounded p-4">
+                        <LazyLoadImage
+                            effect="blur"
+                            className="w-full h-full block text-center"
+                            width={200}
+                            height={200}
+                            src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
+                            alt="Product Image"
+                        />
+                        <div className="mt-4 w-[200px]">
+                            <div className="flex items-center">
+                                <h1 className="text-gray-500 tracking-widest title-font">Name:</h1>
+                                <p className="ml-2">{item.name}</p>
+                            </div>
+                            <div className="flex items-center">
+                                <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>
+                                <p className="ml-2 overflow-hidden overflow-ellipsis">
+                                    {item?.description}
+                                </p>
+                            </div>
+                            <div className="flex items-center">
+                                <h1 className="text-gray-500 tracking-widest title-font">Car Name:</h1>
+                                <p className="ml-2">{item?.car?.name}</p>
+                            </div>
+                            <div className="flex items-center">
+                                <h1 className="text-gray-500 tracking-widest title-font">Car Part:</h1>
+                                {
+                                    item?.carPart?.name ?
+                                        <p className="ml-2">{item?.carPart?.name}</p> :
+                                        <p className="ml-2 text-gray-400">Mavjud emas</p>
+                                }
+                            </div>
+                        </div>
+                        <Divider className={"m-2"}/>
+                        <div className="relative flex items-center justify-center gap-3 mt-2">
+                            <Tooltip content="Details">
+                                  <span
+                                      onClick={() => {
+                                          setProductInfo(item);
+                                          handleOpenImgModal();
+                                      }}
+                                      className="text-2xl text-default-400 cursor-pointer active:opacity-50"
+                                  >
+                                    <EyeIcon/>
+                                  </span>
+                            </Tooltip>
+                            <Tooltip content="Edit user">
+                                  <span
+                                      onClick={() => editProduct(item)}
+                                      className="text-2xl text-default-400 cursor-pointer active:opacity-50"
+                                  >
+                                    <EditIcon/>
+                                  </span>
+                            </Tooltip>
+                            <Tooltip color="danger" content="Delete user">
+                                  <span className="text-2xl text-danger cursor-pointer active:opacity-50">
+                                    <DeleteIcon/>
+                                  </span>
+                            </Tooltip>
+                        </div>
+                    </div>
+                ))}
             </div>
+
 
             <Modal show={isModalOpen} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
@@ -261,8 +245,21 @@ function AdminProduct(props) {
                         }
                         placeholder={""}
                     />
+                    <label className={"mt-2"}>Brand:</label>
+                    <select
+                        className={'form-select'}
+                        value={brandId}
+                        onChange={(e) => setBrandId(e.target.value)}
+                    >
+                        <option value={''}>Brand tanlang</option>
+                        {brands.content?.map((item) => (
+                            <option key={item.id} value={item.id}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
 
-                    <label className={'my-3'}>Mashina:</label>
+                    <label className={'mt-2'}>Mashina:</label>
                     {cars === [] ? <h3>Iltimos oldin mashina qo'shing</h3> :
                         <select
                             className={'form-select'}
@@ -270,13 +267,13 @@ function AdminProduct(props) {
                             onChange={(e) => setCarId(e.target.value)}
                         >
                             <option value={''}>Mashina tanlang</option>
-                            {cars?.map((item, index) => (
+                            {cars?.filter(car => car.brand.id === brandId).map((item) => (
                                 <option key={item.id} value={item.id}>
                                     {item.name}
                                 </option>
                             ))}
                         </select>}
-                    <label className={'my-3'}>Ehtiyot qism:</label>
+                    <label className={'mt-2'}>Ehtiyot qism:</label>
                     {carParts?.content === [] ? <h3>Iltimos ehtiyot qism qo'shing</h3> :
                         <select
                             className={'form-select'}
@@ -284,7 +281,7 @@ function AdminProduct(props) {
                             onChange={(e) => setCarPartId(e.target.value)}
                         >
                             <option value={''}>Ehtiyot qism tanlang</option>
-                            {carParts?.content?.map((item, index) => (
+                            {carParts?.content?.map((item) => (
                                 <option key={item.id} value={item.id}>
                                     {item.name}
                                 </option>

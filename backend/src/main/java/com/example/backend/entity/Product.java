@@ -22,9 +22,9 @@ public class Product {
     private String description;
     @OneToOne
     private Attachment photo;
-    @OneToOne
+    @ManyToOne
     private CarPart carPart;
-    @OneToOne
+    @ManyToOne
     private Car car;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

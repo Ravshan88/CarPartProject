@@ -58,7 +58,6 @@ const [loading, setLoading]=useState(false)
                     try {
                         const res = await instance("/api/v1/security", "GET");
                         if (res?.data !== 401 && !res?.error) {
-                            console.log(item)
                             if (res?.data[0].name !==item.permit) {
                                 navigate("/404");
                             }

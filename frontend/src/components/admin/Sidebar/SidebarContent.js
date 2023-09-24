@@ -42,7 +42,6 @@ function SidebarContent() {
        function checkUser(){
            try {
                instance("/api/v1/security", "GET").then(res=>{
-                   console.log(res.data)
                    setUser(res.data[0])
                })
 

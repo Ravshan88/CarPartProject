@@ -35,7 +35,7 @@ function* workLoginUser(action) {
         }
     } catch (error) {
         if (error.response.status === 401 || error.status.status === 403) {
-            toast.error("Login yoki password xato!")
+            // toast.error("Login yoki password xato!")
             yield put(UserFailure("Login or password is wrong"));
         }
     }

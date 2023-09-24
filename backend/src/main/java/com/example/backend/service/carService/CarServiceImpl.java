@@ -4,7 +4,7 @@ import com.example.backend.dto.CarDTO;
 import com.example.backend.entity.*;
 import com.example.backend.repository.AttachmentRepository;
 import com.example.backend.repository.BrandRepository;
-import com.example.backend.repository.CarPartRepository;
+import com.example.backend.repository.CarRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
