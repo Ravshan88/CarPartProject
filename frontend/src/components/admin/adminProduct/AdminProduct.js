@@ -12,7 +12,7 @@ import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Modal} from "react-bootstrap";
 import uploadImg from "../../images/upload.png"
 import {Delete} from "@mui/icons-material";
-import {Button, Divider} from "antd";
+import {Divider} from "antd";
 import {toast, ToastContainer} from "react-toastify";
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
 import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
@@ -23,7 +23,9 @@ import {DeleteIcon} from "../DeleteIcon";
 import {EditIcon} from "../EditIcon"
 import ImgModal from "../ImgModal";
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
-// import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import {Popover, PopoverTrigger, PopoverContent, Button} from "@nextui-org/react";
+import ProductInfoModal from "./ProductInfoModal";
+
 const {Meta} = Card;
 
 function AdminProduct(props) {
@@ -137,7 +139,7 @@ function AdminProduct(props) {
     console.log(imgLoading)
     return (
         <div className={` h-screen  bg-gray-900 `}>
-            <ImgModal infoData={productInfo} isImgModalOpen={isImgModalOpen}
+            <ProductInfoModal infoData={productInfo} isImgModalOpen={isImgModalOpen}
                       handleCloseImgModal={handleOpenImgModal}/>
             <ToastContainer/>
             <div className={"flex justify-between my-2"}>
@@ -165,22 +167,46 @@ function AdminProduct(props) {
                             alt="Product Image"
                         />
                         <div className="mt-4 w-[200px]">
-                            <div className="flex items-center">
+                            <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Name:</h1>
                                 <p className="ml-2">{item.name}</p>
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>
-                                <p className="ml-2 overflow-hidden overflow-ellipsis">
-                                    {item?.description}
-                                </p>
+                                <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
+                                    <PopoverTrigger>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">
+                                            {item?.description}
+                                        </p>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis">
+                                            {item?.description}
+                                        </p>
+                                    </PopoverContent>
+                                </Popover>
                             </div>
-                            <div className="flex items-center">
-                                <h1 className="text-gray-500 tracking-widest title-font">Car Name:</h1>
-                                <p className="ml-2">{item?.car?.name}</p>
+                            <div className="flex items-center mb-2">
+                                <h1 className="text-gray-500 tracking-widest title-font">CarName:</h1>
+                                <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
+                                    <PopoverTrigger>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">
+                                            {item?.car?.name}
+                                        </p>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis">
+                                            {item?.car?.name}
+                                        </p>
+                                    </PopoverContent>
+                                </Popover>
                             </div>
-                            <div className="flex items-center">
-                                <h1 className="text-gray-500 tracking-widest title-font">Car Part:</h1>
+                            <div className="flex items-center mb-2">
+                                <h1 className="text-gray-500 tracking-widest title-font">CarPart:</h1>
                                 {
                                     item?.carPart?.name ?
                                         <p className="ml-2">{item?.carPart?.name}</p> :
@@ -315,9 +341,10 @@ function AdminProduct(props) {
                         <div className={"deleteFileButton "}>
                             {
                                 base64 &&
-                                (<Button title={"Delete"} type={"dashed"} shape={"circle"}
-                                         icon={<Delete color={"error"}/>} onClick={() => dispatch(setBase64(""))}
-                                         className={"flex justify-center"}/>)
+                                < Button size={"sm"} className={"rounded-3xl border-dashed "} isIconOnly
+                                         aria-label="Like">
+                                    <Delete color={"error"} onClick={() => dispatch(setBase64(""))}/>
+                                < /Button>
                             }
                         </div>
 
