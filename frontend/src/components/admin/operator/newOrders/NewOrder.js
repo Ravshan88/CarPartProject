@@ -23,6 +23,12 @@ import Loader from "../../../../ui/loader";
 import {EyeIcon} from "../../EyeIcon";
 import {EditIcon} from "../../EditIcon";
 import {DeleteIcon} from "../../DeleteIcon";
+import {Modal} from "react-bootstrap";
+import uploadImg from "../../../images/upload.png";
+import {Button} from "antd";
+import {Delete} from "@mui/icons-material";
+import {setBase64} from "../../../../redux/reducers/AdminCarSlice";
+import Render from "../Render/Render";
 
 function NewOrder(props) {
     const {orders, isLoading} = useSelector(state => state.operatorOrder)
@@ -61,6 +67,12 @@ function NewOrder(props) {
     function changeStatusToDeclined(id) {
         dispatch(changeStatusOrder({ status: "DECLINED",  orderId:id, page: currentPage, size: itemsPerPage}));
 
+    }
+const[showModal, setShowModal]=useState(false)
+    const [currentProduct, setCurrentProduct]=useState({})
+    function showProductModal(product) {
+        setShowModal(true)
+        setCurrentProduct(product)
     }
 
     return (
@@ -129,8 +141,8 @@ function NewOrder(props) {
                             <TableHeader>
                                 <tr>
                                     <TableCell style={{width:30}}>№</TableCell>
-                                    <TableCell >Mijoz ismi</TableCell>
-                                    <TableCell style={{width:70}}>Mijoz raqami</TableCell>
+                                    <TableCell  >Mijoz ismi</TableCell>
+                                    <TableCell >Mijoz raqami</TableCell>
 
                                     <TableCell>Buyurtma</TableCell>
                                     <TableCell style={{width:70}}>Buyurtma sanasi</TableCell>
@@ -147,7 +159,7 @@ function NewOrder(props) {
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            <div>
+                                            <div >
                                                 <p className="font-semibold">{order.order.client_name}</p>
                                             </div>
                                         </TableCell>
@@ -160,7 +172,11 @@ function NewOrder(props) {
                                             <div className={''}>
                                                 {
                                                     order?.products.map((myProduct, index)=>
-                                                        <div className={'d-flex align-items-center gap-2'}>mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p> <p> soni:{myProduct.count}</p></div>
+                                                        <div className={'d-flex align-items-center gap-2'}
+                                                             onClick={()=>showProductModal(myProduct.product)}
+                                                        >
+                                                            mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p>
+                                                            soni: <p> {myProduct.count}</p></div>
                                                     )
                                                 }
                                             </div>
@@ -201,6 +217,23 @@ function NewOrder(props) {
                 </div>
             </>
             }
+
+
+            <Modal
+                width={900}
+                show={showModal}
+                onHide={() => {
+                    setShowModal(false);
+                    setCurrentProduct({});
+                }}
+            >
+                <Modal.Header closeButton>
+
+                </Modal.Header>
+                <Modal.Body closeButton>
+                    {showModal && <Render product={currentProduct} />}
+                </Modal.Body>
+            </Modal>
 
 
         </div>
