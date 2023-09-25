@@ -90,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setUpdatedAt(LocalDateTime.now());
         existingProduct.setCar(carRepository.findById(productDTO.getCarId()).orElseThrow());
         existingProduct.setDescription(productDTO.getDescription());
-        existingProduct.setCarPart(carPartRepository.findById(productDTO.getCarPartId()).orElseThrow());
+        existingProduct.setCarPart(productDTO.getCarPartId() == null ? null : carPartRepository.findById(productDTO.getCarPartId()).orElseThrow());
         if (photo != null && !photo.isEmpty()) {
             createFile(photo, existingProduct);
         }

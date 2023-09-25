@@ -5,7 +5,6 @@ import {Popover, PopoverContent, PopoverTrigger} from "@nextui-org/react";
 
 function ProductInfoModal(props) {
     const {infoData} = props
-    console.log(props)
     return (
         <Modal show={props?.isImgModalOpen} onHide={props?.handleCloseImgModal}>
             <div className="flex flex-col  h-[450px] w-[500px]">
@@ -40,7 +39,7 @@ function ProductInfoModal(props) {
                             <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
                                 <PopoverTrigger>
                                     <p
-                                        className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">
+                                        className="ml-2 overflow-hidden overflow-ellipsis">
                                         {infoData?.description}
                                     </p>
                                 </PopoverTrigger>
