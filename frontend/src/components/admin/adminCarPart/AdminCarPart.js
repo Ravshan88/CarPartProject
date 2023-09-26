@@ -117,7 +117,6 @@ function AdminCarPart(props) {
     }
 
     function reallyDelete() {
-        console.log(deletedItem)
         dispatch(deleteCarPart(deletedItem.id))
         closeAskModal()
     }

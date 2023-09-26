@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal} from "react-bootstrap";
 import {LazyLoadImage} from "react-lazy-load-image-component";
-import {Popover, PopoverContent, PopoverTrigger} from "@nextui-org/react";
+import {Popover, PopoverContent, PopoverTrigger, ScrollShadow, Textarea} from "@nextui-org/react";
 
 function ProductInfoModal(props) {
     const {infoData} = props
@@ -36,20 +36,19 @@ function ProductInfoModal(props) {
                         </div>
                         <div className="flex items-center mb-2">
                             <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>
-                            <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
-                                <PopoverTrigger>
-                                    <p
-                                        className="ml-2 overflow-hidden overflow-ellipsis">
-                                        {infoData?.description}
-                                    </p>
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                    <p
-                                        className="ml-2 overflow-hidden overflow-ellipsis">
-                                        {infoData?.description}
-                                    </p>
-                                </PopoverContent>
-                            </Popover>
+                            <Textarea
+                                isReadOnly
+                                // variant="bordered"
+                                placeholder="Enter your description"
+                                defaultValue={infoData?.description}
+                                className="max-w-xs"
+                            />
+                            {/*<ScrollShadow hideScrollBar className="w-[150px] h-[50px]">*/}
+                            {/*    <p*/}
+                            {/*        className="ml-2">*/}
+                            {/*        {infoData?.description}*/}
+                            {/*    </p>*/}
+                            {/*</ScrollShadow>*/}
                         </div>
                         <div className="flex items-center mb-2">
                             <h1 className="text-gray-500 tracking-widest title-font">CarName:</h1>

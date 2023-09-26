@@ -25,7 +25,6 @@ public class AttachmentController {
     @GetMapping("/getFile/{id}")
 //    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     public void getFile(HttpServletResponse response, @PathVariable UUID id) throws IOException {
-        System.out.println(id);
         attachmentService.getFile(response, id);
     }
 

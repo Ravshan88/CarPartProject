@@ -46,7 +46,6 @@ const adminCarPartSlice = createSlice({
         setObjForBrand(state, action) {
         },
         deleteCarPart(state, action){
-
         }
     },
 });

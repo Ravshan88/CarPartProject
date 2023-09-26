@@ -26,6 +26,7 @@ import Inprogress from "./components/admin/operator/inprogress/Inprogress";
 import Completed from "./components/admin/operator/completed/Completed"
 
 import Loader from "./ui/pageLoading/loader";
+import AdminNews from "./components/admin/AdminNews/AdminNews";
 
 function App() {
 
@@ -130,6 +131,7 @@ const [loading, setLoading]=useState(false)
                         <Route path={"/admin/car"} element={<AdminCar/>}/>
                         <Route path={"/admin/part"} element={<AdminCarPart/>}/>
                         <Route path={"/admin/product"} element={<AdminProduct/>}/>
+                        <Route path={"/admin/news"} element={<AdminNews/>}/>
 
                         <Route path={"/admin/operator/inprogress"} element={<Inprogress/>}/>
                         <Route path={"/admin/operator/order"} element={<NewOrder/>}/>
