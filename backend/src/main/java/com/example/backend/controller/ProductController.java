@@ -11,6 +11,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/product")
 @RequiredArgsConstructor
@@ -43,5 +45,10 @@ public class ProductController {
         ProductDTO productDTO = objectMapper.readValue(data, ProductDTO.class);
         System.out.println(productDTO);
         return productService.editProduct(productDTO, photo, prefix);
+    }
+
+    @DeleteMapping
+    public void deleteProduct(@RequestParam UUID id, @RequestParam String attachmentName) {
+        productService.deleteProduct(id,attachmentName);
     }
 }

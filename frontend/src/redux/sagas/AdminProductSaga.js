@@ -20,7 +20,7 @@ function* saveProductAsync(action) {
         const formData = new FormData()
         formData.append("photo", photo)
         formData.append("prefix", "/productPhotos")
-        formData.append("data", JSON.stringify({id,name,description,carPartId,carId, photoId}))
+        formData.append("data", JSON.stringify({id, name, description, carPartId, carId, photoId}))
         yield call(() => instance(`/api/v1/product`,
             isEditing ? "PUT" : "POST", formData, null, true)
             .then(res => {
@@ -32,7 +32,6 @@ function* saveProductAsync(action) {
         yield call(workGetProducts)
 
     } catch (error) {
-        alert(error.message)
         yield put(setError(error.message));
     }
 }
@@ -49,8 +48,10 @@ function* workGetProducts(action) {
 
 function* workDeleteProduct(action) {
     try {
-        const response = yield call(() => instance('/api/v1/product/delete/' + action.payload, 'delete'));
-        // yield put(getCarPartsSuccess(response.data))
+        yield call(() => instance('/api/v1/product', 'delete', null, {
+            id: action.payload.id,
+            attachmentName: action.payload.attachmentName
+        }));
         yield put(getProducts())
     } catch (error) {
         yield put(getProductsFailure(error.message));

@@ -9,7 +9,6 @@ import com.example.backend.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -60,23 +59,21 @@ public class ProductServiceImpl implements ProductService {
                 .build();
         try {
             productRepository.save(product);
+            return ResponseEntity.ok("Product saved successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Bunday mahsulot mavjud!");
         }
-        return ResponseEntity.ok("Product saved successfully");
-
-
     }
 
     @Override
     public HttpEntity<?> getProducts(String name, Integer page, Integer size) {
-        Pageable pageable = null;
-        if (page != null && size == -1) {
-            pageable = Pageable.unpaged();
-        } else {
-            size = (size != null && size > 0) ? size : 10;
-            pageable = PageRequest.of(page - 1, size);
-        }
+        Pageable pageable = Pageable.unpaged();
+//        if (page != null && size == -1) {
+//            pageable = Pageable.unpaged();
+//        } else {
+//            size = (size != null && size > 0) ? size : 10;
+//            pageable = PageRequest.of(page - 1, size);
+//        }
         return ResponseEntity.ok(productRepository.findByNameContainingIgnoreCase(pageable, name));
     }
 
@@ -101,6 +98,19 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return ResponseEntity.ok("Product is edited successfully");
+    }
+
+    @Override
+    public void deleteProduct(UUID id, String attachmentName) {
+        System.out.println(attachmentName);
+        productRepository.deleteById(id);
+        String folderPath = "backend/files/productPhotos/" + attachmentName;
+        File fileToDelete = new File(folderPath);
+        if (fileToDelete.exists()) {
+            boolean delete = fileToDelete.delete();
+        } else {
+            System.err.println("File does not exist.");
+        }
     }
 
     private void createFile(MultipartFile photo, Product existingProduct) throws IOException {

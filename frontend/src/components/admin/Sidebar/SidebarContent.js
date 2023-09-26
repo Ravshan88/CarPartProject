@@ -60,6 +60,11 @@ function SidebarContent() {
             icon: 'PagesIcon',
             name: 'Product',
         },
+        {
+            path: '/admin/news',
+            icon: 'PagesIcon',
+            name: 'Yangiliklar',
+        },
 
 
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PageTitle from "../PageTitle";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    changeIsEdit,
+    changeIsEdit, deleteProduct,
     getProducts,
     setBase64, setEditingId,
     setImageFileForBackend, setObjForBrand,
@@ -15,7 +15,7 @@ import {Delete} from "@mui/icons-material";
 import {Divider} from "antd";
 import {toast, ToastContainer} from "react-toastify";
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
-import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
+import {deleteCarPart, getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
 import {Avatar, Card} from 'antd';
 import {button, Chip, Tooltip} from "@nextui-org/react";
 import {EyeIcon} from "../EyeIcon";
@@ -37,8 +37,8 @@ function AdminProduct(props) {
     const [productInfo, setProductInfo] = useState('');
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
     const [brandId, setBrandId] = useState("")
-    const [imgLoading, setImgLoading] = useState(false)
-
+    const [askDelete, setAskDelete] = useState(false)
+    const [deletedItem, setDeletedItem] = useState('')
 
     const dispatch = useDispatch();
     const {
@@ -136,11 +136,64 @@ function AdminProduct(props) {
         setIsImgModalOpen(p => !p)
     }
 
-    console.log(imgLoading)
+    function removeProduct(item) {
+        setAskDelete(true)
+        setDeletedItem(item)
+    }
+
+    function reallyDelete() {
+        dispatch(deleteProduct({
+            id: deletedItem.id,
+            attachmentName: deletedItem.photo.name
+        }))
+        closeAskModal()
+    }
+
+    function closeAskModal() {
+        setAskDelete(false)
+        setDeletedItem('')
+    }
+
     return (
         <div className={` h-screen  bg-gray-900 `}>
+
+
+            <div className={'umodal'}>
+                <Modal show={askDelete} onHide={closeAskModal}>
+                    <Modal.Header closeButton>
+                        <div className={'d-flex justify-content-around '}>
+                            <LazyLoadImage effect={"blur"} className={"rounded-3xl"}
+                                           width={50} height={50}
+                                           src={`http://localhost:8080/api/v1/file/getFile/${deletedItem?.photo?.id}`}
+                                           alt="User avatar"/>
+                            <Modal.Title className={'mx-2'}>{deletedItem.name} </Modal.Title>
+                            <p className={'my-2'}>
+                                Mahsulot rostdan ham o'chirilsinmi?
+                            </p>
+                        </div>
+
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <div className={'d-flex'}>
+                            <button
+                                onClick={reallyDelete}
+                                className="p-1 rounded my-2 w-full text-white text-center bg-blue-400">
+                                Ha
+                            </button>
+                            <button
+                                onClick={closeAskModal}
+                                className="p-1 rounded my-2 mx-2 w-full text-white text-center bg-red-400">
+                                Yo'q
+                            </button>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+            </div>
+
+
             <ProductInfoModal infoData={productInfo} isImgModalOpen={isImgModalOpen}
-                      handleCloseImgModal={handleOpenImgModal}/>
+                              handleCloseImgModal={handleOpenImgModal}/>
             <ToastContainer/>
             <div className={"flex justify-between my-2"}>
                 <PageTitle>
@@ -236,7 +289,8 @@ function AdminProduct(props) {
                                   </span>
                             </Tooltip>
                             <Tooltip color="danger" content="Delete user">
-                                  <span className="text-2xl text-danger cursor-pointer active:opacity-50">
+                                  <span onClick={() => removeProduct(item)}
+                                        className="text-2xl text-danger cursor-pointer active:opacity-50">
                                     <DeleteIcon/>
                                   </span>
                             </Tooltip>
