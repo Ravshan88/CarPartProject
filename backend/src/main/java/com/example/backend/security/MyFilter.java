@@ -73,6 +73,17 @@ public class MyFilter extends OncePerRequestFilter {
     }
 
     private boolean hasPermission(String requestPath) {
-        return  requestPath.equals("/api/v1/auth/register") || requestPath.equals("/api/v1/advertisement") || requestPath.equals("/api/v1/carousel") || requestPath.startsWith("/api/v1/file/getFile") || requestPath.equals("/api/v1/auth/login") || requestPath.equals("/dashboard") || requestPath.equals("/api/v1/auth/access") || requestPath.equals("/api/v1/auth/refresh");
+        return  requestPath.equals("/api/v1/auth/register")
+                ||requestPath.startsWith("/api/v1/file/getFile")
+                || requestPath.equals("/api/v1/auth/login")
+                || requestPath.equals("/api/v1/advertisement")
+                || requestPath.equals("/api/v1/carousel")
+                || requestPath.equals("/dashboard")
+                || requestPath.equals("/api/v1/auth/access")
+                || requestPath.equals("/api/v1/auth/refresh")
+                || requestPath.equals("/api/v1/car")
+                || requestPath.equals("/api/v1/brand")
+                || requestPath.equals("/api/v1/product")
+                || requestPath.equals("/api/v1/carPart");
     }
 }

@@ -6,7 +6,7 @@ import {
 } from "../../../../redux/reducers/OperatorOrdersSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Pagination from '@mui/material/Pagination';
-
+import '../Render/showProduct.css'
 import {
 
     Table,
@@ -172,11 +172,17 @@ const[showModal, setShowModal]=useState(false)
                                             <div className={''}>
                                                 {
                                                     order?.products.map((myProduct, index)=>
-                                                        <div className={'d-flex align-items-center gap-2'}
+                                                        <div className={'d-flex justify-content-between gap-2 featured_text'}
                                                              onClick={()=>showProductModal(myProduct.product)}
                                                         >
-                                                            mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p>
-                                                            soni: <p> {myProduct.count}</p></div>
+                                                           <div className={'d-flex align-items-center gap-2 featured_text'}>
+                                                               mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p>
+                                                               soni: <p className="sub"> {myProduct.count}</p>
+                                                           </div>
+                                                            <div>
+                                                                <i>batafsil..</i>
+                                                            </div>
+                                                        </div>
                                                     )
                                                 }
                                             </div>

@@ -10,13 +10,13 @@ return (
         <main className='mainjon'>
             <div className="card">
 
-                <div className="card__body p-3">
+                <div className="card__body p-3 d-flex align-items-center justify-content-around">
                     <div className="half">
                         <div className="featured_text">
                             <h1>{props?.product?.name}</h1>
                             <div className={'d-flex align-items-center justify-around'}>
                                 <p>carPart:</p>
-                                <p className="sub">{props?.product?.carPart.name}</p>
+                                <p className="sub">{props?.product?.carPart?.name}</p>
                             </div>
 
                         </div>
@@ -31,28 +31,17 @@ return (
                             <h3>Mahsulot haqida</h3>
                             <p>
 
-                                {props.product.description}
-                                description description description description descriptiond
-                                escriptiondescription description
+                                {props?.product?.description}
+
                             </p>
                         </div>
-                        <span className="stock"><i className="fa fa-pen"></i> In stock</span>
-                        <div className="reviews">
-                            <ul className="stars">
-                                <li><i className="fa fa-star"></i></li>
-                                <li><i className="fa fa-star"></i></li>
-                                <li><i className="fa fa-star"></i></li>
-                                <li><i className="fa fa-star"></i></li>
-                                <li><i className="fa fa-star-o"></i></li>
-                            </ul>
-                            <span>(64 reviews)</span>
-                        </div>
+
                     </div>
                 </div>
                 <div className="card__footer">
                     <div className="recommend d-flex justify-around align-items-center">
                         <p>Mashina turi:</p>
-                        <h3>{props.product?.car.name}</h3>
+                        <h3>{props?.product?.car.name}</h3>
                     </div>
 
                 </div>

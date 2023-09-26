@@ -23,6 +23,8 @@ import Loader from "../../../../ui/loader";
 import {EyeIcon} from "../../EyeIcon";
 import {EditIcon} from "../../EditIcon";
 import {DeleteIcon} from "../../DeleteIcon";
+import {Modal} from "react-bootstrap";
+import Render from "../Render/Render";
 
 function Inprogress(props) {
     const {orders, isLoading} = useSelector(state => state.operatorOrder)
@@ -63,6 +65,12 @@ function Inprogress(props) {
 
     }
 
+    const[showModal, setShowModal]=useState(false)
+    const [currentProduct, setCurrentProduct]=useState({})
+    function showProductModal(product) {
+        setShowModal(true)
+        setCurrentProduct(product)
+    }
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <PageTitle>Inprogress</PageTitle>
@@ -130,10 +138,10 @@ function Inprogress(props) {
                                     <tr>
                                         <TableCell style={{width:30}}>№</TableCell>
                                         <TableCell >Mijoz ismi</TableCell>
-                                        <TableCell style={{width:70}}>Mijoz raqami</TableCell>
+                                        <TableCell style={{width:150}}>Mijoz raqami</TableCell>
 
                                         <TableCell>Buyurtma</TableCell>
-                                        <TableCell style={{width:70}}>Buyurtma sanasi</TableCell>
+                                        <TableCell style={{width:120}}>Buyurtma sanasi</TableCell>
                                         <TableCell style={{width:35}}>Action</TableCell>
                                     </tr>
                                 </TableHeader>
@@ -160,7 +168,21 @@ function Inprogress(props) {
                                                 <div className={''}>
                                                     {
                                                         order?.products.map((myProduct, index)=>
-                                                            <div className={'d-flex align-items-center gap-2'}>mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p> <p> soni:{myProduct.count}</p></div>
+                                                            <>
+                                                                <div className={'d-flex justify-content-between gap-2 featured_text'}
+                                                                     onClick={()=>showProductModal(myProduct.product)}
+                                                                >
+                                                                    <div className={'d-flex align-items-center gap-2 featured_text'}>
+                                                                        mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p>
+                                                                        soni: <p className="sub"> {myProduct.count}</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <i>batafsil..</i>
+                                                                    </div>
+
+                                                                </div>
+                                                                <hr/>
+                                                            </>
                                                         )
                                                     }
                                                 </div>
@@ -203,6 +225,22 @@ function Inprogress(props) {
             }
 
 
+
+            <Modal
+                width={900}
+                show={showModal}
+                onHide={() => {
+                    setShowModal(false);
+                    setCurrentProduct({});
+                }}
+            >
+                <Modal.Header closeButton>
+
+                </Modal.Header>
+                <Modal.Body closeButton>
+                    {showModal && <Render product={currentProduct} />}
+                </Modal.Body>
+            </Modal>
         </div>
     );
 

@@ -37,9 +37,9 @@ function AdminProduct(props) {
     const [productInfo, setProductInfo] = useState('');
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
     const [brandId, setBrandId] = useState("")
-    const [askDelete, setAskDelete] = useState(false)
-    const [deletedItem, setDeletedItem] = useState('')
-
+    const [imgLoading, setImgLoading] = useState(false)
+const [deletedItem, setDeletedItem]=useState('')
+const [askDelete, setAskDelete]=useState(false)
     const dispatch = useDispatch();
     const {
         products,

@@ -27,6 +27,8 @@ import Completed from "./components/admin/operator/completed/Completed"
 
 import Loader from "./ui/pageLoading/loader";
 import AdminNews from "./components/admin/AdminNews/AdminNews";
+import UserFilter from "./components/home/UserFilter/UserFilter";
+import SearchResults from "./components/home/UserFilter/SearchResults";
 
 function App() {
 
@@ -139,6 +141,8 @@ const [loading, setLoading]=useState(false)
                         <Route path={"/admin/operator/declined"} element={<DeclinedOrder/>}/>
                     </Route>
                     <Route path="/" element={<Home/>}/>
+                    <Route path="/filter" element={<UserFilter/>}/>
+                    <Route path="/search/:brandId/:carId/:carPartId" element={<SearchResults />} />
                     <Route path="*" element={<ErrorPage/>}/>
                 </Routes>
             </>
