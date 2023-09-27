@@ -65,7 +65,7 @@ function AdminNews(props) {
 
             <div className={"bg-white min-h-full p-2"}>
                 {
-                    carousel.length <= 5 && <label>
+                    carousel.length <5 && <label>
                         <input onChange={handleChange} type="file" hidden/>
                         <div className={"border hover:bg-gray-200 cursor-pointer  rounded p-2"}>
                             <p className={"text-gray-600"}>

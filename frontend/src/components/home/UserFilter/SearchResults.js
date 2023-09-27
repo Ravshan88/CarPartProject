@@ -10,11 +10,13 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Divider} from "antd";
-import carSearch from "./carSearch.png";
-import searchPhoto from "./search.png";
+import carSearch from './carSearch.png'
+import searchPhoto from './search.png'
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
 import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
+
+
 function SearchResults(props) {
     const navigate=useNavigate()
     const dispatch = useDispatch();
