@@ -56,9 +56,9 @@ function Home(props) {
     return (
         <div className={"overflow-x-scroll h-full"}>
             <Header/>
-           <div className={'flex justify-between'}>
+           <div className={'flex justify-center gap-5 my-3'}>
                <div className={' '}>
-                   <div className={'p-3'} style={{ backgroundColor: '#fafafa' }}>
+                   <div className={'p-3 my-2'} style={{ backgroundColor: '#fafafa' }}>
                        <div className={'d-flex align-items-center justify-content-evenly gap-2'}>
                            <img width={60} src={carSearch} alt={'..'} />
                            <p>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
@@ -129,11 +129,11 @@ function Home(props) {
                    <div className={"vh-100"}>
                        {
                            carousel?.length > 0 &&
-                           <Carousel infiniteLoop={true} showThumbs={false} autoPlay className={"w-[400px] h-[300px]"}>
+                           <Carousel infiniteLoop={true} showThumbs={false} autoPlay className={"w-[500px] h-[320px]"}>
                                {
                                    carousel?.map(item =>
                                        <div key={item.id}>
-                                           <img width={300} height={200}
+                                           <img width={400} height={220}
                                                 src={`http://localhost:8080/api/v1/file/getFile/${item.attachment.id}`}
                                                 alt="Image"/>
                                        </div>

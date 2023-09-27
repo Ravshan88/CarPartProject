@@ -193,7 +193,7 @@ function AdminBrand(props) {
 
                                         <TableCell>
                                             <div>
-                                                <p className="font-semibold">{brand.name}</p>
+                                                <p className="font-semibold text-area"> {brand.name} </p>
                                             </div>
                                         </TableCell>
                                         <TableCell>

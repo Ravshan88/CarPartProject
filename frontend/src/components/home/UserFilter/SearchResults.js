@@ -40,10 +40,19 @@ function SearchResults(props) {
     },[dispatch])
     useEffect(()=>{
         dispatch(getProducts())
-
+        dispatch(getCarStart());
+        dispatch(getCarPart());
+        dispatch(getBrands());
+        // if(brands.length==0 || cars.length==0){
+        //     navigate("/")
+        // }
     },[])
     const [error, setError]=useState(false)
     function searchAndNavigate() {
+        if(brandId === "" && carId === ""){
+            setBrandId(currentBrandId)
+            setCarId(currentCarId)
+        }
         if (brandId === "") {
             setError(true)
             return;
@@ -68,7 +77,7 @@ function SearchResults(props) {
                     <div className="container text-center">
                        <div className={'d-flex align-items-center'}>
                            <h2 style={{fontSize:20}}>Qidiruv natijasi:</h2>
-                           <h2 style={{fontSize:25, marginLeft:10}}>{brands?.content.filter(item=>item.id===currentBrandId)[0].name}</h2>
+                           <h2 style={{fontSize:25, marginLeft:10}}>{brands?.content?.filter(item=>item.id===currentBrandId)[0].name}</h2>
                        </div>
                         <Dropdown  className={'bg-primary '}>
                             <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -94,7 +103,7 @@ function SearchResults(props) {
                                             }
                                         >
                                             <option value={''}>Brand tanlang</option>
-                                            {brands.content?.map((item) => (
+                                            {brands?.content?.map((item) => (
                                                 <option key={item.id} value={item.id}>
                                                     {item.name}
                                                 </option>
@@ -112,7 +121,7 @@ function SearchResults(props) {
                                             onChange={(e) => setCarId(e.target.value)}
                                         >
                                             <option value={''}>Mashina tanlang</option>
-                                            {cars?.filter(car => car.brand.id === (brandId===""?currentBrandId:brandId)).map((item) => (
+                                            {cars?.filter(car => car?.brand?.id === (brandId===""?currentBrandId:brandId))?.map((item) => (
                                                 <option key={item.id} value={item.id}>
                                                     {item.name}
                                                 </option>
@@ -150,7 +159,7 @@ function SearchResults(props) {
                 </nav>
             </div>
             <div className={'d-flex gap-2'}>
-                {products.content?.filter(product=>product?.car.id===currentCarId)
+                {products?.content?.filter(product=>product?.car?.id===currentCarId)
                     .map((item, i)=>
                         <div className={'my-2 mx-3'}>
                             <div key={i} className="flex-wrap bg-gray-100 rounded p-4">

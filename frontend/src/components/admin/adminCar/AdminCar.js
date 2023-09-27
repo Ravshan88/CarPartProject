@@ -290,7 +290,7 @@ function AdminCar(props) {
                                 onChange={(e) => setBrandId(e.target.value)}
                             >
                                 <option value={''}>Brendni tanlang</option>
-                                {brands.content?.map((item, index) => (
+                                {brands?.content?.map((item, index) => (
                                     <option key={item.id} value={item.id}>
 
                                         {item.name}
