@@ -8,15 +8,9 @@ import {
     getProducts,
 } from "../../../redux/reducers/AdminProductSlice";
 import {useDispatch, useSelector} from "react-redux";
-import Render from "../../admin/operator/Render/Render";
 import {LazyLoadImage} from "react-lazy-load-image-component";
-import {Popover, PopoverContent, PopoverTrigger, Tooltip} from "@nextui-org/react";
 import {Divider} from "antd";
-import {EyeIcon} from "../../admin/EyeIcon";
-import {EditIcon} from "../../admin/EditIcon";
-import {DeleteIcon} from "../../admin/DeleteIcon";
-import carSearch from "./carSearch.jpg";
-import UserFilter from "./UserFilter";
+import carSearch from "./carSearch.png";
 import searchPhoto from "./search.png";
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
 import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
@@ -41,7 +35,6 @@ function SearchResults(props) {
         dispatch(getCarStart());
         dispatch(getCarPart());
         dispatch(getBrands());
-        console.log(currentCarId)
     },[dispatch])
     useEffect(()=>{
         dispatch(getProducts())
@@ -49,7 +42,6 @@ function SearchResults(props) {
     },[])
     const [error, setError]=useState(false)
     function searchAndNavigate() {
-        console.log(carPartId, carId, brandId);
         if (brandId === "") {
             setError(true)
             return;
@@ -58,7 +50,7 @@ function SearchResults(props) {
             setError(true)
             return;
         }
-        if(carPartId==""){
+        if(carPartId===""){
             navigate('/search/'+brandId+"/"+carId+'/'+"carPart")
             return;
         }

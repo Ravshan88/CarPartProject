@@ -6,11 +6,21 @@ import {
     getAdvertisementSuccess, getCarouselFailure, getCarouselStart, getCarouselSuccess, setPhotoForBackend,
     workEditAdvertisement
 } from "../reducers/AdvertisementSlice";
+import {useSelector} from "react-redux";
 
 function* editAdvertisement(action) {
-    console.log(action.payload)
+    const {data, news} = action.payload
     try {
-        yield call(() => instance(`/api/v1/advertisement`, "PUT", action.payload));
+        yield call(() => instance(`/api/v1/advertisement`, data.length === 0 ? "POST" : "PUT", news));
+        yield call(workGetAdvertisement)
+    } catch (error) {
+        yield put(getAdvertisementFailure(error.message));
+    }
+}
+
+function* deleteAdvertisement(action) {
+    try {
+        yield call(() => instance(`/api/v1/advertisement/${action.payload}`, "DELETE"));
         yield call(workGetAdvertisement)
     } catch (error) {
         yield put(getAdvertisementFailure(error.message));
@@ -65,5 +75,6 @@ export function* AdvertisementSaga() {
     yield takeLatest(getCarouselStart().type, workGetCarousel);
     yield takeLatest(setPhotoForBackend().type, saveCarouselPhoto);
     yield takeLatest("deleteCarouselPhoto", workDeleteCarousel);
+    yield takeLatest("deleteText", deleteAdvertisement);
 }
 

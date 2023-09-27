@@ -12,7 +12,6 @@ import {Tooltip} from "@nextui-org/react";
 
 
 function AdminNews(props) {
-    const [isHovered, setIsHovered] = useState("")
     const {data, isLoading, carousel} = useSelector(state => state.advertisement);
     const initialNews = {
         id: data[0]?.id || '',
@@ -27,7 +26,7 @@ function AdminNews(props) {
     }, []);
 
     function editAdvertisementText() {
-        dispatch(workEditAdvertisement(news));
+        dispatch(workEditAdvertisement({news, data}));
         setNews({id: "", title: ""})
     }
 
@@ -41,8 +40,15 @@ function AdminNews(props) {
 
     return (
         <div>
-            <div className={'flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white'}>
-                <h2 className={'flex font-semibold'}>{data[0]?.title}</h2>
+            <div className={"flex justify-between gap-1"}>
+                <div
+                    className={'flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white'}>
+                    <h2 className={'flex font-semibold'}>{data[0]?.title}</h2>
+                </div>
+                <div>
+                    <Button onClick={() => dispatch({type: "deleteText", payload: data[0]?.id})}
+                            className={"border-none bg-white text-blue-500 rounded-2xl  text-2xl"}><DeleteIcon/></Button>
+                </div>
             </div>
             <div className={'my-2 flex input-group w-[400px]'}>
                 <input
@@ -56,6 +62,7 @@ function AdminNews(props) {
                     Tahrirlash
                 </Button>
             </div>
+
             <div className={"bg-white min-h-full p-2"}>
                 {
                     carousel.length <= 5 && <label>
@@ -67,7 +74,6 @@ function AdminNews(props) {
                         </div>
                     </label>
                 }
-
                 <div className={"flex gap-2 flex-wrap mt-2 "}>
                     {carousel?.map(item => (
                         <div

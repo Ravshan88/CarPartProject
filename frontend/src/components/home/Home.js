@@ -3,12 +3,9 @@ import Header from "../home/Header/Header";
 import Footer from "./Footer/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {getAdvertisementStart, getCarouselStart} from "../../redux/reducers/AdvertisementSlice";
-import first from "../images/autoImg.jpg"
-import second from "../images/loading.gif"
-import third from "../images/upload.png"
 import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import carSearch from "./UserFilter/carSearch.jpg";
+import carSearch from "./UserFilter/carSearch.png";
 import searchPhoto from "./UserFilter/search.png";
 import {useNavigate} from "react-router-dom";
 import {getCarStart} from "../../redux/reducers/AdminCarSlice";
@@ -40,7 +37,6 @@ function Home(props) {
     }, []);
     const [error, setError]=useState(false)
     function searchAndNavigate() {
-        console.log(carPartId, carId, brandId);
         if (brandId === "") {
             setError(true)
             return;
@@ -49,7 +45,7 @@ function Home(props) {
             setError(true)
             return;
         }
-        if(carPartId==""){
+        if(carPartId===""){
             navigate('/search/'+brandId+"/"+carId+'/'+"carPart")
             return;
         }

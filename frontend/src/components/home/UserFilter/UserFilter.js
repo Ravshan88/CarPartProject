@@ -1,62 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCarStart } from "../../../redux/reducers/AdminCarSlice";
-import { getCarPart } from "../../../redux/reducers/AdminCartPartSlice";
-import { getBrands } from "../../../redux/reducers/AdminBrandSlice";
-import { getProducts } from "../../../redux/reducers/AdminProductSlice";
-import carSearch from './carSearch.jpg'
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
+import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
+import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
+import {getProducts} from "../../../redux/reducers/AdminProductSlice";
+import carSearch from './carSearch.png'
 import searchPhoto from './search.png'
 import {useNavigate} from "react-router-dom";
 
 function Home(props) {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const [carId, setCarId] = useState('');
     const [carPartId, setCarPartId] = useState('');
     const [brandId, setBrandId] = useState("");
-    const { } = useSelector(state => state.adminProduct);
-
     const dispatch = useDispatch();
-    const { cars } = useSelector(state => state.adminCar);
-    const { brands } = useSelector(state => state.adminBrand);
-    const { carParts } = useSelector(state => state.adminCarPart);
+    const {cars} = useSelector(state => state.adminCar);
+    const {brands} = useSelector(state => state.adminBrand);
+    const {carParts} = useSelector(state => state.adminCarPart);
 
     useEffect(() => {
         dispatch(getCarStart());
         dispatch(getCarPart());
         dispatch(getBrands());
     }, []);
-const [error, setError]=useState(false)
+    const [error, setError] = useState(false)
+
     function searchAndNavigate() {
-        console.log(carPartId, carId, brandId);
         if (brandId === "") {
             setError(true)
             return;
         }
         if (carId === "") {
-           setError(true)
+            setError(true)
             return;
         }
-        if(carPartId==""){
-            navigate('/search/'+brandId+"/"+carId+'/'+"carPart")
+        if (carPartId === "") {
+            navigate('/search/' + brandId + "/" + carId + '/' + "carPart")
             return;
         }
-        navigate('/search/'+brandId+"/"+carId+'/'+carPartId)
+        navigate('/search/' + brandId + "/" + carId + '/' + carPartId)
 
     }
 
     return (
         <div className={'container row'}>
             <div className={'col-5 p-5 '}>
-                <div className={'p-3'} style={{ backgroundColor: '#fafafa' }}>
+                <div className={'p-3'} style={{backgroundColor: '#fafafa'}}>
                     <div className={'d-flex align-items-center justify-content-evenly gap-2'}>
-                        <img width={60} src={carSearch} alt={'..'} />
+                        <img width={60} src={carSearch} alt={'..'}/>
                         <p>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
                     </div>
                     <div className={'my-2'}>
                         <div className="input-group mb-3">
                             <span className="input-group-text bg-primary text-white">1</span>
                             <select
-                                className={`form-select w-75 ${brandId === "" && error? "is-invalid" : ""}`}
+                                className={`form-select w-75 ${brandId === "" && error ? "is-invalid" : ""}`}
                                 id={'brand'}
                                 value={brandId}
                                 onChange={(e) => setBrandId(e.target.value)}
@@ -68,7 +66,7 @@ const [error, setError]=useState(false)
                                     </option>
                                 ))}
                             </select>
-                            {brandId === "" &&error&& <div className="invalid-feedback">Please select a brand.</div>}
+                            {brandId === "" && error && <div className="invalid-feedback">Please select a brand.</div>}
                         </div>
 
                         <div className="input-group mb-3">
@@ -86,7 +84,7 @@ const [error, setError]=useState(false)
                                     </option>
                                 ))}
                             </select>
-                            {carId === ""&&error && <div className="invalid-feedback">Please select a car.</div>}
+                            {carId === "" && error && <div className="invalid-feedback">Please select a car.</div>}
                         </div>
 
                         <div className="input-group mb-3">
@@ -109,7 +107,7 @@ const [error, setError]=useState(false)
                     <button
                         onClick={searchAndNavigate}
                         className={'btn btn-primary w-100 d-flex align-items-center justify-content-center'}>
-                        <img src={searchPhoto} alt={'..'} width={30} />
+                        <img src={searchPhoto} alt={'..'} width={30}/>
                         Qidirsh
                     </button>
                 </div>

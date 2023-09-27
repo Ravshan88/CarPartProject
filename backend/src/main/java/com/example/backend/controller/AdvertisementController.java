@@ -19,13 +19,13 @@ public class AdvertisementController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public HttpEntity<?> addAdvertisement(Advertisement advertisement) {
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public HttpEntity<?> addAdvertisement(@RequestBody Advertisement advertisement) {
         return advertisementService.addAdvertisement(advertisement);
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public HttpEntity<?> editAdvertisement(@RequestBody Advertisement advertisement) {
         return advertisementService.editAdvertisement(advertisement);
     }
