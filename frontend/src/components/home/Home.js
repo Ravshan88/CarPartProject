@@ -129,11 +129,11 @@ function Home(props) {
                    <div className={"vh-100"}>
                        {
                            carousel?.length > 0 &&
-                           <Carousel infiniteLoop={true} showThumbs={false} autoPlay className={"w-[400px] h-[300px]"}>
+                           <Carousel infiniteLoop={true} showThumbs={false} autoPlay className={"w-[200px] h-[200px]"}>
                                {
                                    carousel?.map(item =>
                                        <div key={item.id}>
-                                           <img width={300} height={200}
+                                           <img width={200} height={200}
                                                 src={`http://localhost:8080/api/v1/file/getFile/${item.attachment.id}`}
                                                 alt="Image"/>
                                        </div>
