@@ -43,12 +43,17 @@ function AdminNews(props) {
             <div className={"flex justify-between gap-1"}>
                 <div
                     className={'flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white'}>
-                    <h2 className={'flex font-semibold'}>{data[0]?.title}</h2>
+                    {
+                        data.length === 0 ? <h2 className={"text-yellow-300"}>Yangilik mavjud emas</h2> :
+                            <h2 className={'flex font-semibold'}>{data[0]?.title}</h2>
+                    }
                 </div>
-                <div>
-                    <Button onClick={() => dispatch({type: "deleteText", payload: data[0]?.id})}
-                            className={"border-none bg-white text-blue-500 rounded-2xl  text-2xl"}><DeleteIcon/></Button>
-                </div>
+                {
+                    data.length !== 0 && <div>
+                        <Button onClick={() => dispatch({type: "deleteText", payload: data[0]?.id})}
+                                className={"border-none bg-white text-blue-500 rounded-2xl  text-2xl"}><DeleteIcon/></Button>
+                    </div>
+                }
             </div>
             <div className={'my-2 flex input-group w-[400px]'}>
                 <input
@@ -65,12 +70,12 @@ function AdminNews(props) {
 
             <div className={"bg-white min-h-full p-2"}>
                 {
-                    carousel.length <5 && <label>
+                    carousel.length < 5 && <label>
                         <input onChange={handleChange} type="file" hidden/>
-                        <div className={"border hover:bg-gray-200 cursor-pointer  rounded p-2"}>
-                            <p className={"text-gray-600"}>
+                        <div className={" cursor-pointer  rounded p-2"}>
+                            <div className={"text-white text-sm p-2 flex justify-center rounded bg-blue-600 w-[100px]"}>
                                 Upload...
-                            </p>
+                            </div>
                         </div>
                     </label>
                 }
