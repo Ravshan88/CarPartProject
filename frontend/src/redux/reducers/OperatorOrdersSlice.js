@@ -25,6 +25,9 @@ const operatorOrdersSlice = createSlice({
         },
         changeStatusOrder(action, state){
             state.isLoading=true;
+        },
+        saveOrder(action, state){
+            state.isLoading=true;
         }
     }
 })
@@ -34,6 +37,7 @@ export const {
    getOrdersStart,
     getOrdersFailure,
     getOrdersSuccess,
-    changeStatusOrder
+    changeStatusOrder,
+    saveOrder
 } = operatorOrdersSlice.actions
 export default operatorOrdersSlice.reducer

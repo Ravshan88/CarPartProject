@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.ReqOrder;
 import com.example.backend.service.OrderService.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -29,5 +30,10 @@ public class OrderController {
             @PathVariable UUID orderId
             ){
         return orderService.changeStatus(status, orderId);
+    }
+
+    @PostMapping
+    public HttpEntity<?> saveOrder(@RequestBody ReqOrder reqOrder){
+        return orderService.saveOrder(reqOrder);
     }
 }

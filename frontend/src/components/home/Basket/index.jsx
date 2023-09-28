@@ -1,43 +1,54 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {AddShoppingCart, HdrPlus} from "@mui/icons-material";
+import { useNavigate } from 'react-router-dom';
+import { AddShoppingCart, HdrPlus} from "@mui/icons-material";
 import Header from "../Header/Header";
 import {DeleteIcon} from "../../admin/DeleteIcon";
 import {Tooltip} from "@nextui-org/react";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {useDispatch, useSelector} from "react-redux";
+import {Modal} from "react-bootstrap";
+import {Controller, useForm} from "react-hook-form";
+import {saveOrder} from "../../../redux/reducers/OperatorOrdersSlice";
+import PhoneInput from "react-phone-number-input";
 
 function Index(props) {
-    const [basket, setBasket] = useState([])
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
 
-    const paymentOptions = ['payMe', 'uzum', 'click', 'cash'];
+    const [basket, setBasket] = useState([]);
+    const navigate = useNavigate();
+    const {error} = useSelector(state => state.adminOperators)
+
     const [modalIsVisible, setModalIsVisible] = useState(false);
-    const [selectedPayment, setSelectedPayment] = useState('');
+    const [formData, setFormData] = useState({
+        fullName: '',
+        phone: '+998',
+    });
+
     useEffect(() => {
         let y = localStorage.getItem("basket");
         if (y != null) {
-            setBasket(JSON.parse(y))
+            setBasket(JSON.parse(y));
         }
-    }, [])
+    }, []);
 
     function calcTotal() {
         let s = 0;
         basket.map(item => {
             s += item.price * item.amount;
-        })
+        });
         return s;
     }
 
     function plus(id) {
         basket.map(item => {
             if (item.id === id) {
-                item.amount++
+                item.amount++;
             }
-        })
-        setBasket([...basket])
-        savaToLocal(basket)
+        });
+        setBasket([...basket]);
+        savaToLocal(basket);
     }
 
     function minus(id) {
@@ -46,19 +57,17 @@ function Index(props) {
                 if (item.amount === 0) {
 
                 } else {
-                    item.amount--
+                    item.amount--;
                 }
             }
-        })
-        setBasket([...basket])
-        console.log(basket);
-        savaToLocal(basket)
+        });
+        setBasket([...basket]);
+        savaToLocal(basket);
     }
 
     function savaToLocal(b) {
-        localStorage.setItem('basket', JSON.stringify(basket))
+        localStorage.setItem('basket', JSON.stringify(basket));
     }
-
 
     const openModal = () => {
         setModalIsVisible(true);
@@ -66,54 +75,59 @@ function Index(props) {
 
     const closeModal = () => {
         setModalIsVisible(false);
-        saveOrder()
     };
 
-    const handlePaymentChange = (event) => {
-        setSelectedPayment(event.target.value);
-    };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Perform the form submission or further processing here
-        console.log('Selected payment:', selectedPayment);
+    const loginUser = async (event) => {
+        await handleSubmit(() => console.log(formData))(event);
         closeModal();
+        saveOrders()
     };
 
 
-    function saveOrder() {
+    const {
+        handleSubmit,
+        control,
+        formState: { errors }
+    } = useForm();
 
-        if (selectedPayment === "") {
-            alert("Siz to'lov turini tanlamagansiz!")
-            return;
-        }
+    function saveOrders() {
         if (basket.length === 0) {
-            alert("Siz mahsulot tanlamagansiz")
+            alert("Siz mahsulot tanlamagansiz");
             return;
         }
         let arr = basket.filter(item => item.id !== 0);
-        const newOrderArray = arr.map(({id, amount}) => ({productId: id, amount}));
-
-        // console.log(newOrderArray);
+        const newOrderArray = arr.map(({ id, amount }) => ({ productId: id, amount }));
 
         let reqToOrders = {
             reqOrders: newOrderArray,
-            payment: {
-                type: selectedPayment,
-                amount: calcTotal()
-            }
-        }
 
-        console.log(reqToOrders);
+            client_name:formData.fullName,
+            phone:formData.phone,
+
+
+        };
+        dispatch(saveOrder(reqToOrders))
+        if(error){
+        }else{
+            setBasket([])
+            localStorage.setItem('basket', JSON.stringify([]))
+
+        }
 
 
     }
 
     function deleteFromBasket(id) {
         let arr = basket.filter(item => item.id !== id);
-        setBasket(arr)
-        localStorage.setItem("basket", JSON.stringify(arr))
+        setBasket(arr);
+        localStorage.setItem("basket", JSON.stringify(arr));
     }
+
+    function closeAskModal() {
+        setModalIsVisible(false);
+    }
+
 
     return (
         <div>
@@ -206,7 +220,52 @@ function Index(props) {
                     </div>
                 </div>
             </div>
-
+            <div className={'modal'}>
+                <Modal show={modalIsVisible} onHide={closeAskModal}>
+                    <Modal.Header closeButton>
+                        Malumot laringizni kiriting
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(loginUser)}>
+                            <div className="mb-3">
+                                <label htmlFor="fullName" className="form-label">Ism Familya</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="fullName"
+                                    placeholder="Enter your full name"
+                                    value={formData.fullName}
+                                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                    Phone</label>
+                                <Controller
+                                    name='phone'
+                                    control={control}
+                                    defaultValue='+998'
+                                    rules={{ required: "Phone Number is required" }}
+                                    render={({ field }) => (
+                                        <div>
+                                            <PhoneInput
+                                                id={"phone"}
+                                                {...field}
+                                                defaultCountry='UZ'
+                                                limitMaxLength={true}
+                                                placeholder='+998'
+                                                value={formData.phone}
+                                                onChange={(value) => setFormData({ ...formData, phone: value })}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                            </div>
+                            <button type="submit">rasmiylashtirish</button>
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </div>
         </div>
     );
 }
