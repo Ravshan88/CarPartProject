@@ -4,6 +4,7 @@ import autoImg from '../../images/autoImg.jpg'
 import {PersonOutlineOutlined, ShoppingCartOutlined} from "@mui/icons-material";
 import {Button, Input, Space} from "antd";
 import {useSelector} from "react-redux";
+import {SiJss} from "react-icons/si";
 
 function Header(props) {
     const {data, isLoading} = useSelector(state => state.advertisement)
@@ -45,8 +46,9 @@ function Header(props) {
                         Search
                     </Button>
                 </div>
-                <div className={"px-6"}>
+                <div className={"px-6 flex"} onClick={()=>{navigate('/basket')}}>
                     <ShoppingCartOutlined color={"primary"} fontSize={"large"}/>
+                   <p className={'text-gray-50'}> {JSON.parse(localStorage.getItem('basket'))?.length}</p>
                 </div>
             </div>
 

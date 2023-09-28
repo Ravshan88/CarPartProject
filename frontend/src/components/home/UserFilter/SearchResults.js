@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Header from "../Header/Header";
 import {Button, Dropdown} from 'react-bootstrap';
+import {AddShoppingCart, Money} from "@mui/icons-material";
 
 import {
     getProducts,
@@ -15,41 +16,51 @@ import searchPhoto from './search.png'
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
 import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
+import {ShoppingCartOutlined} from "@mui/icons-material";
 
 
 function SearchResults(props) {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch();
-    const currentBrandId=useParams().brandId
-    let currentCarId=useParams().carId
-    const {  currentCarPartId } = useParams();
-    const {products,  } = useSelector(state => state.adminProduct)
-    const { cars } = useSelector(state => state.adminCar);
-    const { brands } = useSelector(state => state.adminBrand);
-    const { carParts } = useSelector(state => state.adminCarPart);
+    const currentBrandId = useParams().brandId
+    let currentCarId = useParams().carId
+    const {currentCarPartId} = useParams();
+    const {products,} = useSelector(state => state.adminProduct)
+    const {cars} = useSelector(state => state.adminCar);
+    const {brands} = useSelector(state => state.adminBrand);
+    const {carParts} = useSelector(state => state.adminCarPart);
     const [carId, setCarId] = useState('');
     const [carPartId, setCarPartId] = useState('');
     const [brandId, setBrandId] = useState("");
 
+    const [basket, setBasket] = useState([])
 
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(getProducts())
         dispatch(getCarStart());
         dispatch(getCarPart());
         dispatch(getBrands());
-    },[dispatch])
-    useEffect(()=>{
+    }, [dispatch])
+    useEffect(() => {
         dispatch(getProducts())
         dispatch(getCarStart());
         dispatch(getCarPart());
         dispatch(getBrands());
-        // if(brands.length==0 || cars.length==0){
-        //     navigate("/")
-        // }
-    },[])
-    const [error, setError]=useState(false)
+
+        let bas = JSON.parse(localStorage.getItem('basket'))
+        if (bas == null) {
+            localStorage.setItem('basket', JSON.stringify([]))
+        } else {
+            setBasket(bas)
+        }
+
+    }, [])
+
+    const [error, setError] = useState(false)
+
     function searchAndNavigate() {
-        if(brandId === "" && carId === ""){
+        if (brandId === "" && carId === "") {
             setBrandId(currentBrandId)
             setCarId(currentCarId)
         }
@@ -61,12 +72,37 @@ function SearchResults(props) {
             setError(true)
             return;
         }
-        if(carPartId===""){
-            navigate('/search/'+brandId+"/"+carId+'/'+"carPart")
+        if (carPartId === "") {
+            navigate('/search/' + brandId + "/" + carId + '/' + "carPart")
             return;
         }
-        navigate('/search/'+brandId+"/"+carId+'/'+carPartId)
+        navigate('/search/' + brandId + "/" + carId + '/' + carPartId)
 
+    }
+
+    function addToBasket(item) {
+        if (basket && basket?.filter(i => i.id === item.id).length !== 0) {
+            return;
+        }
+        console.log(basket)
+        basket.push({...item, amount: 1})
+        setBasket([...basket])
+        localStorage.setItem("basket", JSON.stringify(basket))
+    }
+
+    function deleteFromBasket(id) {
+        let arr = basket.filter(item => item.id !== id);
+        setBasket(arr)
+        localStorage.setItem("basket", JSON.stringify(arr))
+    }
+
+    function addToBasketAndNavigate(item) {
+        addToBasket(item)
+        navigate('/basket')
+    }
+
+    function openInfoProduct(item) {
+        navigate('/infoproduct/' + item.id)
     }
 
     return (
@@ -75,27 +111,30 @@ function SearchResults(props) {
             <div>
                 <nav className="navbar bg-body-tertiary text-center">
                     <div className="container text-center">
-                       <div className={'d-flex align-items-center'}>
-                           <h2 style={{fontSize:20}}>Qidiruv natijasi:</h2>
-                           <h2 style={{fontSize:25, marginLeft:10}}>{brands?.content?.filter(item=>item.id===currentBrandId)[0].name}</h2>
-                       </div>
-                        <Dropdown  className={'bg-primary '}>
+                        <div className={'d-flex align-items-center'}>
+                            <h2 style={{fontSize: 20}}>Qidiruv natijasi:</h2>
+                            <h2 style={{
+                                fontSize: 25,
+                                marginLeft: 10
+                            }}>{brands?.content?.filter(item => item.id === currentBrandId)[0].name}</h2>
+                        </div>
+                        <Dropdown className={'bg-primary '}>
                             <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                                   O'zgartirish
+                                O'zgartirish
 
                             </Dropdown.Toggle>
-                            <Dropdown.Menu style={{width:350}} className={'p-2'}>
+                            <Dropdown.Menu style={{width: 350}} className={'p-2'}>
                                 <div className={'d-flex align-items-center  justify-content-evenly gap-2'}>
-                                    <img width={60} src={carSearch} alt={'..'} />
+                                    <img width={60} src={carSearch} alt={'..'}/>
                                     <p>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
                                 </div>
                                 <div className={'my-2'}>
                                     <div className="input-group mb-3">
                                         <span className="input-group-text bg-primary text-white">1</span>
                                         <select
-                                            className={`form-select w-75 ${brandId === "" && error? "is-invalid" : ""}`}
+                                            className={`form-select w-75 ${brandId === "" && error ? "is-invalid" : ""}`}
                                             id={'brand'}
-                                            value={brandId===""?currentBrandId:brandId}
+                                            value={brandId === "" ? currentBrandId : brandId}
                                             onChange={(e) => {
                                                 setBrandId(e.target.value)
 
@@ -109,7 +148,8 @@ function SearchResults(props) {
                                                 </option>
                                             ))}
                                         </select>
-                                        {brandId === "" &&error&& <div className="invalid-feedback">Please select a brand.</div>}
+                                        {brandId === "" && error &&
+                                            <div className="invalid-feedback">Please select a brand.</div>}
                                     </div>
 
                                     <div className="input-group mb-3">
@@ -117,17 +157,18 @@ function SearchResults(props) {
                                         <select
                                             id={'car'}
                                             className={`form-select ${carId === "" && error ? "is-invalid" : ""}`}
-                                            value={carId===""?currentCarId:carId}
+                                            value={carId === "" ? currentCarId : carId}
                                             onChange={(e) => setCarId(e.target.value)}
                                         >
                                             <option value={''}>Mashina tanlang</option>
-                                            {cars?.filter(car => car?.brand?.id === (brandId===""?currentBrandId:brandId))?.map((item) => (
+                                            {cars?.filter(car => car?.brand?.id === (brandId === "" ? currentBrandId : brandId))?.map((item) => (
                                                 <option key={item.id} value={item.id}>
                                                     {item.name}
                                                 </option>
                                             ))}
                                         </select>
-                                        {carId === ""&&error && <div className="invalid-feedback">Please select a car.</div>}
+                                        {carId === "" && error &&
+                                            <div className="invalid-feedback">Please select a car.</div>}
                                     </div>
 
                                     <div className="input-group mb-3">
@@ -150,7 +191,7 @@ function SearchResults(props) {
                                 <button
                                     onClick={searchAndNavigate}
                                     className={'btn btn-primary w-100 d-flex align-items-center justify-content-center'}>
-                                    <img src={searchPhoto} alt={'..'} width={30} />
+                                    <img src={searchPhoto} alt={'..'} width={30}/>
                                     Qidirsh
                                 </button>
                             </Dropdown.Menu>
@@ -159,67 +200,37 @@ function SearchResults(props) {
                 </nav>
             </div>
             <div className={'d-flex gap-2'}>
-                {products?.content?.filter(product=>product?.car?.id===currentCarId)
-                    .map((item, i)=>
-                        <div className={'my-2 mx-3'}>
+                {products?.content?.filter(product => product?.car?.id === currentCarId)
+                    .map((item, i) =>
+                        <div className={'my-2 mx-3'} key={i}>
                             <div key={i} className="flex-wrap bg-gray-100 rounded p-4">
-                                <LazyLoadImage
-                                    effect="blur"
-                                    className="w-full h-full block text-center"
-                                    width={200}
-                                    height={200}
-                                    src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
-                                    alt="Product Image"
-                                />
-                                <div className="mt-4 w-[200px]">
-                                    <div className="flex items-center mb-2">
-                                        <h1 className="text-gray-500 tracking-widest title-font">{item.name}</h1>
+                                <div onClick={() => {
+                                    navigate("/infoproduct/" + item?.id)
+                                }}>
+                                    <LazyLoadImage
+                                        effect="blur"
+                                        className="w-full h-full block text-center"
+                                        width={200}
+                                        height={200}
+                                        src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
+                                        alt="Product Image"
+                                    />
+                                    <div className="mt-4 w-[200px]">
+                                        <div className="flex items-center mb-2">
+                                            <h1 className="text-gray-500 tracking-widest title-font">{item.name}</h1>
+
+                                        </div>
 
                                     </div>
-                                    {/*<div className="flex items-center mb-2">*/}
-                                    {/*    <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>*/}
-                                    {/*    <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">*/}
-                                    {/*        <PopoverTrigger>*/}
-                                    {/*            <p*/}
-                                    {/*                className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">*/}
-                                    {/*                {item?.description}*/}
-                                    {/*            </p>*/}
-                                    {/*        </PopoverTrigger>*/}
-                                    {/*        <PopoverContent>*/}
-                                    {/*            <p*/}
-                                    {/*                className="ml-2 overflow-hidden overflow-ellipsis">*/}
-                                    {/*                {item?.description}*/}
-                                    {/*            </p>*/}
-                                    {/*        </PopoverContent>*/}
-                                    {/*    </Popover>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="flex items-center mb-2">*/}
-                                    {/*    <h1 className="text-gray-500 tracking-widest title-font">CarName:</h1>*/}
-                                    {/*    <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">*/}
-                                    {/*        <PopoverTrigger>*/}
-                                    {/*            <p*/}
-                                    {/*                className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">*/}
-                                    {/*                {item?.car?.name}*/}
-                                    {/*            </p>*/}
-                                    {/*        </PopoverTrigger>*/}
-                                    {/*        <PopoverContent>*/}
-                                    {/*            <p*/}
-                                    {/*                className="ml-2 overflow-hidden overflow-ellipsis">*/}
-                                    {/*                {item?.car?.name}*/}
-                                    {/*            </p>*/}
-                                    {/*        </PopoverContent>*/}
-                                    {/*    </Popover>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="flex items-center mb-2">*/}
-                                    {/*    <h1 className="text-gray-500 tracking-widest title-font">CarPart:</h1>*/}
-                                    {/*    {*/}
-                                    {/*        item?.carPart?.name ?*/}
-                                    {/*            <p className="ml-2">{item?.carPart?.name}</p> :*/}
-                                    {/*            <p className="ml-2 text-gray-400">Mavjud emas</p>*/}
-                                    {/*    }*/}
-                                    {/*</div>*/}
                                 </div>
                                 <Divider className={"m-2"}/>
+
+
+                                <Money onClick={() => addToBasketAndNavigate(item)} fontSize={"large"}/>
+                                <AddShoppingCart onClick={() => addToBasket(item)}
+                                                 color={basket.filter(i => i.id === item.id).length !== 0 ? "primary" : ''}
+                                                 fontSize={"large"}/>
+
                             </div>
 
                         </div>
