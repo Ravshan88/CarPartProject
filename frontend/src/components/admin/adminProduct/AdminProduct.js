@@ -32,14 +32,15 @@ function AdminProduct(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
     const [carId, setCarId] = useState('');
     const [carPartId, setCarPartId] = useState('');
     const [productInfo, setProductInfo] = useState('');
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
     const [brandId, setBrandId] = useState("")
     const [imgLoading, setImgLoading] = useState(false)
-const [deletedItem, setDeletedItem]=useState('')
-const [askDelete, setAskDelete]=useState(false)
+    const [deletedItem, setDeletedItem] = useState('')
+    const [askDelete, setAskDelete] = useState(false)
     const dispatch = useDispatch();
     const {
         products,
@@ -105,6 +106,7 @@ const [askDelete, setAskDelete]=useState(false)
             dispatch(setObjForBrand({
                 name,
                 description,
+                price,
                 carPartId,
                 carId,
                 photo: imgFileForBackend,
@@ -191,7 +193,6 @@ const [askDelete, setAskDelete]=useState(false)
                 </Modal>
             </div>
 
-
             <ProductInfoModal infoData={productInfo} isImgModalOpen={isImgModalOpen}
                               handleCloseImgModal={handleOpenImgModal}/>
             <ToastContainer/>
@@ -223,6 +224,10 @@ const [askDelete, setAskDelete]=useState(false)
                             <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Name:</h1>
                                 <p className="ml-2">{item.name}</p>
+                            </div>
+                            <div className="flex items-center mb-2">
+                                <h1 className="text-gray-500 tracking-widest title-font">Price:</h1>
+                                <p className="ml-2">{item.price}$</p>
                             </div>
                             <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>
@@ -322,6 +327,16 @@ const [askDelete, setAskDelete]=useState(false)
                         value={description}
                         onChange={(e) =>
                             setDescription(e.target.value)
+                        }
+                        placeholder={""}
+                    />
+                    <label className={"mt-2"}>Price:</label>
+                    <input
+                        className={`form-control`}
+                        type={'number'}
+                        value={price}
+                        onChange={(e) =>
+                            setPrice(e.target.value)
                         }
                         placeholder={""}
                     />

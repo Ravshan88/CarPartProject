@@ -22,19 +22,19 @@ function Header(props) {
                     Club
                 </button>
             </div>
-            {
-                data[0]?.title &&
-                <div className={"flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white"}>
+            <div className={"flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white"}>
+                {
+                    data[0]?.title &&
                     <h2 className={"flex font-semibold"}>{data[0]?.title}</h2>
-                </div>
-            }
+                }
 
+            </div>
             <div className={"min-w-[1262px] flex justify-between w-full bg-gray-900 text-white"}>
                 <div></div>
                 <div className="flex justify-center items-center">
                     <img width={100} height={50} src={autoImg} alt=""/>
                 </div>
-                <div  onClick={() => navigate("/login")} className={"pr-6 cursor-pointer"}>
+                <div onClick={() => navigate("/login")} className={"pr-6 cursor-pointer"}>
                     <PersonOutlineOutlined/>Sign in
                 </div>
             </div>

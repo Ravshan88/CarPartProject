@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = Product.builder()
                 .name(productDTO.getName())
                 .description(productDTO.getDescription())
+                .price(productDTO.getPrice())
                 .photo(attachment)
                 .carPart(productDTO.getCarPartId() == null ? null : carPartRepository.findById(productDTO.getCarPartId()).orElseThrow())
                 .car(carRepository.findById(productDTO.getCarId()).orElseThrow())
@@ -87,6 +88,7 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setUpdatedAt(LocalDateTime.now());
         existingProduct.setCar(carRepository.findById(productDTO.getCarId()).orElseThrow());
         existingProduct.setDescription(productDTO.getDescription());
+        existingProduct.setPrice(productDTO.getPrice());
         existingProduct.setCarPart(productDTO.getCarPartId() == null ? null : carPartRepository.findById(productDTO.getCarPartId()).orElseThrow());
         if (photo != null && !photo.isEmpty()) {
             createFile(photo, existingProduct);

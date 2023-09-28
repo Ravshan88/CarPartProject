@@ -16,11 +16,11 @@ import {
 function* saveProductAsync(action) {
     try {
         console.log(action.payload)
-        const {name, description, carPartId, carId, photo, photoId, id, isEditing} = action.payload
+        const {name, description, price, carPartId, carId, photo, photoId, id, isEditing} = action.payload
         const formData = new FormData()
         formData.append("photo", photo)
         formData.append("prefix", "/productPhotos")
-        formData.append("data", JSON.stringify({id, name, description, carPartId, carId, photoId}))
+        formData.append("data", JSON.stringify({id, name, description, price, carPartId, carId, photoId}))
         yield call(() => instance(`/api/v1/product`,
             isEditing ? "PUT" : "POST", formData, null, true)
             .then(res => {
