@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddShoppingCart, HdrPlus} from "@mui/icons-material";
+import Header from "../Header/Header";
 function Index(props) {
     const [basket , setBasket] = useState([])
     const navigate=useNavigate()
@@ -109,7 +110,9 @@ function Index(props) {
         localStorage.setItem("basket", JSON.stringify(arr))
     }
     return (
-        <div className='container'>
+        <div >
+            <Header/>
+
             <h1>Basket</h1>
             <hr/>
             {basket.length==0&&
@@ -118,39 +121,41 @@ function Index(props) {
             </div>
             }
 
-            <ul className='List-group'>
+         <div className={'container'}>
+             <ul className='List-group'>
 
-                {
-                    basket.map(item=> <li key={item.id} className='my-1 list-group-item'>
-                        <div className='d-flex justify-content-between '>
-                        <img width={100} height={100}
-                             src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
-                                 alt="d" />
-                            
-                            <div>
-                                <h2 style={{width:200}}>{item.name}</h2>
-                                <p>{item.description}</p>
-                            </div>
-                            <div className='flex align-items-center gap-5 border-2 p-1 h-75'>
+                 {
+                     basket.map(item=> <li key={item.id} className='my-1 list-group-item'>
+                             <div className='d-flex justify-content-between '>
+                                 <img width={100} height={100}
+                                      src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
+                                      alt="d" />
+
+                                 <div>
+                                     <h2 style={{width:200}}>{item.name}</h2>
+                                     <p>{item.description}</p>
+                                 </div>
+                                 <div className='flex align-items-center gap-5 border-2 p-1 h-75'>
 
 
-                            <button onClick={()=>plus(item.id)} style={{fontSize:25}}>+</button>
-                                <h3> {item.amount}</h3>
-                            <button onClick={()=>minus(item.id)} style={{fontSize:25, padding:2}}>-</button>
+                                     <button onClick={()=>plus(item.id)} style={{fontSize:25}}>+</button>
+                                     <h3> {item.amount}</h3>
+                                     <button onClick={()=>minus(item.id)} style={{fontSize:25, padding:2}}>-</button>
 
-                           </div>
-                           <div>
-                            <h2>{item.price} </h2>
-                            <p>so'm</p>
-                           </div>
-                            <div>
-                                <button onClick={()=>deleteFromBasket(item.id)} style={{fontSize:22}} >x</button>
-                            </div>
-                        </div>
-                    </li>
-                    )
-                }
-            </ul>
+                                 </div>
+                                 <div>
+                                     <h2>{item.price} </h2>
+                                     <p>so'm</p>
+                                 </div>
+                                 <div>
+                                     <button onClick={()=>deleteFromBasket(item.id)} style={{fontSize:22}} >x</button>
+                                 </div>
+                             </div>
+                         </li>
+                     )
+                 }
+             </ul>
+         </div>
             <h2 className='text-end'>total: {calcTotal()} so'm</h2>
             <hr/>
             <hr/>
