@@ -29,6 +29,8 @@ import Loader from "./ui/pageLoading/loader";
 import AdminNews from "./components/admin/AdminNews/AdminNews";
 import UserFilter from "./components/home/UserFilter/UserFilter";
 import SearchResults from "./components/home/UserFilter/SearchResults";
+import Basket from "./components/home/Basket";
+import InfoProduct from "./components/home/InfoProduct/InfoProduct";
 
 function App() {
 
@@ -142,6 +144,8 @@ const [loading, setLoading]=useState(false)
                     </Route>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/filter" element={<UserFilter/>}/>
+                    <Route path="/basket" element={<Basket/>}/>
+                    <Route path="/infoproduct/:productId" element={<InfoProduct />} />
                     <Route path="/search/:brandId/:carId/:carPartId" element={<SearchResults />} />
                     <Route path="*" element={<ErrorPage/>}/>
                 </Routes>
