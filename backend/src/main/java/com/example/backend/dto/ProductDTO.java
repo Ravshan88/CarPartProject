@@ -13,6 +13,7 @@ public class ProductDTO {
     private UUID id;
     private String name;
     private String description;
+    private double price;
     private UUID carPartId;
     private UUID carId;
     private UUID photoId;
