@@ -13,25 +13,29 @@ function Header(props) {
     const length = JSON.parse(localStorage.getItem('basket'))?.length;
     return (
         <div className={"border"}>
-            <div className={"flex w-full justify-center gap-5 p-1.5 bg-gray-900 text-white"}>
-                <button>
-                    Shop
-                </button>
-                <button>
-                    Partners
-                </button>
-                <button>
-                    Club
-                </button>
-            </div>
+
             {
                 location.pathname === "/basket" ? "" :
-                    <div className={"flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white"}>
-                        {
-                            data[0]?.title &&
-                            <h2 className={"flex font-semibold"}>{data[0]?.title}</h2>
-                        }
+                    <div>
+                        <div className={"flex w-full justify-center gap-5 p-1.5 bg-gray-900 text-white"}>
+                            <button>
+                                Shop
+                            </button>
+                            <button>
+                                Partners
+                            </button>
+                            <button>
+                                Club
+                            </button>
+                        </div>
+                        <div
+                            className={"flex w-full align-items-center justify-center gap-5 bg-orange-600 h-7 text-white"}>
+                            {
+                                data[0]?.title &&
+                                <h2 className={"flex font-semibold"}>{data[0]?.title}</h2>
+                            }
 
+                        </div>
                     </div>
             }
             <div className={"min-w-[1262px] flex justify-between align-items-center w-full bg-gray-900 text-white"}>
