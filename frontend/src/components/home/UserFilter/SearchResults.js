@@ -226,10 +226,14 @@ function SearchResults(props) {
                                 <Divider className={"m-2"}/>
 
 
-                                <Money onClick={() => addToBasketAndNavigate(item)} fontSize={"large"}/>
-                                <AddShoppingCart onClick={() => addToBasket(item)}
-                                                 color={basket.filter(i => i.id === item.id).length !== 0 ? "primary" : ''}
-                                                 fontSize={"large"}/>
+                                <div className={"flex gap-2 justify-center align-items-center"}>
+                                    <button className={"hover:bg-green-500 text-white bg-green-600 font-thin w-75 rounded p-2"}
+                                            onClick={() => addToBasketAndNavigate(item)}>Sotib olish
+                                    </button>
+                                    <AddShoppingCart className={"cursor-pointer hover:scale-105"} onClick={() => addToBasket(item)}
+                                                     color={basket.filter(i => i.id === item.id).length !== 0 ? "primary" : ''}
+                                                     fontSize={"large"}/>
+                                </div>
 
                             </div>
 

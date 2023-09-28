@@ -1,7 +1,7 @@
-
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Header from "../Header/Header";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import {
     getProducts,
@@ -10,7 +10,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Divider} from "antd";
 import {AddShoppingCart} from "@mui/icons-material";
-
 
 
 function InfoProduct(props) {
@@ -134,7 +133,7 @@ function InfoProduct(props) {
     };
 
     const productPhotoStyles = {
-        width:'50%',
+        width: '50%',
         position: 'relative',
     };
 
@@ -150,7 +149,7 @@ function InfoProduct(props) {
     };
 
     const imgStyles = {
-        marginLeft:10,
+        marginLeft: 10,
         maxWidth: '550px',
     };
 
@@ -175,47 +174,46 @@ function InfoProduct(props) {
     };
 
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch();
-    const currentProductId=useParams().productId
+    const currentProductId = useParams().productId
 
-    const {products  } = useSelector(state => state.adminProduct)
-
-
-
-    const [basket , setBasket] = useState([])
+    const {products} = useSelector(state => state.adminProduct)
 
 
+    const [basket, setBasket] = useState([])
 
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(getProducts())
 
-    },[dispatch])
-    useEffect(()=>{
+    }, [dispatch])
+    useEffect(() => {
         dispatch(getProducts())
 
 
-        let bas=JSON.parse(localStorage.getItem('basket'))
-        if(bas==null){
+        let bas = JSON.parse(localStorage.getItem('basket'))
+        if (bas == null) {
             localStorage.setItem('basket', JSON.stringify([]))
-        }else {
+        } else {
             setBasket(bas)
         }
 
-    },[])
+    }, [])
 
 
-    function addToBasket(item){
-        if( basket && basket?.filter(i=>i.id===item.id).length!==0){
+    function addToBasket(item) {
+        if (basket && basket?.filter(i => i.id === item.id).length !== 0) {
             return;
         }
         console.log(basket)
-        basket.push({...item, amount:1})
+        basket.push({...item, amount: 1})
         setBasket([...basket])
         localStorage.setItem("basket", JSON.stringify(basket))
     }
-    function deleteFromBasket(id){
-        let arr=basket.filter(item=>item.id!==id);
+
+    function deleteFromBasket(id) {
+        let arr = basket.filter(item => item.id !== id);
         setBasket(arr)
         localStorage.setItem("basket", JSON.stringify(arr))
     }
@@ -249,76 +247,65 @@ function InfoProduct(props) {
     return (
         <div>
             <Header/>
-            <div>
-                <h1>Home</h1>
-            </div>
-
-            <div className={'d-flex gap-1 p-3'}>
-                {products?.content?.filter(product=>product?.id===currentProductId)
-                    .map(item=>
-                        <div>
-                            {/* Global Styles */}
-                            <div  className={'text-center'}>
-                                {/* Product Section */}
-                                <div className={'flex align-items-center  justify-between'}>
-                                    {/* Product Photo */}
-                                    <div  style={productPhotoStyles}>
-                                        {/* Photo Main */}
-                                        <div style={photoMainStyles}>
-
-
-                                            <LazyLoadImage
-                                                effect="blur"
-                                                className="w-full h-full block text-center"
-                                                style={imgStyles}
-                                                src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
-                                                alt="Product Image"
-                                            />
+            <div className={"container"}>
+                <div>
+                    <ArrowBackIcon className={"cursor-pointer hover:scale-110"} color={"primary"} onClick={() => {
+                        navigate(-1)
+                    }}/>
+                </div>
+                {
+                    products?.content?.filter(product => product?.id === currentProductId).map(item =>
+                        <section className="text-gray-600 body-font overflow-hidden">
+                            <div className="container px-5 py-10 mx-auto">
+                                <div className="lg:w-4/5 mx-auto flex flex-wrap">
+                                    <LazyLoadImage
+                                        width={300}
+                                        height={300}
+                                        effect="blur"
+                                        className="w-full h-full block text-center"
+                                        style={imgStyles}
+                                        src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
+                                        alt="Product Image"
+                                    />
+                                    <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                                        <div className={"mb-2"}>
+                                            <h2 className="text-sm title-font text-gray-500 tracking-widest">MAHSULOT
+                                                NOMI</h2>
+                                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{item.name}</h1>
                                         </div>
 
-                                    </div>
-                                    {/* Product Info */}
-                                    <div  className={'text-start'} style={productInfoStyles}>
-                                        {/* Title */}
-                                        <div style={titleStyles}>
-                                            <h1 style={{fontSize:"20px"}}>{item.name}</h1>
+                                        <div className={"mb-2"}>
+                                            <h2 className="text-sm title-font text-gray-500 tracking-widest">MAHSULOT
+                                                HAQIDA</h2>
+                                            <p className="leading-relaxed">{item.description}</p>
                                         </div>
-                                        {/* Price */}
-                                        <div style={priceStyles}>
-                                            R$ <span>7.93</span>
-                                        </div>
-                                       <div className={'text-start'}>
-                                           <h2>Mahsulot haqida:</h2>
-                                           <p>{item.description}</p>
-                                           <p>dwfqwef wqefqwefqw wqefqwefwe</p>
-                                       </div>
-                                        {/* Description */}
-                                        <div style={descriptionStyles}>
-                                            <h3>Qo'shimcha</h3>
-                                            <ul style={ulStyles}>
-                                                <li>{item.car.name}</li>
-                                                <li>{item.car.brand.name}</li>
-                                                <li>{}</li>
-                                                <li></li>
-                                            </ul>
-                                        </div>
-                                        {/* Buy Button */}
-                                        <div className={'flex gap-7'}>
-                                            <button onClick={() => addToBasketAndNavigate(item)} style={buyButtonStyles}>Sotib olish</button>
-                                            <AddShoppingCart onClick={() => addToBasket(item)}
-                                                             color={basket.filter(i => i.id === item.id).length !== 0 ? "primary" : ''}
-                                                             fontSize={"large"}/>
+
+                                        <hr className={"my-2"}/>
+                                        <div className="flex">
+                                        <span
+                                            className="title-font font-medium text-2xl text-green-500">{item.price} so`m</span>
+
+                                            <button
+                                                onClick={() => addToBasketAndNavigate(item)}
+                                                className="flex ml-auto text-white hover:border-green-600 transition duration-75 ease-in-out bg-green-600 border-0 py-2 px-6 focus:outline-none hover:bg-green-500 rounded">Sotib
+                                                olish
+                                            </button>
+                                            <button
+                                                className="rounded-full hover:scale-110 transition duration-75 w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                                                <svg fill="currentColor"
+                                                     className="w-5 h-5" viewBox="0 0 24 24">
+                                                    <AddShoppingCart onClick={() => addToBasket(item)}
+                                                                     color={basket.filter(i => i.id === item.id).length !== 0 ? "primary" : ''}
+                                                                     fontSize={"large"}/>
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     )
-
                 }
-
-
-
             </div>
 
         </div>
