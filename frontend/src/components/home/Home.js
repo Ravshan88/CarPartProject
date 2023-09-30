@@ -61,12 +61,13 @@ function Home(props) {
         <div className={"overflow-x-scroll h-full"}>
             <Header/>
             <div className={"container"}>
-                <div className={'flex justify-between my-3 px-[50px] pb-[43px] max-h-[500px]'}>
-                    <div className={'w-[440px] border'}>
+                <div
+                    className={'flex sm:flex-row flex-col  justify-between my-3 md:px-[50px] px-0  pb-[43px] min-h-[500px]'}>
+                    <div className={'max-w-[440px] border'}>
                         <div className={'p-3 my-2'} style={{backgroundColor: '#fafafa'}}>
                             <div className={'d-flex align-items-center justify-content-evenly gap-2'}>
                                 <img width={60} src={carSearch} alt={'..'}/>
-                                <p>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
+                                <p className={"sm:text-lg text-sm"}>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
                             </div>
                             <div className={'my-2'}>
                                 <div className="input-group mb-3">
@@ -127,22 +128,22 @@ function Home(props) {
                             <button
                                 onClick={searchAndNavigate}
                                 className={'btn btn-primary w-100 d-flex align-items-center justify-content-center'}>
-                                <img src={searchPhoto} alt={'..'} width={30}/>
+                                <img src={searchPhoto} alt={'..'} width={25}/>
                                 Qidirsh
                             </button>
                         </div>
                     </div>
                     <div className={' '}>
-                        <div className={" w-[660px]"}>
+                        <div className={" sm:max-w-[660px] max-w-full"}>
                             {
                                 carousel?.length > 0 &&
                                 <Carousel infiniteLoop={true} showThumbs={false} autoPlay
-                                          className={"w-[658px] h-[380px]"}>
+                                          className={"sm:max-w-[660px] max-w-full max-h-[380px]"}>
                                     {
                                         carousel?.map(item =>
                                             <div key={item.id}>
                                                 <LazyLoadImage
-                                                    className={"h-[380px] w-[658px]"}
+                                                    className={"max-h-[380px] max-w-[658px]"}
                                                     src={`http://localhost:8080/api/v1/file/getFile/${item.attachment.id}`}
                                                     alt="Image"
                                                 />
@@ -160,22 +161,24 @@ function Home(props) {
                         Ehtiyot qismlar
                     </h3>
                     {
-                        isLoading ? "Loading..." : <div className={"flex mt-2 flex-wrap gap-3 h-full w-full"}>
-                            {
-                                products?.content?.map(item => <div key={item.id} className={"w-[220px] h-[180px]"}>
-                                    <div className={"text-center"}>
-                                        <LazyLoadImage
-                                            height={100}
-                                            width={100}
-                                            effect={"blur"}
+                        isLoading ? "Loading..." :
+                            <div
+                                className={"flex items-center justify-center mt-2 flex-wrap gap-3 h-full w-full"}>
+                                {
+                                    products?.content?.map(item => <div key={item.id} className={"w-[220px] h-[180px]"}>
+                                        <div className={"text-center"}>
+                                            <LazyLoadImage
+                                                height={100}
+                                                width={100}
+                                                effect={"blur"}
+                                                src={`http://localhost:8080/api/v1/file/getFile/${item.photo.id}`}
+                                            />
+                                            <p className={"text-center"}>{item.name}</p>
+                                        </div>
 
-                                            src={`http://localhost:8080/api/v1/file/getFile/${item.photo.id}`}
-                                        />
-                                    </div>
-                                    <p className={"text-center"}>{item.name}</p>
-                                </div>)
-                            }
-                        </div>
+                                    </div>)
+                                }
+                            </div>
                     }
 
                 </div>
