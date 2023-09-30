@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import {call, put, takeLatest} from "redux-saga/effects";
 import instance from "../../components/utils/config/instance";
 
 import {
@@ -8,13 +8,13 @@ import {
     getOrdersSuccess,
     changeStatusOrder
 } from "../reducers/OperatorOrdersSlice";
-import { toast } from "react-toastify";
-import { getCarPart } from "../reducers/AdminCartPartSlice";
-import { getOperatorData, setError } from "../reducers/AdminOperatorSlice";
+import {toast} from "react-toastify";
+import {getCarPart} from "../reducers/AdminCartPartSlice";
+import {getOperatorData, setError} from "../reducers/AdminOperatorSlice";
 
 function* workGetOrders(action) {
     try {
-        const { status, page, size } = action.payload;
+        const {status, page, size} = action.payload;
         const url = `/api/v1/order?status=${status}&page=${page}&size=${size}`;
         const response = yield call(() => instance(url, "get"));
         yield put(getOrdersSuccess(response.data));
@@ -25,10 +25,10 @@ function* workGetOrders(action) {
 
 function* workChangeStatusOrder(action) {
     try {
-        const { status, orderId, page, size } = action.payload;
+        const {status, orderId, page, size} = action.payload;
 
-        const response = yield call(() => instance('/api/v1/order/' + orderId, 'put', null, { status: status }));
-        yield put(getOrdersStart({ status, page, size }))
+        const response = yield call(() => instance('/api/v1/order/' + orderId, 'put', null, {status: status}));
+        yield put(getOrdersStart({status, page, size}))
     } catch (error) {
         toast.error("Serverda xatolik!");
     }
@@ -36,13 +36,10 @@ function* workChangeStatusOrder(action) {
 
 function* workSaveOrder(action) {
     try {
-        console.log(action.payload)
-        // const response = yield call(() => instance("/api/v1/order", "POST", action.payload));
-        const response = yield call(() => instance("/api/v1/order", "post", action.payload));
+        const response = yield call(() => instance("/api/v1/order", "POST", action.payload));
         if(response.data===401){
             yield put(setError(true))
             toast.error("Bazada xatolik qaytib urinib ko'ring");
-
         }
         toast.success("Buyurtmangiz qabul qilindi. Operator tez orada siz bilan bog'lanadi");
     } catch (error) {

@@ -1,59 +1,58 @@
-
-import React, {useContext, useEffect, useState} from 'react';
-import PageTitle from "../../PageTitle"
-import './showProduct.css'
+import React, {useState} from 'react';
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import {Spinner} from "@nextui-org/react";
 
 function Render(props) {
-    console.log(props.product)
-return (
-    <div className={`  bg-gray-900 `} >
-        <main className='mainjon'>
-            <div className="card">
-
-                <div className="card__body p-3 d-flex align-items-center justify-content-around">
-                    <div className="half">
-                        <div className="featured_text">
-                            <h1>{props?.product?.name}</h1>
-                            <div className={'d-flex align-items-center justify-around'}>
-                                <p>carPart:</p>
-                                <p className="sub">{props?.product?.carPart?.name}</p>
-                            </div>
-
-                        </div>
-                        <div className="image">
-                            <img
-                                src={`http://localhost:8080/api/v1/file/getFile/${props?.product?.photo?.id}`}
-                                alt=""/>
-                        </div>
-                    </div>
-                    <div className="half">
-                        <div className="description p-2">
-                            <h3>Mahsulot haqida</h3>
-                            <p>
-
-                                {props?.product?.description}
-
-                            </p>
+    const [isImgCame, setIsImgCame] = useState(null)
+    return (
+        <section className="text-gray-600 body-font shadow-inner rounded">
+            <div className="container mx-auto flex px-5 items-center justify-center flex-col">
+                <div className={"text-center relative p-1.5 shadow-xl mb-2 rounded"}>
+                    <LazyLoadImage effect={"blur"}
+                                   className={"h-[170px] w-[200px]"}
+                                   beforeLoad={() => setIsImgCame(true)}
+                                   afterLoad={() => setIsImgCame(false)}
+                                   src={`http://localhost:8080/api/v1/file/getFile/${props?.product?.photo?.id}`}
+                                   alt=""/>
+                    {
+                        isImgCame &&
+                        <div className={"mx-auto absolute top-[50%] left-0 right-0"}><Spinner color="success"/>
                         </div>
 
-                    </div>
+                    }
                 </div>
-                <div className="card__footer">
-                    <div className="recommend d-flex justify-around align-items-center">
-                        <p>Mashina turi:</p>
-                        <h3>{props?.product?.car.name}</h3>
+                <div className="text-center w-[70%]">
+                    <div className={"flex items-center justify-between w-full"}>
+                        <h1 className={"text-sm sm:text-lg"}>Mahsulot Nomi:</h1>
+                        <h1 className="title-font  font-semibold sm:text-lg text-sm text-gray-900">{props?.product?.name}</h1>
                     </div>
-
+                    <div className={"flex items-center justify-between w-full"}>
+                        <h1 className={"text-sm sm:text-lg"}>Ehtiyot qism:</h1>
+                        {
+                            props?.product?.carPart?.name ?
+                                <h1 className="title-font  font-semibold sm:text-lg text-sm text-gray-900">{props?.product?.carPart?.name}</h1>
+                                :
+                                <h1 className="title-font sm:text-lg text-sm text-yellow-600">Mavjud emas</h1>
+                        }
+                    </div>
+                    <div className={"flex items-center justify-between w-full"}>
+                        <h1 className={"text-sm sm:text-lg"}>Mashina turi:</h1>
+                        <h1 className="title-font  font-semibold sm:text-lg text-sm text-gray-900">{props?.product?.car.name}</h1>
+                    </div>
+                    <h1 className={"text-sm sm:text-lg mx-auto"}>Description</h1>
+                    <p className="mb-8 leading-relaxed">{props?.product?.description}</p>
+                    <div className="flex justify-center">
+                        <button
+                            className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button
+                        </button>
+                        <button
+                            className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button
+                        </button>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
-
-
-
-
-
-);
+        </section>
+    );
 }
 
 export default Render;

@@ -84,6 +84,7 @@ public class MyFilter extends OncePerRequestFilter {
                 || requestPath.equals("/api/v1/car")
                 || requestPath.equals("/api/v1/brand")
                 || requestPath.equals("/api/v1/product")
+                || requestPath.equals("/api/v1/order")
                 || requestPath.equals("/api/v1/carPart");
     }
 }

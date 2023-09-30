@@ -84,7 +84,6 @@ function SearchResults(props) {
         if (basket && basket?.filter(i => i.id === item.id).length !== 0) {
             return;
         }
-        console.log(basket)
         basket.push({...item, amount: 1})
         setBasket([...basket])
         localStorage.setItem("basket", JSON.stringify(basket))

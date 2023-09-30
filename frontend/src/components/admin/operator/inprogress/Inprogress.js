@@ -13,31 +13,30 @@ import {
     TableBody,
     TableCell,
     TableContainer,
-    TableFooter,
     TableHeader,
     TableRow
 } from "@windmill/react-ui";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 import {Tooltip} from "@nextui-org/react";
 import Loader from "../../../../ui/loader";
-import {EyeIcon} from "../../EyeIcon";
 import {EditIcon} from "../../EditIcon";
 import {DeleteIcon} from "../../DeleteIcon";
 import {Modal} from "react-bootstrap";
 import Render from "../Render/Render";
+import {EyeIcon} from "../../EyeIcon";
 
 function Inprogress(props) {
     const {orders, isLoading} = useSelector(state => state.operatorOrder)
     const dispatch = useDispatch();
 
 
-    const [itemsPerPage, setItemsPerPage] = useState(5); // Default to 5 items per page
-    const [currentPage, setCurrentPage] = useState(1); // Default to the first page
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getOrdersStart({ status: "Inprogress", page: currentPage, size: itemsPerPage }));
+        dispatch(getOrdersStart({status: "Inprogress", page: currentPage, size: itemsPerPage}));
 
     }, [dispatch, currentPage, itemsPerPage]);
+
     function formatDate(inputDate) {
         const date = new Date(inputDate);
 
@@ -56,31 +55,31 @@ function Inprogress(props) {
     }
 
     function changeStatus(id) {
-        dispatch(changeStatusOrder({ status: "Inprogress",  orderId:id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "Inprogress", orderId: id, page: currentPage, size: itemsPerPage}));
 
     }
 
     function changeStatusToDeclined(id) {
-        dispatch(changeStatusOrder({ status: "DECLINED",  orderId:id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage}));
 
     }
 
-    const[showModal, setShowModal]=useState(false)
-    const [currentProduct, setCurrentProduct]=useState({})
+    const [showModal, setShowModal] = useState(false)
+    const [currentProduct, setCurrentProduct] = useState({})
+
     function showProductModal(product) {
         setShowModal(true)
         setCurrentProduct(product)
     }
+
     return (
         <div className={` h-screen  bg-gray-900 `}>
             <PageTitle>Inprogress</PageTitle>
 
-
-            {isLoading?<Loader/>
+            {isLoading ? <Loader/>
                 :
                 <>
                     <div className="mt-4 flex justify-between items-center text-white">
-
                         <div className="flex items-center">
                             <span>Show:</span>
                             <select
@@ -106,52 +105,26 @@ function Inprogress(props) {
 
                     </div>
 
-
                     <div className={"mt-2"}>
-                        <div style={{
-                            backgroundColor:"wheat",
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                            width: '100%',
-                            height: 40,
-                            gap: "30px",
-                        }}>
-
-                            <div>
-                                {orders.totalElements !== 0 ? currentPage : 0}-{Math.min(itemsPerPage, orders.totalElements, orders?.content?.length)}/{orders.totalElements}
-                            </div>
-                            <div>
-                                {orders.totalPages > 1 &&
-                                    <Pagination onChange={(e, page) => (changeTableDataPage({page: page}))}
-                                                page={currentPage}
-                                                count={orders.totalPages}
-                                                color={'primary'}
-                                                variant={"outlined"}
-                                                shape="rounded"/>}
-                            </div>
-
-                        </div>
-                        <TableContainer className="mb-8">
-                            <Table className={'table table-bordered'}>
+                        <TableContainer className={"mb-0"}>
+                            <Table>
                                 <TableHeader>
                                     <tr>
-                                        <TableCell style={{width:30}}>№</TableCell>
-                                        <TableCell >Mijoz ismi</TableCell>
-                                        <TableCell style={{width:150}}>Mijoz raqami</TableCell>
+                                        <TableCell style={{width: 30}}>№</TableCell>
+                                        <TableCell>Mijoz ismi</TableCell>
+                                        <TableCell>Mijoz raqami</TableCell>
 
                                         <TableCell>Buyurtma</TableCell>
-                                        <TableCell style={{width:120}}>Buyurtma sanasi</TableCell>
-                                        <TableCell style={{width:35}}>Action</TableCell>
+                                        <TableCell>Buyurtma sanasi</TableCell>
+                                        <TableCell>Action</TableCell>
                                     </tr>
                                 </TableHeader>
                                 <TableBody>
                                     {orders.content?.map((order, i) => (
-                                        <TableRow key={i}>
-
+                                        <TableRow className={"border"} key={i}>
                                             <TableCell>
                                                 <div>
-                                                    <p className="font-semibold">{i+1}</p>
+                                                    <p className="font-semibold">{i + 1}</p>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
@@ -165,45 +138,49 @@ function Inprogress(props) {
                                                 </div>
                                             </TableCell>
                                             <TableCell>
-                                                <div className={''}>
+                                                <div>
                                                     {
-                                                        order?.products.map((myProduct, index)=>
-                                                            <>
-                                                                <div className={'d-flex justify-content-between gap-2 featured_text'}
-                                                                     onClick={()=>showProductModal(myProduct.product)}
-                                                                >
-                                                                    <div className={'d-flex align-items-center gap-2 featured_text'}>
-                                                                        mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p>
-                                                                        soni: <p className="sub"> {myProduct.count}</p>
-                                                                    </div>
-                                                                    <div>
-                                                                        <i>batafsil..</i>
-                                                                    </div>
+                                                        order?.products.map((myProduct, index) =>
+                                                            <div
+                                                                title={"Batafsil"}
+                                                                className={'flex justify-between border rounded p-1 mb-1 hover:bg-gray-100  cursor-pointer gap-2'}
+                                                                onClick={() => showProductModal(myProduct.product)}
+                                                            >
+                                                                <div
+                                                                    className={'flex items-center gap-2'}>
+                                                                    <span className={"text-gray-500"}>
+                                                                        mahsulot:
+                                                                    </span>
+                                                                    <p className={"text-green-500 w-[80px] line-clamp-1"}>{myProduct.product.name}</p>
+                                                                    soni: <p> {myProduct.count}</p>
 
                                                                 </div>
-                                                                <hr/>
-                                                            </>
+                                                                <div className={"flex items-center"}>
+                                                                    <Tooltip content="Batafsil">
+                                                                          <span
+                                                                              onClick={() => showProductModal(myProduct.product)}
+                                                                              className="text-blue-300 text-lg cursor-pointer active:opacity-50">
+                                                                            <EyeIcon/>
+                                                                          </span>
+                                                                    </Tooltip>
+                                                                </div>
+                                                            </div>
                                                         )
                                                     }
                                                 </div>
                                             </TableCell>
                                             <TableCell>
-                                                <div>
-                                                    <p className="font-semibold">
-                                                        <p className="font-semibold">{formatDate(order.order.createdAt)}</p>
-                                                    </p>
-
-                                                </div>
+                                                <p className="font-semibold">{formatDate(order.order.createdAt)}</p>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="relative flex items-center gap-2">
-                                                    <Tooltip content="Edit user">
-                                                  <span   onClick={()=>changeStatus(order.order.id)}
-                                                          className=" text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <Tooltip content="Jarayonga o'tkazish">
+                                                  <span onClick={() => changeStatus(order.order.id)}
+                                                        className=" text-lg text-default-400 cursor-pointer active:opacity-50">
                                                     <EditIcon/>
                                                   </span>
                                                     </Tooltip>
-                                                    <Tooltip color="danger" content="Delete user">
+                                                    <Tooltip color="danger" content="Rad etish">
                                                   <span onClick={() => changeStatusToDeclined(order.order.id)}
                                                         className="text-lg text-danger cursor-pointer active:opacity-50">
                                                     <DeleteIcon/>
@@ -211,19 +188,29 @@ function Inprogress(props) {
                                                     </Tooltip>
                                                 </div>
                                             </TableCell>
-
-
-
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
 
                         </TableContainer>
+                        <div className={"bg-gray-200 flex items-center justify-around w-full h-10 gap-9 mt-1 rounded"}>
+                            <div>
+                                {orders.totalElements !== 0 ? currentPage : 0}-{Math.min(itemsPerPage, orders.totalElements, orders?.content?.length)}/{orders.totalElements}
+                            </div>
+                            <div>
+                                {orders.totalPages > 1 &&
+                                    <Pagination onChange={(e, page) => (changeTableDataPage({page: page}))}
+                                                page={currentPage}
+                                                count={orders.totalPages}
+                                                color={'primary'}
+                                                variant={"outlined"}
+                                                shape="rounded"/>}
+                            </div>
+                        </div>
                     </div>
                 </>
             }
-
 
 
             <Modal
@@ -238,7 +225,7 @@ function Inprogress(props) {
 
                 </Modal.Header>
                 <Modal.Body closeButton>
-                    {showModal && <Render product={currentProduct} />}
+                    {showModal && <Render product={currentProduct}/>}
                 </Modal.Body>
             </Modal>
         </div>

@@ -32,102 +32,93 @@ import org.springframework.data.domain.Pageable;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-   private final OrdersRepository ordersRepository;
-   private final OrderedProductRepository orderedProductRepository;
-   private final StatusRepository statusRepository;
-   private final ProductRepository productRepository;
-   @Override
-   public HttpEntity<?> getOrders(String status, Integer page, Integer size) {
-      Pageable pageRequest;
-      if (page != null && size == -1) {
-         pageRequest = Pageable.unpaged();
-      } else {
-         size = (size != null && size > 0) ? size : 10;
-         pageRequest = PageRequest.of(page - 1, size);
-      }
+    private final OrdersRepository ordersRepository;
+    private final OrderedProductRepository orderedProductRepository;
+    private final StatusRepository statusRepository;
+    private final ProductRepository productRepository;
 
-      Page<Orders> ordersPage;
-      if (status != null && !status.isEmpty()) {
-         OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
-         ordersPage = ordersRepository.findByStatusName(orderStatus, pageRequest);
-      } else {
-         ordersPage = ordersRepository.findAll(pageRequest);
-      }
+    @Override
+    public HttpEntity<?> getOrders(String status, Integer page, Integer size) {
+        Pageable pageRequest;
+        if (page != null && size == -1) {
+            pageRequest = Pageable.unpaged();
+        } else {
+            size = (size != null && size > 0) ? size : 10;
+            pageRequest = PageRequest.of(page - 1, size);
+        }
 
-      Page<ResOrders> resOrdersPage = ordersPage.map(order -> {
-         List<OrderedProduct> orderedProducts = orderedProductRepository.findOrderedProductsByOrders_Id(order.getId());
-         return new ResOrders(order, orderedProducts);
-      });
+        Page<Orders> ordersPage;
+        if (status != null && !status.isEmpty()) {
+            OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
+            ordersPage = ordersRepository.findByStatusName(orderStatus, pageRequest);
+        } else {
+            ordersPage = ordersRepository.findAll(pageRequest);
+        }
 
-      return ResponseEntity.ok(resOrdersPage);
-   }
+        Page<ResOrders> resOrdersPage = ordersPage.map(order -> {
+            List<OrderedProduct> orderedProducts = orderedProductRepository.findOrderedProductsByOrders_Id(order.getId());
+            return new ResOrders(order, orderedProducts);
+        });
+
+        return ResponseEntity.ok(resOrdersPage);
+    }
 
 
-   @Override
-   public HttpEntity<?> changeStatus(String status, UUID orderId) {
-      Orders currentOrder = ordersRepository.findById(orderId)
-              .orElseThrow(() -> new RuntimeException("Order not found"));
-      status = status.toUpperCase();
-      Integer newStatus = 4;
+    @Override
+    public HttpEntity<?> changeStatus(String status, UUID orderId) {
+        Orders currentOrder = ordersRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        status = status.toUpperCase();
+        Integer newStatus = switch (status) {
+            case "NEW" -> (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 2 : null;
+            case "INPROGRESS" -> (currentOrder.getStatus().getName() == OrderStatus.INPROGRESS) ? 3 : null;
+            case "DECLINED" -> (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 4 : null;
+            default -> 4;
+        };
 
-       switch (status) {
-         case "NEW":
-            newStatus = (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 2 : null;
-            break;
-         case "INPROGRESS":
-            newStatus = (currentOrder.getStatus().getName() == OrderStatus.INPROGRESS) ? 3 : null;
-            break;
-         case "DECLINED":
-            newStatus = (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 4 : null;
-            break;
-      }
-      System.out.println(newStatus);
+        System.out.println(newStatus);
 
-      if (newStatus != null) {
-         currentOrder.setStatus(statusRepository.findById(newStatus).orElseThrow());
-         ordersRepository.save(currentOrder);
-         return ResponseEntity.ok("Status updated successfully");
-      } else {
-         throw new RuntimeException("Invalid status change");
-      }
-   }
+        if (newStatus != null) {
+            currentOrder.setStatus(statusRepository.findById(newStatus).orElseThrow());
+            ordersRepository.save(currentOrder);
+            return ResponseEntity.ok("Status updated successfully");
+        } else {
+            throw new RuntimeException("Invalid status change");
+        }
+    }
 
-   @Override
-   @Transactional
-   public ResponseEntity<?> saveOrder(ReqOrder reqOrder) {
-      System.out.println(reqOrder);
-      try {
-         Orders orders = new Orders();
-         orders.setId(UUID.randomUUID());
-         orders.setStatus(statusRepository.findById(1).orElseThrow());
-         orders.setPhone_number(reqOrder.getPhone());
-         orders.setClient_name(reqOrder.getClient_name());
-         orders.setCreatedAt(LocalDateTime.now());
+    @Override
+    @Transactional
+    public ResponseEntity<?> saveOrder(ReqOrder reqOrder) {
+        System.out.println(reqOrder);
+        try {
+            Orders orders = new Orders();
+            orders.setId(UUID.randomUUID());
+            orders.setStatus(statusRepository.findById(1).orElseThrow());
+            orders.setPhone_number(reqOrder.getPhone());
+            orders.setClient_name(reqOrder.getClient_name());
+            orders.setCreatedAt(LocalDateTime.now());
 
-         // Save Orders entity
-         Orders save = ordersRepository.save(orders);
+            Orders save = ordersRepository.save(orders);
 
-         // Save OrderedProduct entities
-         List<ReqOrderProduct> reqOrderProducts = reqOrder.getReqOrders();
-         for (ReqOrderProduct reqOrderProduct : reqOrderProducts) {
-            Product product = productRepository.findById(reqOrderProduct.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found"));  // Handle accordingly
+            List<ReqOrderProduct> reqOrderProducts = reqOrder.getReqOrders();
+            for (ReqOrderProduct reqOrderProduct : reqOrderProducts) {
+                Product product = productRepository.findById(reqOrderProduct.getProductId())
+                        .orElseThrow(() -> new RuntimeException("Product not found"));  // Handle accordingly
 
-            OrderedProduct orderedProduct = new OrderedProduct();
-            orderedProduct.setId(UUID.randomUUID());  // or use GenerationType.AUTO if your ID is generated by the database
-            orderedProduct.setOrders(save);
-            orderedProduct.setProduct(product);
-            orderedProduct.setCount(reqOrderProduct.getAmount());
+                OrderedProduct orderedProduct = new OrderedProduct();
+                orderedProduct.setOrders(save);
+                orderedProduct.setProduct(product);
+                orderedProduct.setCount(reqOrderProduct.getAmount());
 
-            // Save OrderedProduct entity
-            orderedProductRepository.save(orderedProduct);
-         }
+                orderedProductRepository.save(orderedProduct);
+            }
 
-         return ResponseEntity.ok("Order saved successfully");
-      } catch (Exception e) {
-         e.printStackTrace();  // Log the exception
-         return ResponseEntity.badRequest().body("Error saving order");
-      }
-   }
+            return ResponseEntity.ok("Order saved successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error saving order");
+        }
+    }
 
 }

@@ -17,8 +17,6 @@ import {
     TableHeader,
     TableRow
 } from "@windmill/react-ui";
-import {LazyLoadImage} from "react-lazy-load-image-component";
-import {Tooltip} from "@nextui-org/react";
 import Loader from "../../../../ui/loader";
 
 function DeclinedOrder(props) {
@@ -30,9 +28,10 @@ function DeclinedOrder(props) {
     const [currentPage, setCurrentPage] = useState(1); // Default to the first page
 
     useEffect(() => {
-        dispatch(getOrdersStart({ status: "DECLINED", page: currentPage, size: itemsPerPage }));
+        dispatch(getOrdersStart({status: "DECLINED", page: currentPage, size: itemsPerPage}));
 
     }, [dispatch, currentPage, itemsPerPage]);
+
     function formatDate(inputDate) {
         const date = new Date(inputDate);
 
@@ -51,7 +50,7 @@ function DeclinedOrder(props) {
     }
 
     function changeStatus(id) {
-        dispatch(changeStatusOrder({ status: "DECLINED",  orderId:id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage}));
 
     }
 
@@ -60,7 +59,7 @@ function DeclinedOrder(props) {
             <PageTitle>DECLINED</PageTitle>
 
 
-            {isLoading?<Loader/>
+            {isLoading ? <Loader/>
                 :
                 <>
                     <div className="mt-4 flex justify-between items-center text-white">
@@ -92,37 +91,13 @@ function DeclinedOrder(props) {
 
 
                     <div className={"mt-2"}>
-                        <div style={{
-                            backgroundColor:"wheat",
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                            width: '100%',
-                            height: 40,
-                            gap: "30px",
-                        }}>
-
-                            <div>
-                                {orders.totalElements !== 0 ? currentPage : 0}-{Math.min(itemsPerPage, orders.totalElements, orders?.content?.length)}/{orders.totalElements}
-                            </div>
-                            <div>
-                                {orders.totalPages > 1 &&
-                                    <Pagination onChange={(e, page) => (changeTableDataPage({page: page}))}
-                                                page={currentPage}
-                                                count={orders.totalPages}
-                                                color={'primary'}
-                                                variant={"outlined"}
-                                                shape="rounded"/>}
-                            </div>
-
-                        </div>
-                        <TableContainer className="mb-8">
-                            <Table className={'table table-bordered p-0 m-0'}>
+                        <TableContainer className="mb-0">
+                            <Table>
                                 <TableHeader>
                                     <tr>
-                                        <TableCell style={{width:30}}>№</TableCell>
-                                        <TableCell style={{width:200} }>Mijoz ismi</TableCell>
-                                        <TableCell style={{width:70}}>Mijoz raqami</TableCell>
+                                        <TableCell>№</TableCell>
+                                        <TableCell>Mijoz ismi</TableCell>
+                                        <TableCell>Mijoz raqami</TableCell>
 
                                         <TableCell>Buyurtma</TableCell>
                                         <TableCell style={{}}>Buyurtma sanasi</TableCell>
@@ -135,7 +110,7 @@ function DeclinedOrder(props) {
 
                                             <TableCell>
                                                 <div>
-                                                    <p className="font-semibold">{i+1}</p>
+                                                    <p className="font-semibold">{i + 1}</p>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
@@ -151,8 +126,15 @@ function DeclinedOrder(props) {
                                             <TableCell>
                                                 <div className={''}>
                                                     {
-                                                        order?.products.map((myProduct, index)=>
-                                                            <div className={'d-flex align-items-center gap-2'}>mahsulot :<p style={{fontSize:20}}>{myProduct.product.name}</p> <p> soni:{myProduct.count}</p></div>
+                                                        order?.products.map((myProduct, index) =>
+                                                            <div
+                                                                className={'flex border rounded p-1 mb-1 items-center gap-2'}>
+                                                                <span
+                                                                    className={"text-gray-500"}>
+                                                                        mahsulot:
+                                                                </span>
+                                                                <p className={"text-green-500 w-[80px] line-clamp-1"}>{myProduct.product.name}</p>
+                                                                <p> soni:{myProduct.count}</p></div>
                                                         )
                                                     }
                                                 </div>
@@ -167,13 +149,26 @@ function DeclinedOrder(props) {
                                             </TableCell>
 
 
-
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
 
                         </TableContainer>
+                        <div className={"bg-gray-200 flex items-center justify-around w-full h-10 gap-9 mt-1 rounded"}>
+                            <div>
+                                {orders.totalElements !== 0 ? currentPage : 0}-{Math.min(itemsPerPage, orders.totalElements, orders?.content?.length)}/{orders.totalElements}
+                            </div>
+                            <div>
+                                {orders.totalPages > 1 &&
+                                    <Pagination onChange={(e, page) => (changeTableDataPage({page: page}))}
+                                                page={currentPage}
+                                                count={orders.totalPages}
+                                                color={'primary'}
+                                                variant={"outlined"}
+                                                shape="rounded"/>}
+                            </div>
+                        </div>
                     </div>
                 </>
             }

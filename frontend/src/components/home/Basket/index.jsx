@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AddShoppingCart, HdrPlus} from "@mui/icons-material";
+import {useNavigate} from 'react-router-dom';
+import {AddShoppingCart, HdrPlus} from "@mui/icons-material";
 import Header from "../Header/Header";
 import {DeleteIcon} from "../../admin/DeleteIcon";
 import {Tooltip} from "@nextui-org/react";
@@ -88,7 +88,7 @@ function Index(props) {
     const {
         handleSubmit,
         control,
-        formState: { errors }
+        formState: {errors}
     } = useForm();
 
     function saveOrders() {
@@ -97,19 +97,16 @@ function Index(props) {
             return;
         }
         let arr = basket.filter(item => item.id !== 0);
-        const newOrderArray = arr.map(({ id, amount }) => ({ productId: id, amount }));
+        const newOrderArray = arr.map(({id, amount}) => ({productId: id, amount}));
 
         let reqToOrders = {
             reqOrders: newOrderArray,
-
-            client_name:formData.fullName,
-            phone:formData.phone,
-
-
+            client_name: formData.fullName,
+            phone: formData.phone,
         };
         dispatch(saveOrder(reqToOrders))
-        if(error){
-        }else{
+        if (error) {
+        } else {
             setBasket([])
             localStorage.setItem('basket', JSON.stringify([]))
 
@@ -146,20 +143,32 @@ function Index(props) {
                         Sizda tanlangan maxsulot yo`q!
                     </div>
                 }
-                <div className={"flex mt-2 px-3 justify-center gap-2"}>
+                <div className={"flex px-3 justify-center gap-2"}>
                     <div className={'container'}>
-                        <ul className='List-group w-[100%]'>
-                            {
-                                basket.map(item => <li key={item.id} className=' list-group-item'>
-                                        <div
-                                            className='d-flex justify-content-between bg-gray-100 mb-2 align-items-center p-2 px-4'>
-                                            <LazyLoadImage effect={"blur"} width={100} height={100}
+                        <div className="bg-white shadow-md rounded my-6">
+                            <table className="min-w-max w-full table-auto">
+                                <thead>
+                                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                    <th className="py-3 px-6 "> Photo</th>
+                                    <th className="py-3 px-6 ">Name</th>
+                                    <th className="py-3 px-6 ">Count</th>
+                                    <th className="py-3 px-6 ">Price</th>
+                                    <th className="py-3 px-6 ">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody className="text-gray-600 text-sm font-light">
+                                {
+                                    basket.map(item => <tr key={item.id}
+                                                           className="border-b border-gray-200 hover:bg-gray-100">
+                                        <td className="py-3  px-6 text-left whitespace-nowrap">
+                                            <LazyLoadImage effect={"blur"} width={100}
                                                            src={`http://localhost:8080/api/v1/file/getFile/${item?.photo?.id}`}
                                                            alt="d"/>
-
-                                            <div>
-                                                <h2 style={{width: 200}}>{item.name}</h2>
-                                            </div>
+                                        </td>
+                                        <td className="py-3  px-6 whitespace-nowrap">
+                                            <h2 style={{width: 200}}>{item.name}</h2>
+                                        </td>
+                                        <td className="py-3  px-6 whitespace-nowrap">
                                             <div className='flex align-items-center gap-3 p-1 h-75'>
                                                 <button
                                                     className={"bg-orange-500 text-white cursor-pointer rounded-3xl flex justify-center align-items-center border w-[30px] h-[30px]"}
@@ -173,22 +182,24 @@ function Index(props) {
                                                     +
                                                 </button>
                                             </div>
-                                            <div>
-                                                <h2 className={"text-green-500 font-semibold"}>{item.price} so`m</h2>
-                                            </div>
-                                            <div>
-                                                <Tooltip color="danger" content="O`chirish">
+                                        </td>
+                                        <td className="py-3  px-6  whitespace-nowrap">
+                                            <h2 className={"text-green-500 font-semi-bold"}>{item.price} so`m</h2>
+                                        </td>
+                                        <td className="py-3  px-6  whitespace-nowrap">
+                                            <Tooltip color="danger" content="O`chirish">
                                           <span onClick={() => deleteFromBasket(item.id)}
                                                 className="text-2xl text-danger cursor-pointer active:opacity-50">
                                             <DeleteIcon/>
                                           </span>
-                                                </Tooltip>
-                                            </div>
-                                        </div>
-                                    </li>
-                                )
-                            }
-                        </ul>
+                                            </Tooltip>
+                                        </td>
+                                    </tr>)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                     <div className={" w-[20%] h-[200px] rounded relative"}>
                         <div>
@@ -235,18 +246,19 @@ function Index(props) {
                                     id="fullName"
                                     placeholder="Enter your full name"
                                     value={formData.fullName}
-                                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
                                 />
                             </div>
                             <div>
-                                <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="phone"
+                                       className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Phone</label>
                                 <Controller
                                     name='phone'
                                     control={control}
                                     defaultValue='+998'
-                                    rules={{ required: "Phone Number is required" }}
-                                    render={({ field }) => (
+                                    rules={{required: "Phone Number is required"}}
+                                    render={({field}) => (
                                         <div>
                                             <PhoneInput
                                                 id={"phone"}
@@ -255,7 +267,7 @@ function Index(props) {
                                                 limitMaxLength={true}
                                                 placeholder='+998'
                                                 value={formData.phone}
-                                                onChange={(value) => setFormData({ ...formData, phone: value })}
+                                                onChange={(value) => setFormData({...formData, phone: value})}
                                             />
                                         </div>
                                     )}

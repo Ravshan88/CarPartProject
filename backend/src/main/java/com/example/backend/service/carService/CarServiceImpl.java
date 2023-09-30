@@ -62,7 +62,6 @@ public class CarServiceImpl implements CarService {
                     .build();
 
 
-
             try {
                 carRepository.save(car);
             } catch (Exception e) {
@@ -85,6 +84,7 @@ public class CarServiceImpl implements CarService {
         if (photo != null && !photo.isEmpty()) {
             createFile(photo, existingCar);
         }
+        existingCar.setBrand(brandRepository.findById(carDTO.getBrandId()).orElseThrow());
         existingCar.setUpdatedAt(LocalDateTime.now());
 
 

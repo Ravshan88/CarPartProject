@@ -9,11 +9,6 @@ function Operator(props) {
             <PageTitle>
                 Operator home
             </PageTitle>
-
-
-
-
-
         </div>
     );
 }

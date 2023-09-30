@@ -70,6 +70,7 @@ function AdminProduct(props) {
         setCarId("")
         setDescription("")
         setBrandId("")
+        setPrice("")
     }
 
     function handleFile(e) {
