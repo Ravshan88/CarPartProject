@@ -55,12 +55,12 @@ function NewOrder(props) {
     }
 
     function changeStatus(id) {
-        dispatch(changeStatusOrder({status: "NEW", orderId: id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "NEW", orderId: id, page: currentPage, size: itemsPerPage,  really:"NEW"}));
 
     }
 
     function changeStatusToDeclined(id) {
-        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage, really:"NEW"}));
 
     }
 
