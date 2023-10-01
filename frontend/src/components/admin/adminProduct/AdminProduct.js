@@ -80,17 +80,6 @@ function AdminProduct(props) {
             };
             reader.readAsDataURL(file);
         }
-        // axios({
-        //     url: "http://localhost:8080/api/v1/file/upload",
-        //     method: "POST",
-        //     data: formData,
-        //     headers: {
-        //         "Content-Type": "multipart/form-data",
-        //         Authorization: localStorage.getItem("access_token")
-        //     }
-        // }).then(res => {
-        //     dispatch(UploadFileStart(res.data));
-        // });
     }
 
     function handleAddProduct() {

@@ -7,14 +7,14 @@ import {
 } from "../reducers/LoginSlice";
 import axios from "axios";
 import {toast} from "react-toastify";
+import instance from "../../components/utils/config/instance";
 
 function* workLoginUser(action) {
     try {
         yield put(signUserStart());
         const response = yield call(() =>
-            axios.post(
-                "http://localhost:8080/api/v1/auth/login",
-                action.payload.formData
+            instance(
+                "api/v1/auth/login", "POST", action.payload.formData
             )
         );
         localStorage.removeItem("access_token");
@@ -28,9 +28,9 @@ function* workLoginUser(action) {
         yield put(UserSuccess());
         if (response.data.roles[0].name === "ROLE_SUPER_ADMIN") {
             action.payload.navigate("/admin");
-        }else if (response.data.roles[0].name === "ROLE_ADMIN") {
+        } else if (response.data.roles[0].name === "ROLE_ADMIN") {
             action.payload.navigate("/admin/product");
-        }else if (response.data.roles[0].name === "ROLE_OPERATOR") {
+        } else if (response.data.roles[0].name === "ROLE_OPERATOR") {
             action.payload.navigate("/admin/operator/order");
         }
     } catch (error) {

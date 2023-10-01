@@ -273,7 +273,8 @@ function Index(props) {
                                     )}
                                 />
                             </div>
-                            <button type="submit">rasmiylashtirish</button>
+                            <button className={"w-full bg-green-600 text-white rounded p-1 hover:bg-green-500"} type="submit">Saqlash
+                            </button>
                         </form>
                     </Modal.Body>
                 </Modal>

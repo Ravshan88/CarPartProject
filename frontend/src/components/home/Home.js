@@ -165,11 +165,11 @@ function Home(props) {
                             "Loading..."
                         ) : (
                             <div className="px-[3px]">
-                                {products?.content?.map((item, index) => (
+                                {carParts?.content?.map((item, index) => (
                                     index % 6 === 0 && (
                                         <ul key={`row-${index}`}
                                             className="w-full flex-col md:flex-row flex border-b pt-[10px] items-center justify-center">
-                                            {products.content.slice(index, index + 6).map(subItem => (
+                                            {carParts.content.slice(index, index + 6).map(subItem => (
                                                 <li key={subItem.id} className="w-[220px] h-[180px]">
                                                     <div className="text-center">
                                                         <LazyLoadImage
