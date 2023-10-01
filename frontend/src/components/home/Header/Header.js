@@ -91,7 +91,12 @@ function Header(props) {
                        <div className={'my-1 p-0 flex align-items-center '} style={{width:250, height:40, backgroundColor:'#132530'}}>
                            <div className={'text-white m-0 flex justify-evenly mx-2 gap-1'}>
                                <CarCrash color={"warning"}/>
-                              <p > Ehtiyot qismlar</p>
+                              <p style={{fontSize:" 16px",
+                                  fontWeight: 400,
+                                  lineHeight: "24px",
+                                  letterSpacing: "0em",
+                                  textAlign:" left",
+                                  color: "#727272",}}> Ehtiyot qismlar</p>
                            </div>
 
                        </div>
