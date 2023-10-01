@@ -15,18 +15,15 @@ import {Delete} from "@mui/icons-material";
 import {Divider} from "antd";
 import {toast, ToastContainer} from "react-toastify";
 import {getCarStart} from "../../../redux/reducers/AdminCarSlice";
-import {deleteCarPart, getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
-import {Avatar, Card} from 'antd';
-import {button, Chip, Tooltip} from "@nextui-org/react";
+import {getCarPart} from "../../../redux/reducers/AdminCartPartSlice";
+import {button, Tooltip} from "@nextui-org/react";
 import {EyeIcon} from "../EyeIcon";
 import {DeleteIcon} from "../DeleteIcon";
 import {EditIcon} from "../EditIcon"
-import ImgModal from "../ImgModal";
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
 import {Popover, PopoverTrigger, PopoverContent, Button} from "@nextui-org/react";
 import ProductInfoModal from "./ProductInfoModal";
-
-const {Meta} = Card;
+import {useForm} from "react-hook-form";
 
 function AdminProduct(props) {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,10 +35,10 @@ function AdminProduct(props) {
     const [productInfo, setProductInfo] = useState('');
     const [isImgModalOpen, setIsImgModalOpen] = useState(false)
     const [brandId, setBrandId] = useState("")
-    const [imgLoading, setImgLoading] = useState(false)
     const [deletedItem, setDeletedItem] = useState('')
     const [askDelete, setAskDelete] = useState(false)
     const dispatch = useDispatch();
+    const {handleSubmit, reset, formState: {errors}} = useForm()
     const {
         products,
         isEditing,
@@ -99,6 +96,10 @@ function AdminProduct(props) {
     function handleAddProduct() {
         if (name === "") {
             toast.error("Iltimos mahsulot nomini kiriting");
+        } else if (price === "") {
+            toast.error("Iltimos mahsulot narxini kiriting");
+        } else if (brandId === "") {
+            toast.error("Iltimos mahsulot brandini tanlang");
         } else if (carId === '') {
             toast.error("Iltimos mashina tanlang!");
         } else if ((imgFileForBackend === null || imgFileForBackend === "") && !photoIdForEdit) {
@@ -129,10 +130,12 @@ function AdminProduct(props) {
         setIsModalOpen(true)
         dispatch(setEditingId(item?.id))
         setName(item?.name)
+        setPrice(item.price)
         setDescription(item?.description)
         dispatch(setPhotoIdForEdit(item?.photo?.id))
         setCarPartId(item?.carPart?.id)
         setCarId(item?.car?.id)
+        setBrandId(item.car?.brand?.id)
     }
 
     function handleOpenImgModal() {
@@ -156,6 +159,7 @@ function AdminProduct(props) {
         setAskDelete(false)
         setDeletedItem('')
     }
+
 
     return (
         <div className={` h-screen  bg-gray-900 `}>
@@ -243,6 +247,23 @@ function AdminProduct(props) {
                                         <p
                                             className="ml-2 overflow-hidden overflow-ellipsis">
                                             {item?.description}
+                                        </p>
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+                            <div className="flex items-center mb-2">
+                                <h1 className="text-gray-500 tracking-widest title-font">Brand:</h1>
+                                <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
+                                    <PopoverTrigger>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis line-clamp-1">
+                                            {item?.car?.brand?.name}
+                                        </p>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <p
+                                            className="ml-2 overflow-hidden overflow-ellipsis">
+                                            {item?.car?.brand?.name}
                                         </p>
                                     </PopoverContent>
                                 </Popover>
@@ -411,10 +432,10 @@ function AdminProduct(props) {
                         <div className={"deleteFileButton "}>
                             {
                                 base64 &&
-                                < Button size={"sm"} className={"rounded-3xl border-dashed "} isIconOnly
-                                         aria-label="Like">
+                                <Button size={"sm"} className={"rounded-3xl border-dashed "} isIconOnly
+                                        aria-label="Like">
                                     <Delete color={"error"} onClick={() => dispatch(setBase64(""))}/>
-                                < /Button>
+                                </Button>
                             }
                         </div>
 

@@ -51,7 +51,7 @@ function Header(props) {
             <div className={"h-[60px] items-center relative flex justify-end bg-gray-900 text-white"}>
                 <div
                     className={"input-group ml-[20px] md:ml-0 absolute top-[50%] left-0 md:left-[50%] md:translate-x-[-50%] translate-y-[-50%] max-w-[75%] md:max-w-[50%]"}>
-                    <input type="text" className={"form-control "}/>
+                    <input placeholder={"Ehtiyot qism nomini kiriting"} type="text" className={"form-control "}/>
                     <Button className={"h-[48px] bg-blue-600 border-none text-white px-1 sm:px-0"}>
                         Search
                     </Button>

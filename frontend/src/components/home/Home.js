@@ -62,7 +62,7 @@ function Home(props) {
             <Header/>
             <div className={"container"}>
                 <div
-                    className={'flex sm:flex-row flex-col  justify-between my-3 md:px-[50px] px-0  pb-[43px] min-h-[500px]'}>
+                    className={'flex sm:flex-row flex-col  justify-center gap-3 my-3 md:px-[50px] px-0  pb-[43px] min-h-[500px]'}>
                     <div className={'max-w-[440px] border'}>
                         <div className={'p-3 my-2'} style={{backgroundColor: '#fafafa'}}>
                             <div className={'d-flex align-items-center justify-content-evenly gap-2'}>

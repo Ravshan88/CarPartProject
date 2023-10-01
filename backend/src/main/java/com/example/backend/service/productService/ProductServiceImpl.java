@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 //            size = (size != null && size > 0) ? size : 10;
 //            pageable = PageRequest.of(page - 1, size);
 //        }
-        return ResponseEntity.ok(productRepository.findByNameContainingIgnoreCase(pageable, name));
+        return ResponseEntity.ok(productRepository.findByNameContainingIgnoreCaseOrderByCreatedAt(pageable, name));
     }
 
     @SneakyThrows
