@@ -51,6 +51,10 @@ function ProductInfoModal(props) {
                             {/*</ScrollShadow>*/}
                         </div>
                         <div className="flex items-center mb-2">
+                            <h1 className="text-gray-500 tracking-widest title-font">Brand:</h1>
+                                <p className="ml-2">{infoData?.car?.brand?.name}</p>
+                        </div>
+                        <div className="flex items-center mb-2">
                             <h1 className="text-gray-500 tracking-widest title-font">CarName:</h1>
                             <Popover showArrow key={"blur"} backdrop={"blur"} placement="bottom">
                                 <PopoverTrigger>
