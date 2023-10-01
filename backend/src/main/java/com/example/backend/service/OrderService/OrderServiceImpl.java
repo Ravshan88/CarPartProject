@@ -66,13 +66,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public HttpEntity<?> changeStatus(String status, UUID orderId) {
+        System.out.println(orderId);
+        System.out.println(status);
         Orders currentOrder = ordersRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         status = status.toUpperCase();
+        System.out.println(status);
         Integer newStatus = switch (status) {
             case "NEW" -> (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 2 : null;
             case "INPROGRESS" -> (currentOrder.getStatus().getName() == OrderStatus.INPROGRESS) ? 3 : null;
-            case "DECLINED" -> (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 4 : null;
+            case "DECLINED" -> (currentOrder.getStatus().getName() == OrderStatus.NEW || currentOrder.getStatus().getName() == OrderStatus.INPROGRESS) ? 4 : null;
             default -> 4;
         };
 
@@ -90,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public ResponseEntity<?> saveOrder(ReqOrder reqOrder) {
-        System.out.println(reqOrder);
+//        System.out.println(reqOrder);
         try {
             Orders orders = new Orders();
             orders.setId(UUID.randomUUID());

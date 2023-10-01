@@ -60,8 +60,10 @@ function SearchResults(props) {
     const [error, setError] = useState(false)
 
     function searchAndNavigate() {
-        if (brandId === "" && carId === "") {
+        if (brandId === "" ) {
             setBrandId(currentBrandId)
+        }
+        if( carId === ""){
             setCarId(currentCarId)
         }
         if (brandId === "") {

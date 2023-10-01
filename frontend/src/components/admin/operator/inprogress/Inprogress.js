@@ -33,7 +33,7 @@ function Inprogress(props) {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getOrdersStart({status: "Inprogress", page: currentPage, size: itemsPerPage}));
+        dispatch(getOrdersStart({status: "INPROGRESS", page: currentPage, size: itemsPerPage}));
 
     }, [dispatch, currentPage, itemsPerPage]);
 
@@ -55,12 +55,12 @@ function Inprogress(props) {
     }
 
     function changeStatus(id) {
-        dispatch(changeStatusOrder({status: "Inprogress", orderId: id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "INPROGRESS", orderId: id, page: currentPage, size: itemsPerPage}));
 
     }
 
     function changeStatusToDeclined(id) {
-        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage}));
+        dispatch(changeStatusOrder({status: "DECLINED", orderId: id, page: currentPage, size: itemsPerPage, really:"INPROGRESS"}));
 
     }
 
@@ -174,7 +174,7 @@ function Inprogress(props) {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="relative flex items-center gap-2">
-                                                    <Tooltip content="Jarayonga o'tkazish">
+                                                    <Tooltip content="Bajarildiga o'tkazish">
                                                   <span onClick={() => changeStatus(order.order.id)}
                                                         className=" text-lg text-default-400 cursor-pointer active:opacity-50">
                                                     <EditIcon/>

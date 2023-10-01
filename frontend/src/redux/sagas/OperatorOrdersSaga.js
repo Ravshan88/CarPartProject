@@ -17,6 +17,7 @@ function* workGetOrders(action) {
         const {status, page, size} = action.payload;
         const url = `/api/v1/order?status=${status}&page=${page}&size=${size}`;
         const response = yield call(() => instance(url, "get"));
+        console.log()
         yield put(getOrdersSuccess(response.data));
     } catch (error) {
         yield put(getOrdersFailure(error.message));
@@ -25,10 +26,14 @@ function* workGetOrders(action) {
 
 function* workChangeStatusOrder(action) {
     try {
-        const {status, orderId, page, size} = action.payload;
+        const {status, orderId, page, size, really} = action.payload;
 
         const response = yield call(() => instance('/api/v1/order/' + orderId, 'put', null, {status: status}));
-        yield put(getOrdersStart({status, page, size}))
+        if(status=="DECLINED"){
+            yield put(getOrdersStart({status:really, page, size}))
+        }else{
+            yield put(getOrdersStart({status, page, size}))
+        }
     } catch (error) {
         toast.error("Serverda xatolik!");
     }
