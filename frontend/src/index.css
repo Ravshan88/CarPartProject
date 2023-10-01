@@ -3,9 +3,27 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  outline: none;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: sans-serif;
 }
+
+/*.carousel-slider {*/
+/*    border: 5px solid green;*/
+/*    position: relative;*/
+/*}*/
+
+/*.carousel-slider .control-dots {*/
+/*    position: absolute;*/
+/*    border: 5px solid red;*/
+/*    !*bottom: -30px;*!*/
+/*    width: 50%;*/
+/*}*/
+
+/*.control-dots .dot{*/
+/*    border: 5px solid orange;*/
+/*    border-radius: 0;*/
+/*}*/
+
