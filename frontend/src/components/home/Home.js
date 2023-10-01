@@ -60,11 +60,11 @@ function Home(props) {
     return (
         <div className={"overflow-x-scroll h-full"}>
             <Header/>
-            <div className={"container"}>
+            <div className={"container max-w-[1260px]"}>
                 <div
-                    className={'flex sm:flex-row flex-col  justify-center gap-3 my-3 md:px-[50px] px-0  pb-[43px] min-h-[500px]'}>
-                    <div className={'max-w-[440px] border'}>
-                        <div className={'p-3 my-2'} style={{backgroundColor: '#fafafa'}}>
+                    className={'flex sm:flex-row flex-col justify-between px-[50px]  mt-[43px] mb-[9px] pb-[43px] border-b-1 max-h-[422px]'}>
+                    <div className={'max-w-[440px] border-t-2 border-blue-500'}>
+                        <div className={'p-3'} style={{backgroundColor: '#fafafa'}}>
                             <div className={'d-flex align-items-center justify-content-evenly gap-2'}>
                                 <img width={60} src={carSearch} alt={'..'}/>
                                 <p className={"sm:text-lg text-sm"}>QISMLARNI IZLASH UCHUN MOSHINANI TANLANG</p>
@@ -138,12 +138,12 @@ function Home(props) {
                             {
                                 carousel?.length > 0 &&
                                 <Carousel infiniteLoop={true} showThumbs={false} autoPlay
-                                          className={"sm:max-w-[660px] max-w-full max-h-[380px]"}>
+                                          className={"sm:max-w-[660px] max-w-full max-h-[348px]"}>
                                     {
                                         carousel?.map(item =>
                                             <div key={item.id}>
                                                 <LazyLoadImage
-                                                    className={"max-h-[380px] max-w-[658px]"}
+                                                    className={"max-h-[348px] max-w-[660px]"}
                                                     src={`http://localhost:8080/api/v1/file/getFile/${item.attachment.id}`}
                                                     alt="Image"
                                                 />
@@ -156,30 +156,39 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-                <div className={"pb-10"}>
+                <div className={"pb-10 pt-[10px]"}>
                     <h3>
                         Ehtiyot qismlar
                     </h3>
                     {
-                        isLoading ? "Loading..." :
-                            <div
-                                className={"flex items-center justify-center mt-2 flex-wrap gap-3 h-full w-full"}>
-                                {
-                                    products?.content?.map(item => <div key={item.id} className={"w-[220px] h-[180px]"}>
-                                        <div className={"text-center"}>
-                                            <LazyLoadImage
-                                                height={100}
-                                                width={100}
-                                                effect={"blur"}
-                                                src={`http://localhost:8080/api/v1/file/getFile/${item.photo.id}`}
-                                            />
-                                            <p className={"text-center"}>{item.name}</p>
-                                        </div>
-
-                                    </div>)
-                                }
+                        isLoading ? (
+                            "Loading..."
+                        ) : (
+                            <div className=" px-[3px]">
+                                {products?.content?.map((item, index) => (
+                                    index % 6 === 0 && (
+                                        <ul key={`row-${index}`}
+                                            className="w-full flex border-b pt-[10px] items-center justify-center">
+                                            {products.content.slice(index, index + 6).map(subItem => (
+                                                <li key={subItem.id} className="w-[220px] h-[180px]">
+                                                    <div className="text-center">
+                                                        <LazyLoadImage
+                                                            height={130}
+                                                            width={130}
+                                                            effect="blur"
+                                                            src={`http://localhost:8080/api/v1/file/getFile/${subItem.photo.id}`}
+                                                        />
+                                                        <p className="text-center">{subItem.name}</p>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )
+                                ))}
                             </div>
+                        )
                     }
+
 
                 </div>
                 <Footer/>
