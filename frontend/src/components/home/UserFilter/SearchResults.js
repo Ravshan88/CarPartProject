@@ -19,6 +19,7 @@ import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
 import {ShoppingCartOutlined} from "@mui/icons-material";
 import {SlBasket} from "react-icons/sl";
 import {toast, ToastContainer} from "react-toastify";
+import {BiSearch} from "react-icons/bi";
 
 
 function SearchResults(props) {
@@ -182,7 +183,7 @@ function SearchResults(props) {
                     <button
                         onClick={searchAndNavigate}
                         className={'btn btn-primary w-100 d-flex align-items-center justify-content-center'}>
-                        <img src={searchPhoto} alt={'..'} width={30}/>
+                        <BiSearch fontSize={25}/>
                         Qidirsh
                     </button>
                 </div>

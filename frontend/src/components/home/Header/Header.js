@@ -57,7 +57,7 @@ function Header(props) {
     async function fetchData(value) {
         try {
             // await instance("/api/v1/carPart", "GET", null, {name: value}).then(() => {})
-            const response = await axios.get('http://localhost:8080/api/v1/carPart?name=' + value);
+            const response = await axios.get('http://localhost:8080/api/v1/product?name=' + value);
             const json = response.data;
             setResults(json);
             //
