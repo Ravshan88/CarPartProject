@@ -203,7 +203,7 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
                                             </div>
                                         </td>
                                         <td className="py-3  px-6  whitespace-nowrap">
-                                            <h2 className={"text-green-500 font-semi-bold"}>{item.price} so`m</h2>
+                                            <h2 className={"text-green-500 font-semi-bold"}>{item.price.toLocaleString()} so`m</h2>
                                         </td>
                                         <td className="py-3  px-6  whitespace-nowrap">
                                             <Tooltip color="danger" content="O`chirish">
@@ -237,11 +237,11 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
                                     <p className={"text-green-500 font-semibold"}>
                                         Jami:
                                     </p>
-                                    <p>{calcTotal()} so'm</p>
+                                    <p>{calcTotal().toLocaleString()} so'm</p>
                                 </div>
                             </div>
-                            <div className={"absolute bottom-0 w-full"}>
-                                <button className='bg-green-600 w-full text-white rounded py-1'
+                            <div className={"absolute rounded shadow-2xl bottom-0 w-full"}>
+                                <button className=' bg-green-600 w-full text-white rounded py-1'
                                         onClick={openModal}>sotib
                                     olish
                                 </button>
@@ -327,9 +327,10 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
                                     </div>
                                 </div>
                             </div>
-                            <button className={'btn btn-warning'} type="submit">Buyurtma berish</button>
+                            <button className={"w-full bg-green-600 text-white rounded p-1 hover:bg-green-500"}
+                                    type="submit">Buyurtma berish
+                            </button>
                         </form>
-
                     </Modal.Body>
                 </Modal>
             </div>

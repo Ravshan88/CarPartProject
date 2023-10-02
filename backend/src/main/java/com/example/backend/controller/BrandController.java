@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ public class BrandController {
 
     @SneakyThrows
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public HttpEntity<?> addBrand(@Valid @RequestParam String data,
                                   @RequestParam(required = false) MultipartFile photo,
                                   @RequestParam String prefix) {
@@ -30,6 +32,7 @@ public class BrandController {
 
     @SneakyThrows
     @PutMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public HttpEntity<?> editBrand(@Valid @RequestParam String data,
                                    @RequestParam(required = false) MultipartFile photo,
                                    @RequestParam String prefix) {
@@ -46,7 +49,8 @@ public class BrandController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public HttpEntity<?> deleteCarBrand(@PathVariable UUID id){
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public HttpEntity<?> deleteCarBrand(@PathVariable UUID id) {
         return brandService.deleteCarBrand(id);
     }
 

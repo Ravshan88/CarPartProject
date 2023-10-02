@@ -16,13 +16,13 @@ public class CarouselController {
     private final CarouselService carouselService;
 
     @PostMapping
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public HttpEntity<?> uploadCarousel(@RequestParam MultipartFile photo, @RequestParam String prefix) {
         return carouselService.uploadCarousel(photo, prefix);
     }
 
     @DeleteMapping
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteCarousel(@RequestParam UUID id, @RequestParam String attachmentName) {
         carouselService.deleteCarousel(id, attachmentName);
     }

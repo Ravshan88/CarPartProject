@@ -16,6 +16,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_OPERATOR')")
     public HttpEntity<?> getFilterCategory(
             @RequestParam(defaultValue = "") String status,
             @RequestParam(defaultValue = "1") Integer page,
@@ -25,6 +26,7 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}")
+    @PreAuthorize("hasRole('ROLE_OPERATOR')")
     public HttpEntity<?>changeStatusOrder(
             @RequestParam(defaultValue = "") String status,
             @PathVariable UUID orderId
@@ -33,6 +35,7 @@ public class OrderController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_OPERATOR')")
     public HttpEntity<?> saveOrder(@RequestBody ReqOrder reqOrder){
         return orderService.saveOrder(reqOrder);
     }

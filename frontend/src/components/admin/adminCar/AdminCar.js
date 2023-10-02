@@ -10,7 +10,7 @@ import {
     deleteCar
 } from "../../../redux/reducers/AdminCarSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {Avatar, Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
+import {Table, TableBody, TableCell, TableContainer, TableHeader, TableRow} from "@windmill/react-ui";
 import {Button} from "antd";
 import {Modal} from "react-bootstrap";
 import {LazyLoadImage} from "react-lazy-load-image-component";
@@ -81,17 +81,6 @@ function AdminCar(props) {
             };
             reader.readAsDataURL(file);
         }
-        // axios({
-        //     url: "http://localhost:8080/api/v1/file/upload",
-        //     method: "POST",
-        //     data: formData,
-        //     headers: {
-        //         "Content-Type": "multipart/form-data",
-        //         Authorization: localStorage.getItem("access_token")
-        //     }
-        // }).then(res => {
-        //     dispatch(UploadFileStart(res.data));
-        // });
     }
 
     function handleAddCarPart() {
