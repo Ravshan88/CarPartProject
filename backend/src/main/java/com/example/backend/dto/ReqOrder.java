@@ -14,6 +14,8 @@ public class ReqOrder {
     private String client_name;
     private String phone;
     private List<ReqOrderProduct> reqOrders;
+    private double longitude;
+    private double latitude;
 }
 
 

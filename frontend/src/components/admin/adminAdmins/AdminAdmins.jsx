@@ -139,7 +139,7 @@ function AdminAdmins() {
                                         <TableCell></TableCell>
                                     </tr>
                                 </TableHeader>
-                                <TableBody>
+                                {admins? <TableBody>
                                     {admins?.map((admin, i) => (
                                         <TableRow key={i}>
 
@@ -174,7 +174,8 @@ function AdminAdmins() {
                                             </TableCell>
                                         </TableRow>
                                     ))}
-                                </TableBody>
+                                </TableBody>:""}
+
                             </Table>
 
                         )

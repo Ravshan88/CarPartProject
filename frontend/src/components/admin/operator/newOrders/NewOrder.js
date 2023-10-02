@@ -23,6 +23,27 @@ import {DeleteIcon} from "../../DeleteIcon";
 import {Modal} from "react-bootstrap";
 import Render from "../Render/Render";
 import {EyeIcon} from "../../EyeIcon";
+import {
+    LocationCity,
+    LocationCityOutlined,
+    LocationOff,
+    LocationOnOutlined,
+    ShareLocation,
+    ShareOutlined
+} from "@mui/icons-material";
+import {GoLocation} from "react-icons/go";
+import {BiCurrentLocation} from "react-icons/bi";
+import {Controller} from "react-hook-form";
+import PhoneInput from "react-phone-number-input";
+import {
+    FullscreenControl,
+    GeolocationControl,
+    Map, Placemark, SearchControl,
+    TrafficControl,
+    TypeSelector,
+    YMaps,
+    ZoomControl
+} from "react-yandex-maps";
 
 function NewOrder(props) {
     const {orders, isLoading} = useSelector(state => state.operatorOrder)
@@ -66,10 +87,28 @@ function NewOrder(props) {
 
     const [showModal, setShowModal] = useState(false)
     const [currentProduct, setCurrentProduct] = useState({})
+    const [currentOrder, setCurrentOrder] = useState({})
+    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     function showProductModal(product) {
         setShowModal(true)
         setCurrentProduct(product)
+    }
+
+    function openModal(order) {
+        console.log(order)
+        setCurrentOrder(order)
+        setModalIsVisible(true)
+    }
+    function shareLocation(currentLocation) {
+        console.log(currentLocation)
+        const latitude = currentLocation?.latitude ;
+        const longitude = currentLocation?.longitude ;
+        console.log(latitude)
+        const telegramLink = `https://t.me/share/url?url=https://maps.google.com/maps?q=${latitude},${longitude}`;
+
+        // Open the link in a new window or tab
+        window.open(telegramLink, '_blank');
     }
 
     return (
@@ -94,8 +133,6 @@ function NewOrder(props) {
                             >
                                 <option value="9999">All</option>
                                 <option value="5">5</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -114,6 +151,7 @@ function NewOrder(props) {
                                         <TableCell style={{width: 30}}>№</TableCell>
                                         <TableCell>Mijoz ismi</TableCell>
                                         <TableCell>Mijoz raqami</TableCell>
+                                        <TableCell>Mijoz manzili</TableCell>
 
                                         <TableCell>Buyurtma</TableCell>
                                         <TableCell>Buyurtma sanasi</TableCell>
@@ -136,6 +174,24 @@ function NewOrder(props) {
                                             <TableCell>
                                                 <div>
                                                     <p className="font-semibold">{order.order.phone_number}</p>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div >
+                                                    {order.order.longitude=="" || order.order.longitude==0?"manzil mavjud emas":
+                                                       <>
+
+                                                           <button className="btn btn-outline-success" onClick={()=>openModal(order.order)}>
+                                                               <LocationOnOutlined />
+
+                                                           </button>
+                                                           <button className="btn btn-outline-primary mx-2" onClick={()=>shareLocation(order.order)}>
+                                                               <ShareOutlined/>
+
+                                                           </button>
+                                                       </>
+                                                    }
+
                                                 </div>
                                             </TableCell>
                                             <TableCell>
@@ -229,6 +285,55 @@ function NewOrder(props) {
                     {showModal && <Render product={currentProduct}/>}
                 </Modal.Body>
             </Modal>
+
+            <div className={'modal'}>
+                <Modal show={modalIsVisible} onHide={()=>setModalIsVisible(false)}>
+                    <Modal.Header closeButton>
+                       <p className={'text-warning '} style={{fontSize:22}}> {currentOrder.client_name}</p>
+                        <p className={'mx-1'}> manzili</p>
+                    </Modal.Header>
+                    <Modal.Body>
+
+
+                                <div className="right-side">
+                                    <YMaps query={{apikey:"8edc3e7a-dd1a-4d9e-87d0-2d9c9865170e", lang:"en_US", coordorder:"latlong"}}>
+                                        <Map
+                                            onLoad={(e) => {
+                                                console.log(e);
+                                            }}
+                                            width={470}
+                                            height={300}
+                                            state={{ center: currentOrder?.latitude!=="" ?[currentOrder?.latitude, currentOrder?.longitude]:[41.29996016407254, 69.32103652507048], zoom: 9 }}
+                                            modules={['templateLayoutFactory']}
+                                        >
+                                            <FullscreenControl options={{float: "left"}}/>
+                                            <GeolocationControl options={{float: "right"}}/>
+                                            <TrafficControl options={{float: "right"}}/>
+                                            <ZoomControl options={{float: "left"}}/>
+                                            <TypeSelector options={{float: "right"}}/>
+                                            <SearchControl options={{float: "left"}}/>
+                                            { currentOrder?.longitude !== "" && currentOrder?.latitude !== "" && (
+                                                <Placemark
+                                                    geometry={[currentOrder?.latitude, currentOrder?.longitude]}
+                                                    modules={['geoObject.addon.balloon']}
+                                                />
+
+                                            )}
+                                        </Map>
+                                    </YMaps>
+
+                                </div>
+
+                        <button className="btn btn-primary my-2" onClick={()=>shareLocation(currentOrder)}>
+                            <ShareOutlined/>
+                            Uzatish
+                        </button>
+
+
+                    </Modal.Body>
+                </Modal>
+            </div>
+
         </div>
     );
 

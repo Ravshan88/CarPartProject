@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {AddShoppingCart, HdrPlus} from "@mui/icons-material";
+import {AddShoppingCart, CleanHands, CleanHandsOutlined, Clear, HdrPlus} from "@mui/icons-material";
 import Header from "../Header/Header";
 import {DeleteIcon} from "../../admin/DeleteIcon";
 import {Tooltip} from "@nextui-org/react";
@@ -12,10 +12,20 @@ import {Modal} from "react-bootstrap";
 import {Controller, useForm} from "react-hook-form";
 import {saveOrder} from "../../../redux/reducers/OperatorOrdersSlice";
 import PhoneInput from "react-phone-number-input";
-
+import {
+    YMaps,
+    FullscreenControl,
+    GeolocationControl,
+    Map,
+    Placemark,
+    SearchControl,
+    TrafficControl, TypeSelector,
+    ZoomControl
+} from 'react-yandex-maps';
+import {GiVacuumCleaner} from "react-icons/gi";
 function Index(props) {
     const dispatch = useDispatch();
-
+const [territory, setTerritory] =useState({latitude:"", longitude:""})
     const [basket, setBasket] = useState([]);
     const navigate = useNavigate();
     const {error} = useSelector(state => state.adminOperators)
@@ -103,6 +113,8 @@ function Index(props) {
             reqOrders: newOrderArray,
             client_name: formData.fullName,
             phone: formData.phone,
+            longitude:territory.longitude,
+            latitude:territory.latitude
         };
         dispatch(saveOrder(reqToOrders))
         if (error) {
@@ -123,6 +135,13 @@ function Index(props) {
 
     function closeAskModal() {
         setModalIsVisible(false);
+    }
+
+    function handleMapClick(event) {
+        const coords = event.get('coords');
+        console.log(coords);
+
+        setTerritory({ latitude: coords[0], longitude: coords[1] });
     }
 
 
@@ -273,8 +292,44 @@ function Index(props) {
                                     )}
                                 />
                             </div>
-                            <button type="submit">rasmiylashtirish</button>
+                            <div>
+                                <div className="right-side">
+                                    <YMaps query={{apikey:"8edc3e7a-dd1a-4d9e-87d0-2d9c9865170e", lang:"en_US", coordorder:"latlong"}}>
+                                    <Map
+                                        onLoad={(e) => {
+                                            console.log(e);
+                                        }}
+                                        width={470}
+                                        height={300}
+                                        onClick={handleMapClick}
+                                        state={{ center: territory.latitude!=="" ?[territory?.latitude, territory?.longitude]:[41.29996016407254, 69.32103652507048], zoom: 9 }}
+                                        modules={['templateLayoutFactory']}
+                                    >
+                                        <FullscreenControl options={{float: "left"}}/>
+                                        <GeolocationControl options={{float: "right"}}/>
+                                        <TrafficControl options={{float: "right"}}/>
+                                        <ZoomControl options={{float: "left"}}/>
+                                        <TypeSelector options={{float: "right"}}/>
+                                        <SearchControl options={{float: "left"}}/>
+                                        { territory?.longitude !== "" && territory?.latitude !== "" && (
+                                            <Placemark
+                                                geometry={[territory?.latitude, territory?.longitude]}
+                                                modules={['geoObject.addon.balloon']}
+                                            />
+
+                                        )}
+                                    </Map>
+                                    </YMaps>
+                                    <div>
+
+                                        <div className="btn btn-danger" onClick={()=>{ setTerritory({ latitude: '', longitude: '' })}}>Tozalash</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <button className={'btn btn-warning'} type="submit">Buyurtma berish</button>
                         </form>
+
                     </Modal.Body>
                 </Modal>
             </div>

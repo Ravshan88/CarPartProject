@@ -24,4 +24,6 @@ public class Orders {
     private String phone_number;
     private String client_name;
     private LocalDateTime createdAt;
+    private double longitude;
+    private double latitude;
 }

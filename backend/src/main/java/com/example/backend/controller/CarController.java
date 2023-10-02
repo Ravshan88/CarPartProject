@@ -24,8 +24,6 @@ public class CarController {
     public HttpEntity<?> addCarPart(@Valid @RequestParam String data,
                                     @RequestParam(required = false) MultipartFile photo,
                                     @RequestParam String prefix) {
-        System.out.println(prefix);
-        System.out.println(data);
         CarDTO carDTO = objectMapper.readValue(data, CarDTO.class);
         return carService.addCar(carDTO, photo, prefix);
     }

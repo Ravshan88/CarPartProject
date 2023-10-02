@@ -30,11 +30,13 @@ function Header(props) {
     } = useSelector(state => state.adminBrand)
     const dispatch = useDispatch();
     function calcTotal() {
-
+        let basket=JSON.parse(localStorage.getItem('basket'));
         let s = 0;
-        JSON.parse(localStorage.getItem('basket')).map(item => {
-            s += item.price * item.amount;
-        });
+        if(basket){
+            basket.map(item => {
+                s += item.price * item.amount;
+            });
+        }
         return s;
     }
     useEffect(() => {
@@ -118,22 +120,22 @@ function Header(props) {
                        onClick={() => {
                            navigate('/basket')
                        }}>
-                       <div className={'my-1 p-0 flex align-items-center '} style={{width:250, height:40, backgroundColor:'#132530'}}>
-                           <div className={'text-white m-0 d-flex justify-content-between mx-2 gap-10'}>
-                              <div className={'flex'}>
+                       <div className={'my-1 p-2   '} style={{width:250, height:40, backgroundColor:'#132530'}}>
+                           <div className={'text-white  d-flex justify-content-between align-items-center '}>
+                              <div >
                                   <ShoppingCartOutlined color={"warning"} className={"text-7xl"}/>
 
-                                  <div className={" mx-3"} style={{position:"absolute", top:7, fontSize:10 }}>
+                                  {length!==0 && JSON.parse(localStorage.getItem('basket')) && <div className={" mx-3"} style={{position:"absolute", top:7, fontSize:10 }}>
                                       <span className="translate-middle p-1 bg-danger h-25 rounded-circle"> {length}</span>
 
-                                  </div>
+                                  </div>}
                               </div>
-                               <div className={'my-1 flex gap-1'}>
+                               <div className={'my-1 flex gap-1'} style={{marginRight:"0px"}}>
                                    <p style={{ fontSize: "22px",
                                        fontWeight: 700,
                                        lineHeight: "16px",
                                        textAlign: "left",
-                                      }} >{calcTotal()} </p>
+                                      }} >{calcTotal().toLocaleString()} </p>
                                    <p style={{ fontSize: "22px",
                                        fontWeight: 700,
                                        lineHeight: "16px",

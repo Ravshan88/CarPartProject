@@ -39,15 +39,23 @@ function Render(props) {
                         <h1 className={"text-sm sm:text-lg"}>Mashina turi:</h1>
                         <h1 className="title-font  font-semibold sm:text-lg text-sm text-gray-900">{props?.product?.car.name}</h1>
                     </div>
+                    <div className={"flex items-center justify-between w-full"}>
+                        <h1 className={"text-sm sm:text-lg"}>Mahsulot narxi:</h1>
+                         <p style={{ fontSize: "22px",
+                            fontWeight: 700,
+                            lineHeight: "16px",
+                            textAlign: "left",
+                            color: "#f37c2e"}} >{props?.product?.price} So'm</p>
+                    </div>
                     <h1 className={"text-sm sm:text-lg mx-auto"}>Description</h1>
                     <p className="mb-8 leading-relaxed">{props?.product?.description}</p>
                     <div className="flex justify-center">
-                        <button
-                            className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button
-                        </button>
-                        <button
-                            className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button
-                        </button>
+                        {/*<button*/}
+                        {/*    className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button*/}
+                        {/*</button>*/}
+                        {/*<button*/}
+                        {/*    className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button*/}
+                        {/*</button>*/}
                     </div>
                 </div>
             </div>

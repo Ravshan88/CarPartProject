@@ -66,12 +66,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public HttpEntity<?> changeStatus(String status, UUID orderId) {
-        System.out.println(orderId);
-        System.out.println(status);
+
         Orders currentOrder = ordersRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         status = status.toUpperCase();
-        System.out.println(status);
         Integer newStatus = switch (status) {
             case "NEW" -> (currentOrder.getStatus().getName() == OrderStatus.NEW) ? 2 : null;
             case "INPROGRESS" -> (currentOrder.getStatus().getName() == OrderStatus.INPROGRESS) ? 3 : null;
@@ -79,7 +77,6 @@ public class OrderServiceImpl implements OrderService {
             default -> 4;
         };
 
-        System.out.println(newStatus);
 
         if (newStatus != null) {
             currentOrder.setStatus(statusRepository.findById(newStatus).orElseThrow());
@@ -93,7 +90,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public ResponseEntity<?> saveOrder(ReqOrder reqOrder) {
-//        System.out.println(reqOrder);
         try {
             Orders orders = new Orders();
             orders.setId(UUID.randomUUID());
@@ -101,7 +97,8 @@ public class OrderServiceImpl implements OrderService {
             orders.setPhone_number(reqOrder.getPhone());
             orders.setClient_name(reqOrder.getClient_name());
             orders.setCreatedAt(LocalDateTime.now());
-
+            orders.setLatitude(reqOrder.getLatitude());
+            orders.setLongitude(reqOrder.getLongitude());
             Orders save = ordersRepository.save(orders);
 
             List<ReqOrderProduct> reqOrderProducts = reqOrder.getReqOrders();

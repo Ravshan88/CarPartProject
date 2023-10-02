@@ -112,7 +112,7 @@ function SidebarContent() {
 
 
                 {/*admin*/}
-                {user.name==="ROLE_ADMIN"?
+                {user?.name==="ROLE_ADMIN"?
                   <>
                       {routes.map((route) =>
                           <li className="relative px-6 py-3" key={route.name}>
@@ -136,7 +136,7 @@ function SidebarContent() {
                 :""
                 }
                 {/*operator*/}
-                {user.name==="ROLE_OPERATOR"?
+                {user?.name==="ROLE_OPERATOR"?
                     <>
                         {routesOperator.map((route) =>
                             <li className="relative px-6 py-3" key={route.name}>
