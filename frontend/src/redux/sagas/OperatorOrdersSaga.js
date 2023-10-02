@@ -8,9 +8,10 @@ import {
     getOrdersSuccess,
     changeStatusOrder
 } from "../reducers/OperatorOrdersSlice";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import {getCarPart} from "../reducers/AdminCartPartSlice";
 import {getOperatorData, setError} from "../reducers/AdminOperatorSlice";
+import React from "react";
 
 function* workGetOrders(action) {
     try {
@@ -42,11 +43,15 @@ function* workChangeStatusOrder(action) {
 function* workSaveOrder(action) {
     try {
         const response = yield call(() => instance("/api/v1/order", "POST", action.payload));
+
+        toast.success("Buyurtmangiz qabul qilindi. Operator tez orada siz bilan bog'lanadi");
         if(response.data===401){
             yield put(setError(true))
             toast.error("Bazada xatolik qaytib urinib ko'ring");
         }
-        toast.success("Buyurtmangiz qabul qilindi. Operator tez orada siz bilan bog'lanadi");
+        if(!response?.error){
+
+        }
     } catch (error) {
         yield put(setError(true))
         toast.error("Bazada xatolik qaytib urinib ko'ring");

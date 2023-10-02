@@ -23,6 +23,7 @@ import {
     ZoomControl
 } from 'react-yandex-maps';
 import {GiVacuumCleaner} from "react-icons/gi";
+import {toast, ToastContainer} from "react-toastify";
 function Index(props) {
     const dispatch = useDispatch();
 const [territory, setTerritory] =useState({latitude:"", longitude:""})
@@ -116,11 +117,15 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
             longitude:territory.longitude,
             latitude:territory.latitude
         };
+
         dispatch(saveOrder(reqToOrders))
+
         if (error) {
+
         } else {
             setBasket([])
             localStorage.setItem('basket', JSON.stringify([]))
+
 
         }
 
@@ -139,7 +144,7 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
 
     function handleMapClick(event) {
         const coords = event.get('coords');
-        console.log(coords);
+        // console.log(coords);
 
         setTerritory({ latitude: coords[0], longitude: coords[1] });
     }
@@ -147,6 +152,7 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
 
     return (
         <div>
+
             <Header/>
             <div className={"container"}>
                 <div className={"flex gap-3"}>
@@ -292,12 +298,13 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
                                     )}
                                 />
                             </div>
+
                             <div>
                                 <div className="right-side">
                                     <YMaps query={{apikey:"8edc3e7a-dd1a-4d9e-87d0-2d9c9865170e", lang:"en_US", coordorder:"latlong"}}>
                                     <Map
                                         onLoad={(e) => {
-                                            console.log(e);
+                                            // console.log(e);
                                         }}
                                         width={470}
                                         height={300}
@@ -332,8 +339,24 @@ const [territory, setTerritory] =useState({latitude:"", longitude:""})
                             </button>
                         </form>
                     </Modal.Body>
+
                 </Modal>
             </div>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
         </div>
     );
 }
