@@ -171,7 +171,7 @@ function Index(props) {
                                         <td className="py-3  px-6 whitespace-nowrap">
                                             <div className='flex align-items-center gap-3 p-1 h-75'>
                                                 <button
-                                                    className={"bg-orange-500 text-white cursor-pointer rounded-3xl flex justify-center align-items-center border w-[30px] h-[30px]"}
+                                                    className={" shadow-2xl bg-orange-500 text-white cursor-pointer rounded-3xl flex justify-center align-items-center border w-[30px] h-[30px]"}
                                                     onClick={() => minus(item.id)}>
                                                     -
                                                 </button>
@@ -221,8 +221,8 @@ function Index(props) {
                                     <p>{calcTotal()} so'm</p>
                                 </div>
                             </div>
-                            <div className={"absolute bottom-0 w-full"}>
-                                <button className='bg-green-600 w-full text-white rounded py-1'
+                            <div className={"absolute rounded shadow-2xl bottom-0 w-full"}>
+                                <button className=' bg-green-600 w-full text-white rounded py-1'
                                         onClick={openModal}>sotib
                                     olish
                                 </button>
@@ -273,7 +273,8 @@ function Index(props) {
                                     )}
                                 />
                             </div>
-                            <button className={"w-full bg-green-600 text-white rounded p-1 hover:bg-green-500"} type="submit">Saqlash
+                            <button className={"w-full bg-green-600 text-white rounded p-1 hover:bg-green-500"}
+                                    type="submit">Saqlash
                             </button>
                         </form>
                     </Modal.Body>

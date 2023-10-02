@@ -13,10 +13,13 @@ import {
 import {Button, Input, Space} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import logoAutoDoc from './logo.svg'
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {getBrands} from "../../../redux/reducers/AdminBrandSlice";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {getAdvertisementStart} from "../../../redux/reducers/AdvertisementSlice";
+import axios from "axios";
+import SearchResultsList from "../SearchResultsList";
+import instance from "../../utils/config/instance";
 
 
 function Header(props) {
@@ -29,6 +32,8 @@ function Header(props) {
         brands,
     } = useSelector(state => state.adminBrand)
     const dispatch = useDispatch();
+    const [inputText, setInputText] = useState("")
+    const [results, setResults] = useState([]);
 
     function calcTotal() {
 
@@ -48,7 +53,32 @@ function Header(props) {
         dispatch(getAdvertisementStart())
 
     }, [dispatch])
-    console.log(data)
+
+    async function fetchData(value) {
+        try {
+            // await instance("/api/v1/carPart", "GET", null, {name: value}).then(() => {})
+            const response = await axios.get('http://localhost:8080/api/v1/carPart?name=' + value);
+            const json = response.data;
+            setResults(json);
+            //
+            // const results = json.filter((user) => {
+            //     return (
+            //         value &&
+            //         user &&
+            //         user.name &&
+            //         user.name.toLowerCase().includes(value)
+            //     );
+            // });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    const handleChangeInput = (value) => {
+        setInputText(value);
+        fetchData(value);
+    };
+
     return (
         <div className={"border"}>
 
@@ -84,8 +114,8 @@ function Header(props) {
                 <Link to={'/'} className="absolute top-0 right-1/2 translate-x-[50%] my-2">
                     <img width={200} height={100} src={logoAutoDoc} alt=""/>
                 </Link>
-                <Phone/>
-                <p style={{marginRight: 5}}>+998(94) 320-20-20</p>
+                {/*<Phone/>*/}
+                {/*<p style={{marginRight: 5}}>+998(94) 320-20-20</p>*/}
             </div>
 
 
@@ -95,7 +125,6 @@ function Header(props) {
                     {/*Ehtiyot qismlar*/}
                     <div>
                         {/*// className={"ml-6  ml-[40px]  absolute top-[0%] my-1 left-0 md:left-[0%] md:translate-x-[-0%] translate-y-[-0%] max-w-[25%] md:max-w-[25%]"}>*/}
-
                         <div className={'my-1 p-0 flex align-items-center '}
                              style={{width: 250, height: 40, backgroundColor: '#132530'}}>
                             <div className={'text-white m-0 flex justify-evenly mx-2 gap-1'}>
@@ -113,14 +142,52 @@ function Header(props) {
                         </div>
                     </div>
                     {/*search*/}
-                    <div className={'flex gap-1 my-1'}>
-                        {/*// className={"input-group ml-[20px] md:ml-0 absolute top-[50%] left-0 md:left-[50%] md:translate-x-[-50%] translate-y-[-50%] max-w-[50%] md:max-w-[50%]"}>*/}
-                        <input style={{width: 500, height: 40}} placeholder={"Mahsulot  nomini kiriting"} type="text"
-                               className={"form-control "}/>
-                        <Button className={"h-[40px] w-[100px] bg-blue-600 border-none text-white px-1 sm:px-0"}>
-                            Qidirish
-                        </Button>
+
+                    <div className={"flex flex-col"}>
+                        <div className={"flex gap-1 "}>
+                            <input
+                                value={inputText}
+                                onChange={(e) => handleChangeInput(e.target.value)}
+                                placeholder={"Mahsulot  nomini kiriting"}
+                                type="text"
+                                className={"form-control w-[500px]"}/>
+                            <Button
+                                className={"h-[40px] max-w-[100px] bg-blue-600 border-none text-white px-1 sm:px-0"}>
+                                Qidirish
+                            </Button>
+                        </div>
+                        {
+                            results.length !== 0 && inputText && <div
+                                className={"bg-white rounded w-[500px] z-50 border max-h-[250px] overflow-y-scroll absolute top-full"}>
+                                <SearchResultsList results={results}/>
+                            </div>
+                        }
+
                     </div>
+
+
+                    {/*<div>*/}
+                    {/*    <div className={'my-1 flex flex-col'}>*/}
+                    {/*// className={"input-group ml-[20px] md:ml-0 absolute top-[50%] left-0 md:left-[50%] md:translate-x-[-50%] translate-y-[-50%] max-w-[50%] md:max-w-[50%]"}>*/}
+                    {/*        <div className={"flex gap-1 "}>*/}
+                    {/*            <input value={inputText}*/}
+                    {/*                   onChange={(e) => handleChangeInput(e.target.value)}*/}
+                    {/*                   placeholder={"Mahsulot  nomini kiriting"}*/}
+                    {/*                   type="text"*/}
+                    {/*                   className={"form-control w-[500px]"}/>*/}
+                    {/*            <Button*/}
+                    {/*                className={"h-[40px] max-w-[100px] bg-blue-600 border-none text-white px-1 sm:px-0"}>*/}
+                    {/*                Qidirish*/}
+                    {/*            </Button>*/}
+                    {/*        </div>*/}
+                    {/*        <div*/}
+                    {/*            className={" bg-white rounded w-full z-50 bottom-[-135px] border max-h-[250px] overflow-y-scroll"}>*/}
+                    {/*            {results && results.length > 0 && <SearchResultsList results={results}/>}*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+
                     <div className={"cursor-pointer"}
                          onClick={() => {
                              navigate('/basket')
@@ -161,22 +228,14 @@ function Header(props) {
 
 
             <div
-                className={'absolute top-0  h-[40px] items-center relative flex justify-evenly bg-gray-900 text-white'}>
+                className={'absolute top-0 h-[40px] items-center relative flex justify-evenly bg-gray-900 text-white'}>
                 {brands?.content?.map(brand =>
-                    <div className={'flex gap-1 items-center'}>
+                    <div className={'flex gap-1 mb-2 cursor-pointer items-center'}>
                         <LazyLoadImage effect={"blur"} className={"rounded-3xl my-1 "}
                                        width={35} height={35}
                                        src={`http://localhost:8080/api/v1/file/getFile/${brand?.photo?.id}`}
                                        alt="User avatar"/>
-                        <p
-                            style={{
-                                fontSize: " 16px",
-                                fontWeight: 300,
-                                lineHeight: "24px",
-                                letterSpacing: "0em",
-                                textAlign: " left",
-                                color: "#727272",
-                            }}
+                        <p className={"text-gray-400 font-mono text-sm"}
                         > {brand.name}</p>
                     </div>
                 )}

@@ -62,7 +62,7 @@ function Home(props) {
             <Header/>
             <div className={"container max-w-[1260px]"}>
                 <div
-                    className={'flex sm:flex-row flex-col justify-between px-[50px]  mt-[43px] mb-[9px] pb-[43px] border-b-1 max-h-[422px]'}>
+                    className={'flex sm:flex-row flex-col justify-between sm:px-[50px]  mt-[43px] mb-[9px] pb-[43px] border-b-1 max-h-[422px]'}>
                     <div className={'max-w-[440px] border-t-2 border-blue-500'}>
                         <div className={'p-3'} style={{backgroundColor: '#fafafa'}}>
                             <div className={'d-flex align-items-center justify-content-evenly gap-2'}>
@@ -80,8 +80,8 @@ function Home(props) {
                                     >
                                         <option value={''}>Brand tanlang</option>
                                         {brands.content?.map((item) => (
-                                            <option key={item.id} value={item.id}>
-                                                {item.name}
+                                            <option className={" bg-gray-200"} key={item.id} value={item.id}>
+                                                <span className={"font-mono text-white"}>{item.name}</span>
                                             </option>
                                         ))}
                                     </select>
