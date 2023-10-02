@@ -45,7 +45,6 @@ function InfoProduct(props) {
         if (basket && basket?.filter(i => i.id === item.id).length !== 0) {
             return;
         }
-        console.log(basket)
         basket.push({...item, amount: 1})
         setBasket([...basket])
         localStorage.setItem("basket", JSON.stringify(basket))
@@ -104,7 +103,7 @@ function InfoProduct(props) {
                                         <hr className={"my-2"}/>
                                         <div className="flex">
                                         <span
-                                            className="title-font font-medium text-2xl text-green-500">{item.price} so`m</span>
+                                            className="title-font font-medium text-2xl text-green-500">{item.price.toLocaleString()} so`m</span>
 
                                             <button
                                                 onClick={() => addToBasketAndNavigate(item)}

@@ -184,7 +184,7 @@ function Index(props) {
                                             </div>
                                         </td>
                                         <td className="py-3  px-6  whitespace-nowrap">
-                                            <h2 className={"text-green-500 font-semi-bold"}>{item.price} so`m</h2>
+                                            <h2 className={"text-green-500 font-semi-bold"}>{item.price.toLocaleString()} so`m</h2>
                                         </td>
                                         <td className="py-3  px-6  whitespace-nowrap">
                                             <Tooltip color="danger" content="O`chirish">
@@ -218,7 +218,7 @@ function Index(props) {
                                     <p className={"text-green-500 font-semibold"}>
                                         Jami:
                                     </p>
-                                    <p>{calcTotal()} so'm</p>
+                                    <p>{calcTotal().toLocaleString()} so'm</p>
                                 </div>
                             </div>
                             <div className={"absolute rounded shadow-2xl bottom-0 w-full"}>

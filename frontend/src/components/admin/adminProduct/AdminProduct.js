@@ -221,7 +221,7 @@ function AdminProduct(props) {
                             </div>
                             <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Price:</h1>
-                                <p className="ml-2">{item.price}$</p>
+                                <p className="ml-2">{item.price.toLocaleString()}$</p>
                             </div>
                             <div className="flex items-center mb-2">
                                 <h1 className="text-gray-500 tracking-widest title-font">Description:</h1>

@@ -192,16 +192,17 @@ function Header(props) {
                          onClick={() => {
                              navigate('/basket')
                          }}>
-                        <div className={'my-1 p-0 flex align-items-center '}
+                        <div className={'my-1 p-0 flex justify-between px-4 items-center'}
                              style={{width: 250, height: 40, backgroundColor: '#132530'}}>
-                            <div className={'text-white m-0 d-flex justify-content-between mx-2 gap-10'}>
+                            <div className={'text-white w-full m-0 d-flex justify-content-between gap-10'}>
                                 <div className={'flex'}>
                                     <ShoppingCartOutlined color={"warning"} className={"text-7xl"}/>
 
-                                    <div
+                                    {length > 0 && <div
                                         className={"bg-red-700 mx-3 flex items-center justify-center rounded-3xl w-[20px] h-[20px] absolute top-[7px] text-sm"}>
                                         {length}
-                                    </div>
+                                    </div>}
+
                                 </div>
                                 <div className={'my-1 flex items-center gap-2'}>
                                     <p style={{
@@ -209,7 +210,7 @@ function Header(props) {
                                         fontWeight: 700,
                                         lineHeight: "16px",
                                         textAlign: "left",
-                                    }}>{calcTotal()} </p>
+                                    }}>{calcTotal().toLocaleString()} </p>
                                     <p style={{
                                         fontSize: "22px",
                                         fontWeight: 700,

@@ -32,7 +32,7 @@ public class BrandController {
 
     @SneakyThrows
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public HttpEntity<?> editBrand(@Valid @RequestParam String data,
                                    @RequestParam(required = false) MultipartFile photo,
                                    @RequestParam String prefix) {

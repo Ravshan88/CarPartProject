@@ -15,7 +15,6 @@ import {
 
 function* saveProductAsync(action) {
     try {
-        console.log(action.payload)
         const {name, description, price, carPartId, carId, photo, photoId, id, isEditing} = action.payload
         const formData = new FormData()
         formData.append("photo", photo)

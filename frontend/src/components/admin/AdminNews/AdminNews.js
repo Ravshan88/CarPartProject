@@ -85,13 +85,13 @@ function AdminNews(props) {
                             className={"rounded-b-2xl shadow-2xl transition-all duration-100 ease-linear"}
                             key={item.id}
                         >
-                            <div className={"w-[180px] min-h-[200px] p-2 text-center"}
+                            <div className={"max-w-[200px] min-h-[150px] p-2 text-center border-b"}
                                  key={item.id}>
                                 <LazyLoadImage
                                     effect="blur"
-                                    className="w-full h-full block text-center"
-                                    width={150}
-                                    height={180}
+                                    className="shadow-xl rounded w-full h-full block text-center"
+                                    // width={200}
+                                    // height={180}
                                     src={`http://localhost:8080/api/v1/file/getFile/${item?.attachment?.id}`}
                                     alt="Product Image"
                                 />
