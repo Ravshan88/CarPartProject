@@ -155,8 +155,8 @@ function Header(props) {
                        onClick={() => {
                            navigate('/basket')
                        }}>
-                       <div className={'my-1 p-0 flex align-items-center '} style={{width:250, height:40, backgroundColor:'#132530'}}>
-                           <div className={'text-white m-0 d-flex justify-content-between mx-2 gap-10'}>
+                       <div className={'my-1 p-0 '} style={{width:250, height:40, backgroundColor:'#132530'}}>
+                           <div className={'text-white m-0 d-flex justify-content-between my-2 p-2'}>
                               <div className={'flex'}>
                                   <ShoppingCartOutlined color={"warning"} className={"text-7xl"}/>
 
@@ -177,28 +177,14 @@ function Header(props) {
                                        textAlign: "left",
                                        color: "#f37c2e"}} > So'm</p>
                                </div>
-                                </div>
-                                <div className={'my-1 flex items-center gap-2'}>
-                                    <p style={{
-                                        fontSize: "22px",
-                                        fontWeight: 700,
-                                        lineHeight: "16px",
-                                        textAlign: "left",
-                                    }}>{calcTotal().toLocaleString()} </p>
-                                    <p style={{
-                                        fontSize: "22px",
-                                        fontWeight: 700,
-                                        lineHeight: "16px",
-                                        textAlign: "left",
-                                        color: "#f37c2e"
-                                    }}> So'm</p>
-                                </div>
+                           </div>
 
-                            </div>
 
-                        </div>
+                       </div>
+
+                   </div>
                     </div>
-                </div>
+
             </div>
 
 
